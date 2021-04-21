@@ -1,0 +1,99 @@
+class CobolParser::PPParser
+token COPY REPLACE SUPPRESS PRINTING REPLACING OFF IN OF BY EQEQ
+token TOKEN
+
+rule
+        statement_list:
+                      | statement_list statement
+
+             statement: copy_statement
+                      | replace_statement
+
+        copy_statement: COPY TOKEN copy_in copy_suppress copy_replacing '.'
+                          {
+                            ppout.putc("\n")
+                            val[1] = fix_filename(val[1])
+                            if @cb.flag_fold_copy_lower
+                              val[1].downcase!
+                            elsif @cb.flag_fold_copy_upper
+                              val[1].upcase!
+                            end
+                            if val[2]
+                              if @cb.flag_fold_copy_lower
+                                val[2].downcase!
+                              elsif @cb.flag_fold_copy_upper
+                                val[2].upcase!
+                              end
+                            end
+                            pp_lexer.copy(val[1], val[2], val[4])
+                          }
+
+               copy_in: /* nothing */
+                          { result = nil }
+                      | IN TOKEN
+                          { result = val[1] }
+                      | OF TOKEN
+                          { result = val[1] }
+
+         copy_suppress:
+                      | SUPPRESS _printing
+
+        copy_replacing: /* nothing */
+                          { result = nil }
+                      | REPLACING replacing_list
+                          { result = val[1] }
+
+     replace_statement: REPLACE replacing_list '.'
+                          { pp_lexer.current_replace_list = val[1] }
+                      | REPLACE OFF '.'
+                          { pp_lexer.current_replace_list = nil }
+
+        replacing_list: text BY text
+                          { result = @cb.replace_list_add(nil, val[0], val[2]) }
+                      | replacing_list text BY text
+                          { result = @cb.replace_list_add(val[0], val[1], val[3]) }
+
+                  text: pseudo_text
+                          { result = val[0] }
+                      | identifier
+                          { result = val[0] }
+
+           pseudo_text: EQEQ EQEQ
+                          { result = nil }
+                      | EQEQ token_list EQEQ
+                          { result = val[1] }
+
+            token_list: TOKEN
+                          { result = [val[0]] }
+                      | token_list TOKEN
+                          { result = val[0] + [val[1]] }
+
+            identifier: TOKEN
+                          { result = [val[0]] }
+                      | identifier IN TOKEN
+                          {
+                            result = val[0] + [" ", "IN", " ", val[2]]
+                          }
+                      | identifier OF TOKEN
+                          {
+                            result = val[0] + [" ", "OF", " ", val[2]]
+                          }
+                      | identifier '(' subscripts ')'
+                          {
+                            result = val[0] + [" ", "("] + val[2] + [")"]
+                          }
+
+            subscripts: TOKEN
+                          { result = [val[0]] }
+                      | subscripts TOKEN
+                          {
+                            result = val[0] + [" ", val[1]]
+                          }
+
+             _printing: | PRINTING
+end
+
+# Local Variables:
+# mode: racc
+# racc-token-length-max: 20
+# End:

@@ -1,0 +1,5724 @@
+class CobolParser::Parser
+expect 118
+
+token TOKEN_EOF # 0 "end of file"
+token ACCEPT
+token ACCESS
+token ADD
+token ADDRESS
+token ADVANCING
+token AFTER
+token ALL
+token ALLOCATE
+token ALPHABET
+token ALPHABETIC
+token ALPHABETIC_LOWER # "ALPHABETIC-LOWER"
+token ALPHABETIC_UPPER # "ALPHABETIC-UPPER"
+token ALPHANUMERIC
+token ALPHANUMERIC_EDITED # "ALPHANUMERIC-EDITED"
+token ALSO
+token ALTER
+token ALTERNATE
+token AND
+token ANY
+token ARE
+token AREA
+token ARGUMENT_NUMBER # "ARGUMENT-NUMBER"
+token ARGUMENT_VALUE # "ARGUMENT-VALUE"
+token AS
+token ASCENDING
+token ASSIGN
+token AT
+token AUTO
+token AUTOMATIC
+token BACKGROUND_COLOR # "BACKGROUND-COLOR"
+token BASED
+token BEFORE
+token BELL
+token BINARY
+token BINARY_C_LONG # "BINARY-C-LONG"
+token BINARY_CHAR # "BINARY-CHAR"
+token BINARY_DOUBLE # "BINARY-DOUBLE"
+token BINARY_LONG # "BINARY-LONG"
+token BINARY_SHORT # "BINARY-SHORT"
+token BLANK
+token BLANK_LINE # "BLANK-LINE"
+token BLANK_SCREEN # "BLANK-SCREEN"
+token BLINK
+token BLOCK
+token BOTTOM
+token BY
+token BYTE_LENGTH # "BYTE-LENGTH"
+token CALL
+token CANCEL
+token CH
+token CHAINING
+token CHARACTER
+token CHARACTERS
+token CLASS
+token CLOSE
+token CODE
+token CODE_SET # "CODE-SET"
+token COLLATING
+token COL
+token COLS
+token COLUMN
+token COLUMNS
+token COMMA
+token COMMAND_LINE # "COMMAND-LINE"
+token COMMA_DELIM # "comma delimiter"
+token COMMIT
+token COMMON
+token COMP
+token COMPUTE
+token COMP_1 # "COMP-1"
+token COMP_2 # "COMP-2"
+token COMP_3 # "COMP-3"
+token COMP_4 # "COMP-4"
+token COMP_5 # "COMP-5"
+token COMP_X # "COMP-X"
+token CONCATENATE_FUNC # "FUNCTION CONCATENATE"
+token CONFIGURATION
+token CONSTANT
+token CONTAINS
+token CONTENT
+token CONTINUE
+token CONTROL
+token CONTROLS
+token CONTROL_FOOTING # "CONTROL FOOTING"
+token CONTROL_HEADING # "CONTROL HEADING"
+token CONVERTING
+token CORRESPONDING
+token COUNT
+token CRT
+token CURRENCY
+token CURRENT_DATE_FUNC # "FUNCTION CURRENT-DATE"
+token CURSOR
+token CYCLE
+token DATA
+token DATE
+token DAY
+token DAY_OF_WEEK # "DAY-OF-WEEK"
+token DE
+token DEBUGGING
+token DECIMAL_POINT # "DECIMAL-POINT"
+token DECLARATIVES
+token DEFAULT
+token DELETE
+token DELIMITED
+token DELIMITER
+token DEPENDING
+token DESCENDING
+token DETAIL
+token DISK
+token DISPLAY
+token DIVIDE
+token DIVISION
+token DOWN
+token DUPLICATES
+token DYNAMIC
+token EBCDIC
+token ELSE
+token END
+token END_ACCEPT # "END-ACCEPT"
+token END_ADD # "END-ADD"
+token END_CALL # "END-CALL"
+token END_COMPUTE # "END-COMPUTE"
+token END_DELETE # "END-DELETE"
+token END_DISPLAY # "END-DISPLAY"
+token END_DIVIDE # "END-DIVIDE"
+token END_EVALUATE # "END-EVALUATE"
+token END_FUNCTION # "END FUNCTION"
+token END_IF # "END-IF"
+token END_MULTIPLY # "END-MULTIPLY"
+token END_PERFORM # "END-PERFORM"
+token END_PROGRAM # "END PROGRAM"
+token END_READ # "END-READ"
+token END_RETURN # "END-RETURN"
+token END_REWRITE # "END-REWRITE"
+token END_SEARCH # "END-SEARCH"
+token END_START # "END-START"
+token END_STRING # "END-STRING"
+token END_SUBTRACT # "END-SUBTRACT"
+token END_UNSTRING # "END-UNSTRING"
+token END_WRITE # "END-WRITE"
+token ENTRY
+token ENVIRONMENT
+token ENVIRONMENT_NAME # "ENVIRONMENT-NAME"
+token ENVIRONMENT_VALUE # "ENVIRONMENT-VALUE"
+token EOL
+token EOP
+token EOS
+token EQUAL
+token EQUALS
+token ERASE
+token ERROR
+token ESCAPE
+token EVALUATE
+token EVENT_STATUS # "EVENT-STATUS"
+token EXCEPTION
+token EXCLUSIVE
+token EXIT
+token EXTEND
+token EXTERNAL
+token FD
+token FILE_CONTROL # "FILE-CONTROL"
+token FILE_ID # "FILE-ID"
+token FILLER
+token FINAL
+token FIRST
+token FOOTING
+token FOR
+token FOREGROUND_COLOR # "FOREGROUND-COLOR"
+token FOREVER
+token FREE
+token FROM
+token FULL
+token FUNCTION
+token FUNCTION_ID # "FUNCTION-ID"
+token FUNCTION_NAME # "FUNCTION"
+token GE
+token GENERATE
+token GIVING
+token GLOBAL
+token GO
+token GOBACK
+token GREATER
+token GROUP
+token HEADING
+token HIGHLIGHT
+token HIGH_VALUE # "HIGH-VALUE"
+token IDENTIFICATION
+token IF
+token IGNORE
+token IGNORING
+token IN
+token INDEX
+token INDEXED
+token INDICATE
+token INITIALIZE
+token INITIALIZED
+token INITIATE
+token INPUT
+token INPUT_OUTPUT # "INPUT-OUTPUT"
+token INSPECT
+token INTO
+token INTRINSIC
+token INVALID
+token INVALID_KEY # "INVALID KEY"
+token IS
+token I_O # "I-O"
+token I_O_CONTROL # "I-O-CONTROL"
+token JUSTIFIED
+token KEY
+token LABEL
+token LAST
+token LAST_DETAIL # "LAST DETAIL"
+token LE
+token LEADING
+token LEFT
+token LENGTH
+token LESS
+token LIMIT
+token LIMITS
+token LINAGE
+token LINAGE_COUNTER # "LINAGE-COUNTER"
+token LINE
+token LINES
+token LINKAGE
+token LITERAL # "Literal"
+token LOCALE
+token LOCALE_DT_FUNC # "FUNCTION LOCALE"
+token LOCAL_STORAGE # "LOCAL-STORAGE"
+token LOCK
+token LOWER_CASE_FUNC # "FUNCTION LOWER-CASE"
+token LOWLIGHT
+token LOW_VALUE # "LOW-VALUE"
+token MANUAL
+token MEMORY
+token MERGE
+token MINUS
+token MNEMONIC_NAME # "MNEMONIC NAME"
+token MODE
+token MOVE
+token MULTIPLE
+token MULTIPLY
+token NATIONAL
+token NATIONAL_EDITED # "NATIONAL-EDITED"
+token NATIVE
+token NE
+token NEGATIVE
+token NEXT
+token NEXT_SENTENCE # "NEXT SENTENCE"
+token NO
+token NOT
+token NOT_END # "NOT END"
+token NOT_EOP # "NOT EOP"
+token NOT_EXCEPTION # "NOT EXCEPTION"
+token NOT_INVALID_KEY # "NOT INVALID KEY"
+token NOT_OVERFLOW # "NOT OVERFLOW"
+token NOT_SIZE_ERROR # "NOT SIZE ERROR"
+token NO_ADVANCING # "NO ADVANCING"
+token NUMBER
+token NUMBERS
+token NUMERIC
+token NUMERIC_EDITED # "NUMERIC-EDITED"
+token NUMVALC_FUNC # "FUNCTION NUMVALC"
+token OBJECT_COMPUTER # "OBJECT-COMPUTER"
+token OCCURS
+token OF
+token OFF
+token OMITTED
+token ON
+token ONLY
+token OPEN
+token OPTIONAL
+token OR
+token ORDER
+token ORGANIZATION
+token OTHER
+token OUTPUT
+token OVERFLOW
+token OVERLINE
+token PACKED_DECIMAL # "PACKED-DECIMAL"
+token PADDING
+token PAGE
+token PAGE_FOOTING # "PAGE FOOTING"
+token PAGE_HEADING # "PAGE HEADING"
+token PARAGRAPH
+token PERFORM
+token PICTURE
+token PLUS
+token POINTER
+token POSITION
+token POSITIVE
+token PRESENT
+token PREVIOUS
+token PRINTER
+token PRINTING
+token PROCEDURE
+token PROCEDURES
+token PROCEED
+token PROGRAM
+token PROGRAM_ID # "PROGRAM-ID"
+token PROGRAM_NAME # "Program name"
+token PROGRAM_POINTER # "PROGRAM-POINTER"
+token PROMPT
+token QUOTE
+token RANDOM
+token RD
+token READ
+token RECORD
+token RECORDING
+token RECORDS
+token RECURSIVE
+token REDEFINES
+token REEL
+token REFERENCE
+token RELATIVE
+token RELEASE
+token REMAINDER
+token REMOVAL
+token RENAMES
+token REPLACING
+token REPORT
+token REPORTING
+token REPORTS
+token REPORT_FOOTING # "REPORT FOOTING"
+token REPORT_HEADING # "REPORT HEADING"
+token REPOSITORY
+token REQUIRED
+token RESERVE
+token RETURN
+token RETURNING
+token REVERSE_FUNC # "FUNCTION REVERSE"
+token REVERSE_VIDEO # "REVERSE-VIDEO"
+token REWIND
+token REWRITE
+token RIGHT
+token ROLLBACK
+token ROUNDED
+token RUN
+token SAME
+token SCREEN
+token SCREEN_CONTROL # "SCREEN-CONTROL"
+token SCROLL
+token SD
+token SEARCH
+token SECTION
+token SECURE
+token SEGMENT_LIMIT # "SEGMENT-LIMIT"
+token SELECT
+token SEMI_COLON # "semi-colon"
+token SENTENCE
+token SEPARATE
+token SEQUENCE
+token SEQUENTIAL
+token SET
+token SHARING
+token SIGN
+token SIGNED
+token SIGNED_INT # "SIGNED-INT"
+token SIGNED_LONG # "SIGNED-LONG"
+token SIGNED_SHORT # "SIGNED-SHORT"
+token SIZE
+token SIZE_ERROR # "SIZE ERROR"
+token SORT
+token SORT_MERGE # "SORT-MERGE"
+token SOURCE
+token SOURCE_COMPUTER # "SOURCE-COMPUTER"
+token SPACE
+token SPECIAL_NAMES # "SPECIAL-NAMES"
+token STANDARD
+token STANDARD_1 # "STANDARD-1"
+token STANDARD_2 # "STANDARD-2"
+token START
+token STATUS
+token STOP
+token STRING
+token SUBSTITUTE_FUNC # "FUNCTION SUBSTITUTE"
+token SUBSTITUTE_CASE_FUNC # "FUNCTION SUBSTITUTE-CASE"
+token SUBTRACT
+token SUM
+token SUPPRESS
+token SYMBOLIC
+token SYNCHRONIZED
+token TALLYING
+token TAPE
+token TERMINATE
+token TEST
+token THAN
+token THEN
+token THRU
+token TIME
+token TIMES
+token TO
+token TOK_FALSE # "FALSE"
+token TOK_FILE # "FILE"
+token TOK_INITIAL # "INITIAL"
+token TOK_NULL # "NULL"
+token TOK_TRUE # "TRUE"
+token TOP
+token TRAILING
+token TRANSFORM
+token TRIM_FUNCTION # "FUNCTION TRIM"
+token TYPE
+token UNDERLINE
+token UNIT
+token UNLOCK
+token UNSIGNED
+token UNSIGNED_INT # "UNSIGNED-INT"
+token UNSIGNED_LONG # "UNSIGNED-LONG"
+token UNSIGNED_SHORT # "UNSIGNED-SHORT"
+token UNSTRING
+token UNTIL
+token UP
+token UPDATE
+token UPON
+token UPON_ARGUMENT_NUMBER # "UPON ARGUMENT-NUMBER"
+token UPON_COMMAND_LINE # "UPON COMMAND-LINE"
+token UPON_ENVIRONMENT_NAME # "UPON ENVIRONMENT-NAME"
+token UPON_ENVIRONMENT_VALUE # "UPON ENVIRONMENT-VALUE"
+token UPPER_CASE_FUNC # "FUNCTION UPPER-CASE"
+token USAGE
+token USE
+token USING
+token VALUE
+token VARYING
+token WAIT
+token WHEN
+token WHEN_COMPILED_FUNC # "FUNCTION WHEN-COMPILED"
+token WITH
+token WORD # "Identifier"
+token WORDS
+token WORKING_STORAGE # "WORKING-STORAGE"
+token WRITE
+token YYYYDDD
+token YYYYMMDD
+token ZERO
+
+prechigh
+  left "+" "-"
+  left "*" "/"
+  left UNARY_SIGN
+  right "^"
+preclow
+
+rule
+/*****************************************************************************
+ * COBOL Compilation Unit
+ *****************************************************************************/
+                 start:
+                          {
+                            # TODO: L757
+                          }
+                          nested_list
+                          {
+                            # TODO: L781
+                          }
+
+           nested_list: source_element
+                      | nested_list source_element
+
+        source_element: program_definition
+                      | function_definition
+
+    program_definition: identification_division
+                          environment_division
+                          {
+                            # TODO: L810
+                          }
+                          data_division
+                          {
+                            # TODO: L811
+                          }
+                          procedure_division
+                          nested_prog
+                          end_program
+
+     program_mandatory: identification_division
+                          environment_division
+                          {
+                            # TODO: L819
+                          }
+                          data_division
+                          {
+                            # TODO: L820
+                          }
+                          procedure_division
+                          nested_prog
+                          end_mandatory
+
+   function_definition: function_division
+                          environment_division
+                          {
+                            # TODO: L828
+                          }
+                          data_division
+                          {
+                            # TODO: L829
+                          }
+                          procedure_division
+                          end_function
+
+           nested_prog:
+                      | program_mandatory
+                      | nested_prog program_mandatory
+
+           end_program:
+                      | END_PROGRAM program_name '.'
+                          {
+                            # TODO: L841
+                          }
+
+         end_mandatory: END_PROGRAM program_name '.'
+                          {
+                            # TODO: L865
+                          }
+
+          end_function: END_FUNCTION program_name '.'
+                          {
+                            # TODO: L889
+                          }
+
+/*****************************************************************************
+ * Identification division
+ *****************************************************************************/
+identification_division: PROGRAM_ID '.' program_name as_literal
+                          {
+                            # TODO: L918
+                          }
+                          program_type '.'
+
+     function_division: FUNCTION_ID '.' program_name as_literal '.'
+                          {
+                            # TODO: L959
+                          }
+
+          program_name: PROGRAM_NAME
+                      | LITERAL
+
+            as_literal: /* empty */
+                          { result = nil }
+                      | AS LITERAL
+                          { result = val[1] }
+
+          program_type:
+                      | _is program_type_clause _program
+
+   program_type_clause: COMMON
+                          {
+                            # TODO: L1017
+                          }
+                      | COMMON _init_or_recurs
+                          {
+                            # TODO: L1024
+                          }
+                      | _init_or_recurs
+
+       _init_or_recurs: TOK_INITIAL
+                          {
+                            # TODO: L1035
+                          }
+                      | RECURSIVE
+                          {
+                            # TODO: L1039
+                          }
+
+/*****************************************************************************
+ * Environment division
+ *****************************************************************************/
+  environment_division:
+                      | ENVIRONMENT DIVISION '.'
+                          configuration_section
+                          input_output_section
+
+/*******************
+ * Configuration section
+ *******************/
+ configuration_section:
+                      | CONFIGURATION SECTION '.'
+                          configuration_list
+                          {
+                            # TODO: L1064
+                          }
+
+    configuration_list:
+                      | configuration_list configuration_paragraph
+
+configuration_paragraph: source_computer_paragraph
+                      | object_computer_paragraph
+                      | special_names_paragraph
+                      | repository_paragraph
+
+/*
+ * SOURCE-COMPUTER paragraph
+ */
+source_computer_paragraph: SOURCE_COMPUTER '.' source_computer_entry
+
+ source_computer_entry:
+                      | computer_name '.'
+                      | computer_name with_debugging_mode '.'
+                      | with_debugging_mode '.'
+
+   with_debugging_mode: _with DEBUGGING MODE
+                          {
+                            # TODO: L1099
+                          }
+
+         computer_name: WORD
+                          { }
+
+
+/*
+ * OBJECT-COMPUTER paragraph
+ */
+object_computer_paragraph: OBJECT_COMPUTER '.' object_computer_entry
+
+ object_computer_entry:
+                      | computer_name '.'
+                      | computer_name object_clauses_list '.'
+                      | object_clauses_list '.'
+
+   object_clauses_list: object_clauses
+                      | object_clauses_list object_clauses
+
+        object_clauses: object_computer_memory
+                      | object_computer_sequence
+                      | object_computer_segment
+
+object_computer_memory: MEMORY SIZE _is integer object_char_or_word
+                          {
+                            # TODO: L1136
+                          }
+
+   object_char_or_word: CHARACTERS
+                      | WORDS
+
+object_computer_sequence: _program coll_sequence _is reference
+                          {
+                            # TODO: L1148
+                          }
+
+object_computer_segment: SEGMENT_LIMIT _is integer
+                          {
+                            # Ignore
+                          }
+
+/*
+ * REPOSITORY paragraph
+ */
+  repository_paragraph: REPOSITORY '.' opt_repository
+
+        opt_repository:
+                      | repository_list '.'
+
+       repository_list: repository_name
+                      | repository_list repository_name
+
+       repository_name: FUNCTION repository_literal_list INTRINSIC
+                          {
+                            # TODO: L1180
+                          }
+                      | FUNCTION ALL INTRINSIC
+                          {
+                            # TODO: L1184
+                          }
+
+repository_literal_list: LITERAL
+                          { result = [val[0]] }
+                      | repository_literal_list LITERAL
+                          { result = val[0] + [val[1]] }
+
+/*
+ * SPECIAL-NAMES paragraph
+ */
+special_names_paragraph: SPECIAL_NAMES '.' opt_special_names
+
+     opt_special_names:
+                      | special_name_list '.'
+
+     special_name_list: special_name
+                      | special_name_list special_name
+
+          special_name: mnemonic_name_clause
+                      | alphabet_name_clause
+                      | symbolic_characters_clause
+                      | locale_clause
+                      | class_name_clause
+                      | currency_sign_clause
+                      | decimal_point_clause
+                      | cursor_clause
+                      | crt_status_clause
+                      | screen_control
+                      | event_status
+
+/* Mnemonic name clause */
+  mnemonic_name_clause: WORD _is CRT
+                          {
+                            # TODO: L1232
+                          }
+                      | WORD _is undefined_word
+                          {
+                            # TODO: L1242
+                          }
+                          special_name_mnemonic_on_off
+
+special_name_mnemonic_on_off:
+                      | special_name_mnemonic_on_off on_or_off _status _is undefined_word
+                          {
+                            # TODO: L1257
+                          }
+
+             on_or_off: ON
+                          { result = @cb.constants.int1 }
+                      | OFF
+                          { result = @cb.constants.int0 }
+
+/* Alphabet name clause */
+  alphabet_name_clause: ALPHABET undefined_word
+                          {
+                            # TODO: L1272
+                          }
+                          _is alphabet_definition
+                          {
+                            # TODO: L1276
+                          }
+
+   alphabet_definition: NATIVE
+                          {
+                            # TODO: L1283
+                          }
+                      | STANDARD_1
+                          {
+                            # TODO: L1284
+                          }
+                      | STANDARD_2
+                          {
+                            # TODO: L1285
+                          }
+                      | EBCDIC
+                          {
+                            # TODO: L1286
+                          }
+                      | alphabet_literal_list
+                          {
+                            # TODO: L1288
+                          }
+
+ alphabet_literal_list: alphabet_literal
+                          { result = [val[0]] }
+                      | alphabet_literal_list alphabet_literal
+                          { result = val[0] + [val[1]] }
+
+      alphabet_literal: alphabet_lits
+                          { result = val[0] }
+                      | alphabet_lits THRU alphabet_lits
+                          {
+                            # TODO: L1302
+                          }
+                      | alphabet_lits ALSO
+                          {
+                            # TODO: L1304
+                          }
+                          alphabet_also_sequence
+                          { result = val[2] }
+
+alphabet_also_sequence: alphabet_also_literal
+                      | alphabet_also_sequence ALSO alphabet_also_literal
+
+         alphabet_lits: LITERAL
+                          { result = val[0] }
+                      | SPACE
+                          {
+                            # TODO: L1321
+                          }
+                      | ZERO
+                          {
+                            # TODO: L1322
+                          }
+                      | QUOTE
+                          {
+                            # TODO: L1323
+                          }
+                      | HIGH_VALUE
+                          {
+                            # TODO: L1324
+                          }
+                      | LOW_VALUE
+                          {
+                            # TODO: L1325
+                          }
+
+ alphabet_also_literal: LITERAL
+                          {
+                            # TODO: L1329
+                          }
+                      | SPACE
+                          {
+                            # TODO: L1330
+                          }
+                      | ZERO
+                          {
+                            # TODO: L1331
+                          }
+                      | QUOTE
+                          {
+                            # TODO: L1332
+                          }
+                      | HIGH_VALUE
+                          {
+                            # TODO: L1333
+                          }
+                      | LOW_VALUE
+                          {
+                            # TODO: L1334
+                          }
+
+/* Symbolic characters clause */
+symbolic_characters_clause: SYMBOLIC _characters symbolic_characters_list
+                          {
+                            # TODO: L1342
+                          }
+
+symbolic_characters_list: char_list _is_are integer_list
+                          {
+                            # TODO: L1353
+                          }
+
+             char_list: undefined_word
+                          {
+                            # TODO: L1364
+                          }
+                      | char_list undefined_word
+                          {
+                            # TODO: L1365
+                          }
+
+          integer_list: integer
+                          {
+                            # TODO: L1369
+                          }
+                      | integer_list integer
+                          {
+                            # TODO: L1370
+                          }
+
+/* Class name clause */
+     class_name_clause: CLASS undefined_word _is class_item_list
+                          {
+                            # TODO: L1378
+                          }
+
+       class_item_list: class_item
+                          {
+                            # TODO: L1386
+                          }
+                      | class_item_list class_item
+                          {
+                            # TODO: L1387
+                          }
+
+            class_item: basic_value
+                          {
+                            # TODO: L1391
+                          }
+                      | basic_value THRU basic_value
+                          {
+                            # TODO: L1393
+                          }
+
+/* LOCALE clause */
+         locale_clause: LOCALE undefined_word _is reference
+                          {
+                            # TODO: L1407
+                          }
+
+/* CURRENCY SIGN clause */
+  currency_sign_clause: CURRENCY _sign _is LITERAL
+                          {
+                            # TODO: L1422
+                          }
+
+/* DECIMAL-POINT clause */
+  decimal_point_clause: DECIMAL_POINT _is COMMA
+                          {
+                            # TODO: L1489
+                          }
+
+/* CURSOR clause */
+         cursor_clause: CURSOR _is reference
+                          {
+                            # TODO: L1499
+                          }
+
+/* CRT STATUS clause */
+     crt_status_clause: CRT STATUS _is reference
+                          {
+                            # TODO: L1506
+                          }
+
+/* SCREEN CONTROL */
+        screen_control: SCREEN_CONTROL _is reference
+                          {
+                            # TODO: L1513
+                          }
+
+/* EVENT STATUS */
+          event_status: EVENT_STATUS _is reference
+                          {
+                            # TODO: L1519
+                          }
+
+/*******************
+ * INPUT-OUTPUT SECTION
+ *******************/
+  input_output_section:
+                      | INPUT_OUTPUT SECTION '.' file_control_paragraph i_o_control_paragraph
+                      | FILE_CONTROL '.'
+                          {
+                            # TODO: L1531
+                          }
+                          file_control_sequence
+                      | I_O_CONTROL '.'
+                          {
+                            # TODO: L1540
+                          }
+                          opt_i_o_control
+
+/*
+ * FILE-CONTROL paragraph
+ */
+file_control_paragraph:
+                      | FILE_CONTROL '.' file_control_sequence
+
+ file_control_sequence:
+                      | file_control_sequence file_control_entry
+
+    file_control_entry: SELECT flag_optional undefined_word
+                          {
+                            # TODO: L1565
+                          }
+                          select_clause_sequence '.'
+                          {
+                            # TODO: L1580
+                          }
+
+select_clause_sequence:
+                      | select_clause_sequence select_clause
+
+         select_clause: assign_clause
+                      | access_mode_clause
+                      | alternative_record_key_clause
+                      | collating_sequence_clause
+                      | file_status_clause
+                      | lock_mode_clause
+                      | organization_clause
+                      | padding_character_clause
+                      | record_delimiter_clause
+                      | record_key_clause
+                      | relative_key_clause
+                      | reserve_clause
+                      | sharing_clause
+
+/* ASSIGN clause */
+         assign_clause: ASSIGN _to _ext_clause _device assignment_name
+                          {
+                            # TODO: L1610
+                          }
+                      | ASSIGN _to _ext_clause DISK
+                          {
+                            # TODO: L1614
+                          }
+
+               _device:
+                      | DISK
+                      | PRINTER
+                          {
+                            # TODO: L1621
+                          }
+
+           _ext_clause:
+                      | EXTERNAL
+                          {
+                            # TODO: L1626
+                          }
+                      | DYNAMIC
+
+       assignment_name: LITERAL
+                      | DISPLAY
+                          {
+                            # TODO: L1635
+                          }
+                      | qualified_word
+
+/* ACCESS MODE clause */
+    access_mode_clause: ACCESS _mode _is access_mode
+
+           access_mode: SEQUENTIAL
+                          {
+                            # TODO: L1652
+                          }
+                      | DYNAMIC
+                          {
+                            # TODO: L1653
+                          }
+                      | RANDOM
+                          {
+                            # TODO: L1654
+                          }
+
+/* ALTERNATIVE RECORD KEY clause */
+alternative_record_key_clause: ALTERNATE RECORD _key _is opt_splitk flag_duplicates
+                          {
+                            # TODO: L1662
+                          }
+
+/* COLLATING SEQUENCE clause */
+collating_sequence_clause: coll_sequence _is WORD
+                          {
+                            # TODO: L1687
+                          }
+
+/* FILE STATUS clause */
+    file_status_clause: file_or_sort STATUS _is reference opt_reference
+                          {
+                            # TODO: L1697
+                          }
+
+          file_or_sort:
+                      | TOK_FILE
+                      | SORT
+
+/* LOCK MODE clause */
+      lock_mode_clause: LOCK _mode _is lock_mode
+
+             lock_mode: MANUAL lock_with
+                          {
+                            # TODO: L1718
+                          }
+                      | AUTOMATIC lock_with
+                          {
+                            # TODO: L1719
+                          }
+                      | EXCLUSIVE
+                          {
+                            # TODO: L1720
+                          }
+
+             lock_with:
+                      | WITH LOCK ON lock_records
+                      | WITH LOCK ON MULTIPLE lock_records
+                          {
+                            # TODO: L1726
+                          }
+                      | WITH ROLLBACK
+                          {
+                            # TODO: L1729
+                          }
+
+          lock_records: RECORD
+                      | RECORDS
+
+/* ORGANIZATION clause */
+   organization_clause: ORGANIZATION _is organization
+                      | organization
+
+          organization: INDEXED
+                          {
+                            # TODO: L1746
+                          }
+                      | _record _binary SEQUENTIAL
+                          {
+                            # TODO: L1755
+                          }
+                      | RELATIVE
+                          {
+                            # TODO: L1764
+                          }
+                      | LINE SEQUENTIAL
+                          {
+                            # TODO: L1773
+                          }
+
+/* PADDING CHARACTER clause */
+padding_character_clause: PADDING _character _is reference_or_literal
+                          {
+                            # TODO: L1788
+                          }
+
+/* RECORD DELIMITER clause */
+record_delimiter_clause: RECORD DELIMITER _is STANDARD_1
+                          {
+                            # TODO: L1797
+                          }
+
+/* RECORD KEY clause */
+     record_key_clause: RECORD _key _is opt_splitk
+                          {
+                            # TODO: L1805
+                          }
+
+            opt_splitk: reference
+                          {
+                            # TODO: L1811
+                          }
+                      | reference '=' reference_list
+                          {
+                            # TODO: L1812
+                          }
+                      | reference SOURCE _is reference_list
+                          {
+                            # TODO: L1813
+                          }
+
+/* RELATIVE KEY clause */
+   relative_key_clause: RELATIVE _key _is reference
+                          {
+                            # TODO: L1819
+                          }
+
+/* RESERVE clause */
+        reserve_clause: RESERVE integer _area
+                          {
+                            # TODO: L1826
+                          }
+
+/* SHARING clause */
+        sharing_clause: SHARING _with sharing_option
+                          {
+                            # TODO: L1833
+                          }
+
+        sharing_option: ALL _other
+                          {
+                            # TODO: L1837
+                          }
+                      | NO _other
+                          {
+                            # TODO: L1838
+                          }
+                      | READ ONLY
+                          {
+                            # TODO: L1839
+                          }
+
+/*
+ * I-O-CONTROL paragraph
+ */
+ i_o_control_paragraph:
+                      | I_O_CONTROL '.' opt_i_o_control
+
+       opt_i_o_control:
+                      | i_o_control_list '.'
+
+      i_o_control_list: i_o_control_clause
+                      | i_o_control_list i_o_control_clause
+
+    i_o_control_clause: same_clause
+                      | multiple_file_tape_clause
+
+/* SAME clause */
+           same_clause: SAME same_option _area _for file_name_list
+                          {
+                            # TODO: L1869
+                          }
+
+           same_option: /* empty */
+                          {
+                            # TODO: L1893
+                          }
+                      | RECORD
+                          {
+                            # TODO: L1894
+                          }
+                      | SORT
+                          {
+                            # TODO: L1895
+                          }
+                      | SORT_MERGE
+                          {
+                            # TODO: L1896
+                          }
+
+/* MULTIPLE FILE TAPE clause */
+multiple_file_tape_clause: MULTIPLE _file _tape _contains multiple_file_list
+                          {
+                            # TODO: L1903
+                          }
+
+    multiple_file_list: multiple_file
+                      | multiple_file_list multiple_file
+
+         multiple_file: file_name multiple_file_position
+                          {
+                            # TODO: L1914
+                          }
+
+multiple_file_position:
+                      | POSITION integer
+
+/*****************************************************************************
+ * DATA DIVISION.
+ *****************************************************************************/
+         data_division:
+                      | DATA DIVISION '.'
+                          file_section
+                          working_storage_section
+                          local_storage_section
+                          linkage_section
+                          report_section
+                          screen_section
+
+/*******************
+ * FILE SECTION
+ *******************/
+          file_section:
+                      | TOK_FILE SECTION '.'
+                          {
+                            # TODO: L1942
+                          }
+                          file_description_sequence
+                      | file_type
+                          {
+                            # TODO: L1945
+                          }
+                          file_description_sequence_without_type
+
+file_description_sequence:
+                      | file_description_sequence file_description
+
+      file_description: file_type file_description_entry record_description_list
+                          {
+                            # TODO: L1964
+                          }
+
+file_description_sequence_without_type: file_description_entry record_description_list
+                          {
+                            # TODO: L1976
+                          }
+                      | file_description_sequence_without_type file_description
+
+             file_type: FD
+                          {
+                            # TODO: L1987
+                          }
+                      | SD
+                          {
+                            # TODO: L1988
+                          }
+
+/*
+ * File description entry
+ */
+file_description_entry: file_name
+                          {
+                            # TODO: L1998
+                          }
+                          file_description_clause_sequence '.'
+                          {
+                            # TODO: L2009
+                          }
+
+file_description_clause_sequence:
+                      | file_description_clause_sequence file_description_clause
+
+file_description_clause: _is EXTERNAL
+                          {
+                            # TODO: L2021
+                          }
+                      | _is GLOBAL
+                          {
+                            # TODO: L2028
+                          }
+                      | block_contains_clause
+                      | record_clause
+                      | label_records_clause
+                      | value_of_clause
+                      | data_records_clause
+                      | linage_clause
+                      | recording_mode_clause
+                      | code_set_clause
+                      | report_clause
+
+/* BLOCK CONTAINS clause */
+ block_contains_clause: BLOCK _contains integer opt_to_integer _records_or_characters
+                          {
+                            # TODO: L2050
+                          }
+
+_records_or_characters:
+                      | RECORDS
+                      | CHARACTERS
+
+/* RECORD clause */
+         record_clause: RECORD _contains integer _characters
+                          {
+                            # TODO: L2060
+                          }
+                      | RECORD _contains integer TO integer _characters
+                          {
+                            # TODO: L2072
+                          }
+                      | RECORD _is VARYING _in _size opt_from_integer opt_to_integer _characters record_depending
+                          {
+                            # TODO: L2098
+                          }
+
+      record_depending:
+                      | DEPENDING _on reference
+                          {
+                            # TODO: L2122
+                          }
+
+      opt_from_integer: /* empty */
+                          {
+                            # TODO: L2128
+                          }
+                      | _from integer
+                          {
+                            # TODO: L2129
+                          }
+
+        opt_to_integer: /* empty */
+                          {
+                            # TODO: L2133
+                          }
+                      | TO integer
+                          {
+                            # TODO: L2134
+                          }
+
+/* LABEL RECORDS clause */
+  label_records_clause: LABEL records label_option
+                          {
+                            # TODO: L2142
+                          }
+
+          label_option: STANDARD
+                      | OMITTED
+
+/* VALUE OF clause */
+       value_of_clause: VALUE OF WORD _is valueof_name
+                          {
+                            # TODO: L2157
+                          }
+                      | VALUE OF FILE_ID _is valueof_name
+                          {
+                            # TODO: L2161
+                          }
+
+          valueof_name: LITERAL
+                      | qualified_word
+
+/* DATA RECORDS clause */
+   data_records_clause: DATA records reference_list
+                          {
+                            # TODO: L2177
+                          }
+
+/* LINAGE clause */
+         linage_clause: LINAGE _is reference_or_literal _lines linage_sequence
+                          {
+                            # TODO: L2188
+                          }
+
+       linage_sequence:
+                      | linage_sequence linage_lines
+
+          linage_lines: linage_footing
+                      | linage_top
+                      | linage_bottom
+
+        linage_footing: _with FOOTING _at reference_or_literal _lines
+                          {
+                            # TODO: L2216
+                          }
+
+            linage_top: _at TOP reference_or_literal _lines
+                          {
+                            # TODO: L2223
+                          }
+
+         linage_bottom: _at BOTTOM reference_or_literal
+                          {
+                            # TODO: L2230
+                          }
+
+/* RECORDING MODE clause */
+ recording_mode_clause: RECORDING _mode _is WORD
+                          {
+                            # TODO: L2239
+                          }
+
+/* CODE-SET clause */
+       code_set_clause: CODE_SET _is WORD
+                          {
+                            # TODO: L2247
+                          }
+
+/* REPORT clause */
+         report_clause: REPORT _is report_name
+                          {
+                            # TODO: L2265
+                          }
+                      | REPORTS _are report_name
+                          {
+                            # TODO: L2269
+                          }
+
+/*******************
+ * WORKING-STORAGE SECTION
+ *******************/
+working_storage_section:
+                      | WORKING_STORAGE SECTION '.'
+                          {
+                            # TODO: L2280
+                          }
+                          record_description_list
+                          {
+                            # TODO: L2282
+                          }
+
+record_description_list: /* empty */
+                          {
+                            result = nil
+                          }
+                      | record_description_list_1
+                          {
+                            result = val[0]
+                          }
+
+record_description_list_1:
+                          {
+                            @current_field = nil
+                            @description_field = nil
+                            # TODO: L2299 | cb_clear_real_field ();
+                          }
+                          record_description_list_2
+                          {
+                            # TODO: L2305
+                            # for (p = description_field; p; p = p->sister) {
+                            #   cb_validate_field (p);
+                            # }
+                            result = @description_field
+                          }
+
+record_description_list_2: not_const_word data_description '.'
+                      | record_description_list_2 not_const_word data_description '.'
+                      | record_description_list_2 '.'
+
+      data_description: constant_entry
+                      | level_number entry_name
+                          {
+                            # TODO: L2322
+                          }
+                          data_description_clause_sequence
+                          {
+                            # TODO: L2333
+                          }
+
+          level_number: WORD
+
+            entry_name: /* empty */
+                          {
+                            # TODO: L2358
+                          }
+                      | FILLER
+                          {
+                            # TODO: L2364
+                          }
+                      | WORD
+                          {
+                            result = val[0]
+                            @qualifier = val[0]
+                            @non_const_word = false
+                          }
+
+            const_name: WORD
+                          {
+                            result = val[0]
+                            @qualifier = val[0]
+                            @non_const_word = false
+                          }
+
+          const_global:
+                      | _is GLOBAL
+                          {
+                            # TODO: L2388
+                          }
+
+         lit_or_length: literal
+                          {
+                            result = val[0]
+                          }
+                      | LENGTH _of identifier_1
+                          {
+                            # TODO: L2396
+                          }
+                      | BYTE_LENGTH _of identifier_1
+                          {
+                            # TODO: L2397
+                          }
+
+        constant_entry: level_number const_name CONSTANT const_global _as lit_or_length
+                          {
+                            # TODO: L2402
+                          }
+
+data_description_clause_sequence: /* empty */
+                          {
+                            # TODO: L2421
+                          }
+                      | data_description_clause_sequence data_description_clause
+                          {
+                            # TODO: L2427
+                          }
+
+data_description_clause: redefines_clause
+                      | external_clause
+                      | global_clause
+                      | picture_clause
+                      | usage_clause
+                      | sign_clause
+                      | occurs_clause
+                      | justified_clause
+                      | synchronized_clause
+                      | blank_clause
+                      | based_clause
+                      | value_clause
+                      | renames_clause
+                      | any_length_clause
+
+/* REDEFINES clause */
+      redefines_clause: REDEFINES identifier_1
+                          {
+                            # TODO: L2455
+                          }
+
+/* EXTERNAL clause */
+       external_clause: _is EXTERNAL as_extname
+                          {
+                            # TODO: L2477
+                          }
+
+            as_extname: /* empty */
+                          {
+                            # TODO: L2498
+                          }
+                      | AS LITERAL
+                          {
+                            # TODO: L2500
+                          }
+
+/* GLOBAL clause */
+         global_clause: _is GLOBAL
+                          {
+                            # TODO: L2512
+                          }
+
+/* PICTURE clause */
+        picture_clause: PICTURE
+                          {
+                            # TODO: L2531
+                          }
+
+/* USAGE clause */
+          usage_clause: usage
+                      | USAGE _is usage
+
+                 usage: BINARY
+                          {
+                            # TODO: L2543
+                          }
+                      | COMP
+                          {
+                            # TODO: L2544
+                          }
+                      | COMP_1
+                          {
+                            # TODO: L2545
+                          }
+                      | COMP_2
+                          {
+                            # TODO: L2546
+                          }
+                      | COMP_3
+                          {
+                            # TODO: L2547
+                          }
+                      | COMP_4
+                          {
+                            # TODO: L2548
+                          }
+                      | COMP_5
+                          {
+                            # TODO: L2549
+                          }
+                      | COMP_X
+                          {
+                            # TODO: L2550
+                          }
+                      | DISPLAY
+                          {
+                            # TODO: L2551
+                          }
+                      | INDEX
+                          {
+                            # TODO: L2552
+                          }
+                      | PACKED_DECIMAL
+                          {
+                            # TODO: L2553
+                          }
+                      | POINTER
+                          {
+                            # TODO: L2555
+                          }
+                      | PROGRAM_POINTER
+                          {
+                            # TODO: L2560
+                          }
+                      | SIGNED_SHORT
+                          {
+                            # TODO: L2564
+                          }
+                      | SIGNED_INT
+                          {
+                            # TODO: L2565
+                          }
+                      | SIGNED_LONG
+                          {
+                            # TODO: L2566
+                          }
+                      | UNSIGNED_SHORT
+                          {
+                            # TODO: L2567
+                          }
+                      | UNSIGNED_INT
+                          {
+                            # TODO: L2568
+                          }
+                      | UNSIGNED_LONG
+                          {
+                            # TODO: L2569
+                          }
+                      | BINARY_CHAR SIGNED
+                          {
+                            # TODO: L2570
+                          }
+                      | BINARY_CHAR UNSIGNED
+                          {
+                            # TODO: L2571
+                          }
+                      | BINARY_CHAR
+                          {
+                            # TODO: L2572
+                          }
+                      | BINARY_SHORT SIGNED
+                          {
+                            # TODO: L2573
+                          }
+                      | BINARY_SHORT UNSIGNED
+                          {
+                            # TODO: L2574
+                          }
+                      | BINARY_SHORT
+                          {
+                            # TODO: L2575
+                          }
+                      | BINARY_LONG SIGNED
+                          {
+                            # TODO: L2576
+                          }
+                      | BINARY_LONG UNSIGNED
+                          {
+                            # TODO: L2577
+                          }
+                      | BINARY_LONG
+                          {
+                            # TODO: L2578
+                          }
+                      | BINARY_DOUBLE SIGNED
+                          {
+                            # TODO: L2579
+                          }
+                      | BINARY_DOUBLE UNSIGNED
+                          {
+                            # TODO: L2580
+                          }
+                      | BINARY_DOUBLE
+                          {
+                            # TODO: L2581
+                          }
+                      | BINARY_C_LONG SIGNED
+                          {
+                            # TODO: L2583
+                          }
+                      | BINARY_C_LONG UNSIGNED
+                          {
+                            # TODO: L2591
+                          }
+                      | BINARY_C_LONG
+                          {
+                            # TODO: L2599
+                          }
+                      | NATIONAL
+                          {
+                            # TODO: L2606
+                          }
+
+/* SIGN clause */
+           sign_clause: _sign_is LEADING flag_separate
+                          {
+                            # TODO: L2614
+                          }
+                      | _sign_is TRAILING flag_separate
+                          {
+                            # TODO: L2619
+                          }
+
+/* OCCURS clause */
+         occurs_clause: OCCURS integer occurs_to_integer _times occurs_depending occurs_keys occurs_indexed
+                          {
+                            # TODO: L2631
+                          }
+
+     occurs_to_integer: /* empty */
+                          {
+                            # TODO: L2646
+                          }
+                      | TO integer
+                          {
+                            # TODO: L2647
+                          }
+
+      occurs_depending:
+                      | DEPENDING _on reference
+                          {
+                            # TODO: L2652
+                          }
+
+           occurs_keys: occurs_key_list
+                          {
+                            # TODO: L2659
+                          }
+
+       occurs_key_list: /* empty */
+                          {
+                            # TODO: L2682
+                          }
+                      | occurs_key_list ascending_or_descending _key _is reference_list
+                          {
+                            # TODO: L2685
+                          }
+
+ascending_or_descending: ASCENDING
+                          {
+                            # TODO: L2700
+                          }
+                      | DESCENDING
+                          {
+                            # TODO: L2701
+                          }
+
+        occurs_indexed:
+                      | INDEXED _by occurs_index_list
+                          {
+                            # TODO: L2706
+                          }
+
+     occurs_index_list: occurs_index
+                          {
+                            # TODO: L2712
+                          }
+                      | occurs_index_list occurs_index
+                          {
+                            # TODO: L2714
+                          }
+
+          occurs_index: WORD
+                          {
+                            # TODO: L2719
+                          }
+
+/* JUSTIFIED clause */
+      justified_clause: JUSTIFIED _right
+                          {
+                            # TODO: L2728
+                          }
+
+/* SYNCHRONIZED clause */
+   synchronized_clause: SYNCHRONIZED left_or_right
+                          {
+                            # TODO: L2735
+                          }
+
+         left_or_right:
+                      | LEFT
+                      | RIGHT
+
+/* BLANK clause */
+          blank_clause: BLANK _when ZERO
+                          {
+                            # TODO: L2747
+                          }
+
+/* BASED clause */
+          based_clause: BASED
+                          {
+                            # TODO: L2755
+                          }
+
+/* VALUE clause */
+          value_clause: VALUE _is_are value_item_list
+                          {
+                            # TODO: L2779
+                          }
+                          _when _set _to false_is
+
+       value_item_list: value_item
+                          {
+                            # TODO: L2784
+                          }
+                      | value_item_list value_item
+                          {
+                            # TODO: L2785
+                          }
+
+            value_item: literal
+                          {
+                            # TODO: L2789
+                          }
+                      | literal THRU literal
+                          {
+                            # TODO: L2790
+                          }
+
+              false_is:
+                      | TOK_FALSE _is literal
+                          {
+                            # TODO: L2795
+                          }
+
+/* RENAMES clause */
+        renames_clause: RENAMES qualified_word
+                          {
+                            # TODO: L2808
+                          }
+                      | RENAMES qualified_word THRU qualified_word
+                          {
+                            # TODO: L2820
+                          }
+
+/* ANY LENGTH clause */
+     any_length_clause: ANY LENGTH
+                          {
+                            # TODO: L2840
+                          }
+
+/*******************
+ * LOCAL-STORAGE SECTION
+ *******************/
+ local_storage_section:
+                      | LOCAL_STORAGE SECTION '.'
+                          {
+                            # TODO: L2855
+                          }
+                          record_description_list
+                          {
+                            # TODO: L2862
+                          }
+
+/*******************
+ * LINKAGE SECTION
+ *******************/
+       linkage_section:
+                      | LINKAGE SECTION '.'
+                          {
+                            # TODO: L2875
+                          }
+                          record_description_list
+                          {
+                            # TODO: L2877
+                          }
+
+/*******************
+ * REPORT SECTION
+ *******************/
+        report_section:
+                      | REPORT SECTION '.'
+                          {
+                            # TODO: L2890
+                          }
+                          opt_report_description_list
+
+/*******************
+ * Optional RD list
+ *******************/
+opt_report_description_list:
+                      | report_description_list
+
+report_description_list: report_description_entry
+                      | report_description_list report_description_entry
+
+/*******************
+ * RD report description
+ *******************/
+report_description_entry: RD report_name report_description_options '.' report_group_description_list
+
+report_description_options: /* empty */
+                          {
+                            # TODO: L2923
+                          }
+                      | report_description_options report_description_option
+
+report_description_option: _is GLOBAL
+                          {
+                            # TODO: L2931
+                          }
+                      | CODE _is id_or_lit
+                      | control_clause
+                      | page_limit_clause
+
+/*******************
+ * report control breaks
+ *******************/
+        control_clause: CONTROL control_field_list
+                      | CONTROLS control_field_list
+
+    control_field_list: _final identifier_list
+
+                _final:
+                      | FINAL
+
+       identifier_list: identifier
+                      | identifier_list identifier
+
+/* PAGE clause */
+     page_limit_clause: PAGE _is_are page_line_column heading_clause first_detail last_heading last_detail footing_clause
+
+        heading_clause:
+                      | HEADING _is integer
+
+          first_detail:
+                      | FIRST DETAIL _is integer
+
+          last_heading:
+                      | LAST CONTROL_HEADING _is integer
+
+           last_detail:
+                      | LAST_DETAIL _is integer
+
+        footing_clause:
+                      | FOOTING _is integer
+
+      page_line_column: integer
+                      | integer line_or_lines integer COLUMNS
+                      | integer line_or_lines
+
+         line_or_lines: LINE
+                      | LINES
+
+report_group_description_list:
+                      | report_group_description_list report_group_description_entry
+
+report_group_description_entry: level_number entry_name report_group_options '.'
+
+  report_group_options:
+                      | report_group_options report_group_option
+
+   report_group_option: type_clause
+                          {
+                            # TODO: L3011
+                          }
+                      | next_group_clause
+                      | line_clause
+                      | picture_clause
+                      | usage_clause
+                      | sign_clause
+                      | justified_clause
+                      | column_clause
+                      | blank_clause
+                      | source_clause
+                      | sum_clause_list
+                      | value_clause
+                      | present_when_condition
+                      | group_indicate_clause
+                      | occurs_clause
+                      | varying_clause
+
+           type_clause: TYPE _is type_option
+
+           type_option: REPORT_HEADING
+                      | PAGE_HEADING
+                      | CONTROL_HEADING
+                      | DETAIL
+                      | CONTROL_FOOTING
+                      | PAGE_FOOTING
+                      | REPORT_FOOTING
+
+     next_group_clause: NEXT GROUP _is integer
+
+         column_clause: COLUMN _number _is integer
+                      | COLUMN NUMBERS
+                      | COLUMNS
+
+       sum_clause_list: sum_clause
+                      | sum_clause_list sum_clause
+
+            sum_clause: SUM _of ref_id_exp
+
+            ref_id_exp: reference
+
+present_when_condition: PRESENT WHEN condition
+
+        varying_clause: VARYING identifier FROM x BY x
+
+           line_clause: line_keyword_clause report_line_integer_list
+
+   line_keyword_clause: LINE _numbers _is_are
+                      | LINES _are
+
+report_line_integer_list: line_or_plus
+                      | report_line_integer_list line_or_plus
+
+          line_or_plus: PLUS integer
+                      | integer
+                      | NEXT PAGE
+
+              _numbers:
+                      | NUMBER
+                      | NUMBERS
+
+         source_clause: SOURCE _is identifier flag_rounded
+
+ group_indicate_clause: GROUP _indicate
+
+             _indicate:
+                      | INDICATE
+
+           report_name: WORD
+
+/*******************
+ * SCREEN SECTION
+ *******************/
+        screen_section:
+                      | SCREEN SECTION '.'
+                          {
+                            # TODO: L3116
+                          }
+                          {
+                            # TODO: L3117
+                          }
+                          opt_screen_description_list
+                          {
+                            # TODO: L3123
+                          }
+
+opt_screen_description_list:
+                      | screen_description_list
+
+screen_description_list: screen_description
+                      | screen_description_list screen_description
+
+    screen_description: constant_entry
+                      | level_number entry_name
+                          {
+                            # TODO: L3147
+                          }
+                          screen_options '.'
+                          {
+                            # TODO: L3163
+                          }
+
+        screen_options:
+                      | screen_options screen_option
+
+         screen_option: BLANK_LINE
+                          {
+                            # TODO: L3187
+                          }
+                      | BLANK_SCREEN
+                          {
+                            # TODO: L3188
+                          }
+                      | BELL
+                          {
+                            # TODO: L3189
+                          }
+                      | BLINK
+                          {
+                            # TODO: L3190
+                          }
+                      | ERASE EOL
+                          {
+                            # TODO: L3191
+                          }
+                      | ERASE EOS
+                          {
+                            # TODO: L3192
+                          }
+                      | HIGHLIGHT
+                          {
+                            # TODO: L3193
+                          }
+                      | LOWLIGHT
+                          {
+                            # TODO: L3194
+                          }
+                      | REVERSE_VIDEO
+                          {
+                            # TODO: L3195
+                          }
+                      | UNDERLINE
+                          {
+                            # TODO: L3196
+                          }
+                      | OVERLINE
+                          {
+                            # TODO: L3197
+                          }
+                      | AUTO
+                          {
+                            # TODO: L3198
+                          }
+                      | SECURE
+                          {
+                            # TODO: L3199
+                          }
+                      | REQUIRED
+                          {
+                            # TODO: L3200
+                          }
+                      | FULL
+                          {
+                            # TODO: L3201
+                          }
+                      | PROMPT
+                          {
+                            # TODO: L3202
+                          }
+                      | LINE _number _is screen_line_plus_minus num_id_or_lit
+                          {
+                            # TODO: L3204
+                          }
+                      | COLUMN _number _is screen_col_plus_minus num_id_or_lit
+                          {
+                            # TODO: L3208
+                          }
+                      | FOREGROUND_COLOR _is num_id_or_lit
+                          {
+                            # TODO: L3212
+                          }
+                      | BACKGROUND_COLOR _is num_id_or_lit
+                          {
+                            # TODO: L3216
+                          }
+                      | usage_clause
+                      | blank_clause
+                      | justified_clause
+                      | sign_clause
+                      | value_clause
+                      | picture_clause
+                      | screen_occurs_clause
+                      | USING identifier
+                          {
+                            # TODO: L3227
+                          }
+                      | FROM id_or_lit_or_func
+                          {
+                            # TODO: L3234
+                          }
+                      | TO identifier
+                          {
+                            # TODO: L3238
+                          }
+
+screen_line_plus_minus: /* empty */
+                          {
+                            # TODO: L3247
+                          }
+                      | PLUS
+                          {
+                            # TODO: L3251
+                          }
+                      | '+'
+                          {
+                            # TODO: L3255
+                          }
+                      | MINUS
+                          {
+                            # TODO: L3259
+                          }
+                      | '-'
+                          {
+                            # TODO: L3263
+                          }
+
+ screen_col_plus_minus: /* empty */
+                          {
+                            # TODO: L3270
+                          }
+                      | PLUS
+                          {
+                            # TODO: L3274
+                          }
+                      | '+'
+                          {
+                            # TODO: L3278
+                          }
+                      | MINUS
+                          {
+                            # TODO: L3282
+                          }
+                      | '-'
+                          {
+                            # TODO: L3286
+                          }
+
+  screen_occurs_clause: OCCURS integer _times
+                          {
+                            # TODO: L3294
+                          }
+
+/*****************************************************************************
+ * PROCEDURE DIVISION
+ *****************************************************************************/
+    procedure_division:
+                      | PROCEDURE DIVISION procedure_using_chaining procedure_returning '.'
+                          {
+                            # TODO: L3308
+                          }
+                          procedure_declaratives
+                          {
+                            # TODO: L3318
+                          }
+                          procedure_list
+                          {
+                            # TODO: L3328
+                          }
+
+procedure_using_chaining: /* empty */
+                          {
+                            # TODO: L3345
+                          }
+                      | USING
+                          {
+                            # TODO: L3347
+                          }
+                          procedure_param_list
+                          {
+                            # TODO: L3351
+                          }
+                      | CHAINING
+                          {
+                            # TODO: L3353
+                          }
+                          procedure_param_list
+                          {
+                            # TODO: L3357
+                          }
+
+  procedure_param_list: procedure_param
+                          {
+                            # TODO: L3361
+                          }
+                      | procedure_param_list procedure_param
+                          {
+                            # TODO: L3363
+                          }
+
+       procedure_param: procedure_type size_optional procedure_optional WORD
+                          {
+                            # TODO: L3368
+                          }
+
+        procedure_type:
+                      | _by REFERENCE
+                          {
+                            # TODO: L3377
+                          }
+                      | _by VALUE
+                          {
+                            # TODO: L3381
+                          }
+
+         size_optional:
+                      | SIZE _is AUTO
+                          {
+                            # TODO: L3393
+                          }
+                      | SIZE _is DEFAULT
+                          {
+                            # TODO: L3401
+                          }
+                      | UNSIGNED SIZE _is integer
+                          {
+                            # TODO: L3409
+                          }
+                      | SIZE _is integer
+                          {
+                            # TODO: L3438
+                          }
+
+    procedure_optional:
+                      | OPTIONAL
+                          {
+                            # TODO: L3471
+                          }
+
+   procedure_returning: /* empty */
+                          {
+                            # TODO: L3480
+                          }
+                      | RETURNING WORD
+                          {
+                            # TODO: L3486
+                          }
+
+procedure_declaratives:
+                      | DECLARATIVES '.'
+                          {
+                            # TODO: L3497
+                          }
+                          procedure_list END DECLARATIVES '.'
+                          {
+                            # TODO: L3500
+                          }
+
+/*******************
+ * Procedure list
+ *******************/
+        procedure_list:
+                      | procedure_list procedure
+
+             procedure: section_header
+                      | paragraph_header
+                      | invalid_statement
+                      | statements '.'
+                          {
+                            # TODO: L3533
+                          }
+                      | error '.'
+                          {
+                            # TODO: L3549
+                          }
+                      | '.'
+                          {
+                            # TODO: L3553
+                          }
+
+/*******************
+ * Section/Paragraph
+ *******************/
+        section_header: section_name SECTION opt_segment '.'
+                          {
+                            # TODO: L3565
+                          }
+
+      paragraph_header: WORD '.'
+                          {
+                            # TODO: L3596
+                          }
+
+     invalid_statement: section_name
+                          {
+                            # TODO: L3633
+                          }
+
+          section_name: WORD
+                          {
+                            # TODO: L3644
+                          }
+
+           opt_segment:
+                      | LITERAL
+                          {
+                            # TODO: L3648
+                          }
+
+/*******************
+ * Statements
+ *******************/
+        statement_list:
+                          {
+                            # TODO: L3657
+                          }
+                          {
+                            # TODO: L3661
+                          }
+                          statements
+                          {
+                            # TODO: L3666
+                          }
+
+            statements:
+                          {
+                            # TODO: L3674
+                          }
+                          statement
+                      | statements statement
+
+             statement: accept_statement
+                      | add_statement
+                      | allocate_statement
+                      | alter_statement
+                      | call_statement
+                      | cancel_statement
+                      | close_statement
+                      | commit_statement
+                      | compute_statement
+                      | continue_statement
+                      | delete_statement
+                      | display_statement
+                      | divide_statement
+                      | entry_statement
+                      | evaluate_statement
+                      | exit_statement
+                      | free_statement
+                      | generate_statement
+                      | goto_statement
+                      | goback_statement
+                      | if_statement
+                      | initialize_statement
+                      | initiate_statement
+                      | inspect_statement
+                      | merge_statement
+                      | move_statement
+                      | multiply_statement
+                      | open_statement
+                      | perform_statement
+                      | read_statement
+                      | release_statement
+                      | return_statement
+                      | rewrite_statement
+                      | rollback_statement
+                      | search_statement
+                      | set_statement
+                      | sort_statement
+                      | start_statement
+                      | stop_statement
+                      | string_statement
+                      | subtract_statement
+                      | suppress_statement
+                      | terminate_statement
+                      | transform_statement
+                      | unlock_statement
+                      | unstring_statement
+                      | use_statement
+                      | write_statement
+                      | NEXT_SENTENCE
+                          {
+                            # TODO: L3745
+                          }
+
+/*
+ * ACCEPT statement
+ */
+      accept_statement: ACCEPT
+                          {
+                            # TODO: L3767
+                          }
+                          accept_body end_accept
+
+           accept_body: identifier opt_at_line_column opt_accp_attr on_accp_exception
+                          {
+                            # TODO: L3780
+                          }
+                      | identifier FROM ESCAPE KEY
+                          {
+                            # TODO: L3784
+                          }
+                      | identifier FROM LINES
+                          {
+                            # TODO: L3788
+                          }
+                      | identifier FROM COLUMNS
+                          {
+                            # TODO: L3792
+                          }
+                      | identifier FROM DATE
+                          {
+                            # TODO: L3796
+                          }
+                      | identifier FROM DATE YYYYMMDD
+                          {
+                            # TODO: L3800
+                          }
+                      | identifier FROM DAY
+                          {
+                            # TODO: L3804
+                          }
+                      | identifier FROM DAY YYYYDDD
+                          {
+                            # TODO: L3808
+                          }
+                      | identifier FROM DAY_OF_WEEK
+                          {
+                            # TODO: L3812
+                          }
+                      | identifier FROM TIME
+                          {
+                            # TODO: L3816
+                          }
+                      | identifier FROM COMMAND_LINE
+                          {
+                            # TODO: L3820
+                          }
+                      | identifier FROM ENVIRONMENT_VALUE on_accp_exception
+                          {
+                            # TODO: L3824
+                          }
+                      | identifier FROM ENVIRONMENT simple_value on_accp_exception
+                          {
+                            # TODO: L3828
+                          }
+                      | identifier FROM ARGUMENT_NUMBER
+                          {
+                            # TODO: L3832
+                          }
+                      | identifier FROM ARGUMENT_VALUE on_accp_exception
+                          {
+                            # TODO: L3836
+                          }
+                      | identifier FROM mnemonic_name
+                          {
+                            # TODO: L3840
+                          }
+                      | identifier FROM WORD
+                          {
+                            # TODO: L3844
+                          }
+
+    opt_at_line_column: /* empty */
+                          {
+                            # TODO: L3850
+                          }
+                      | _at line_number column_number
+                          {
+                            # TODO: L3851
+                          }
+                      | _at column_number line_number
+                          {
+                            # TODO: L3852
+                          }
+                      | _at line_number
+                          {
+                            # TODO: L3853
+                          }
+                      | _at column_number
+                          {
+                            # TODO: L3854
+                          }
+                      | AT simple_value
+                          {
+                            # TODO: L3855
+                          }
+
+           line_number: LINE _number id_or_lit
+                          {
+                            # TODO: L3859
+                          }
+
+         column_number: COLUMN _number id_or_lit
+                          {
+                            # TODO: L3863
+                          }
+                      | POSITION _number id_or_lit
+                          {
+                            # TODO: L3864
+                          }
+
+         opt_accp_attr:
+                      | WITH accp_attrs
+
+            accp_attrs: accp_attr
+                      | accp_attrs accp_attr
+
+             accp_attr: BELL
+                          {
+                            # TODO: L3877
+                          }
+                      | BLINK
+                          {
+                            # TODO: L3878
+                          }
+                      | HIGHLIGHT
+                          {
+                            # TODO: L3879
+                          }
+                      | LOWLIGHT
+                          {
+                            # TODO: L3880
+                          }
+                      | REVERSE_VIDEO
+                          {
+                            # TODO: L3881
+                          }
+                      | UNDERLINE
+                          {
+                            # TODO: L3882
+                          }
+                      | OVERLINE
+                          {
+                            # TODO: L3883
+                          }
+                      | FOREGROUND_COLOR _is num_id_or_lit
+                          {
+                            # TODO: L3885
+                          }
+                      | BACKGROUND_COLOR _is num_id_or_lit
+                          {
+                            # TODO: L3889
+                          }
+                      | SCROLL UP _opt_scroll_lines
+                          {
+                            # TODO: L3893
+                          }
+                      | SCROLL DOWN _opt_scroll_lines
+                          {
+                            # TODO: L3897
+                          }
+                      | AUTO
+                          {
+                            # TODO: L3901
+                          }
+                      | FULL
+                          {
+                            # TODO: L3902
+                          }
+                      | REQUIRED
+                          {
+                            # TODO: L3903
+                          }
+                      | SECURE
+                          {
+                            # TODO: L3904
+                          }
+                      | UPDATE
+                          {
+                            # TODO: L3905
+                          }
+                      | PROMPT
+                          {
+                            # TODO: L3906
+                          }
+
+            end_accept: /* empty */
+                          {
+                            # TODO: L3910
+                          }
+                      | END_ACCEPT
+                          {
+                            # TODO: L3911
+                          }
+
+/*
+ * ADD statement
+ */
+         add_statement: ADD
+                          {
+                            # TODO: L3920
+                          }
+                          add_body end_add
+
+              add_body: x_list TO arithmetic_x_list on_size_error
+                          {
+                            # TODO: L3927
+                          }
+                      | x_list add_to GIVING arithmetic_x_list on_size_error
+                          {
+                            # TODO: L3931
+                          }
+                      | CORRESPONDING identifier TO identifier flag_rounded on_size_error
+                          {
+                            # TODO: L3935
+                          }
+
+                add_to:
+                      | TO x
+                          {
+                            # TODO: L3941
+                          }
+
+               end_add: /* empty */
+                          {
+                            # TODO: L3945
+                          }
+                      | END_ADD
+                          {
+                            # TODO: L3946
+                          }
+
+/*
+ * ALLOCATE statement
+ */
+    allocate_statement: ALLOCATE
+                          {
+                            # TODO: L3955
+                          }
+                          allocate_body
+
+         allocate_body: WORD flag_initialized allocate_returning
+                          {
+                            # TODO: L3961
+                          }
+                      | expr CHARACTERS flag_initialized RETURNING target_x
+                          {
+                            # TODO: L3965
+                          }
+
+    allocate_returning: /* empty */
+                          {
+                            # TODO: L3971
+                          }
+                      | RETURNING target_x
+                          {
+                            # TODO: L3972
+                          }
+
+/*
+ * ALTER statement
+ */
+       alter_statement: ALTER alter_options
+                          {
+                            # TODO: L3982
+                          }
+
+         alter_options:
+                      | alter_options procedure_name TO _proceed_to procedure_name
+
+           _proceed_to:
+                      | PROCEED TO
+
+/*
+ * CALL statement
+ */
+        call_statement: CALL
+                          {
+                            # TODO: L4000
+                          }
+                          id_or_lit_or_func call_using call_returning call_on_exception call_not_on_exception end_call
+                          {
+                            # TODO: L4004
+                          }
+
+            call_using: /* empty */
+                          {
+                            # TODO: L4010
+                          }
+                      | USING
+                          {
+                            # TODO: L4012
+                          }
+                          call_param_list
+                          {
+                            # TODO: L4016
+                          }
+
+       call_param_list: call_param
+                          {
+                            # TODO: L4020
+                          }
+                      | call_param_list call_param
+                          {
+                            # TODO: L4022
+                          }
+
+            call_param: call_type OMITTED
+                          {
+                            # TODO: L4027
+                          }
+                      | call_type size_optional x
+                          {
+                            # TODO: L4034
+                          }
+
+             call_type:
+                      | _by REFERENCE
+                          {
+                            # TODO: L4043
+                          }
+                      | _by CONTENT
+                          {
+                            # TODO: L4047
+                          }
+                      | _by VALUE
+                          {
+                            # TODO: L4055
+                          }
+
+        call_returning: /* empty */
+                          {
+                            # TODO: L4065
+                          }
+                      | RETURNING identifier
+                          {
+                            # TODO: L4066
+                          }
+                      | GIVING identifier
+                          {
+                            # TODO: L4067
+                          }
+
+     call_on_exception: /* empty */
+                          {
+                            # TODO: L4072
+                          }
+                      | exception_or_overflow
+                          {
+                            # TODO: L4076
+                          }
+                          statement_list
+                          {
+                            # TODO: L4080
+                          }
+
+ call_not_on_exception: /* empty */
+                          {
+                            # TODO: L4087
+                          }
+                      | not_exception_or_overflow
+                          {
+                            # TODO: L4091
+                          }
+                          statement_list
+                          {
+                            # TODO: L4095
+                          }
+
+              end_call: /* empty */
+                          {
+                            # TODO: L4101
+                          }
+                      | END_CALL
+                          {
+                            # TODO: L4102
+                          }
+
+/*
+ * CANCEL statement
+ */
+      cancel_statement: CANCEL
+                          {
+                            # TODO: L4111
+                          }
+                          cancel_list
+
+           cancel_list:
+                      | cancel_list id_or_lit
+                          {
+                            # TODO: L4117
+                          }
+
+/*
+ * CLOSE statement
+ */
+       close_statement: CLOSE
+                          {
+                            # TODO: L4128
+                          }
+                          close_list
+
+            close_list:
+                      | close_list file_name close_option
+                          {
+                            # TODO: L4135
+                          }
+
+          close_option: /* empty */
+                          {
+                            # TODO: L4144
+                          }
+                      | reel_or_unit
+                          {
+                            # TODO: L4145
+                          }
+                      | reel_or_unit _for REMOVAL
+                          {
+                            # TODO: L4146
+                          }
+                      | _with NO REWIND
+                          {
+                            # TODO: L4147
+                          }
+                      | _with LOCK
+                          {
+                            # TODO: L4148
+                          }
+
+          reel_or_unit: REEL
+                      | UNIT
+
+/*
+ * COMPUTE statement
+ */
+     compute_statement: COMPUTE
+                          {
+                            # TODO: L4159
+                          }
+                          compute_body end_compute
+
+          compute_body: arithmetic_x_list comp_equal expr on_size_error
+                          {
+                            # TODO: L4166
+                          }
+
+           end_compute: /* empty */
+                          {
+                            # TODO: L4172
+                          }
+                      | END_COMPUTE
+                          {
+                            # TODO: L4173
+                          }
+
+            comp_equal: '='
+                      | EQUAL
+
+/*
+ * COMMIT statement
+ */
+      commit_statement: COMMIT
+                          {
+                            # TODO: L4184
+                          }
+
+/*
+ * CONTINUE statement
+ */
+    continue_statement: CONTINUE
+                          {
+                            # TODO: L4197
+                          }
+
+/*
+ * DELETE statement
+ */
+      delete_statement: DELETE
+                          {
+                            # TODO: L4209
+                          }
+                          file_name _record opt_invalid_key end_delete
+                          {
+                            # TODO: L4212
+                          }
+
+            end_delete: /* empty */
+                          {
+                            # TODO: L4220
+                          }
+                      | END_DELETE
+                          {
+                            # TODO: L4221
+                          }
+
+/*
+ * DISPLAY statement
+ */
+     display_statement: DISPLAY
+                          {
+                            # TODO: L4231
+                          }
+                          display_body end_display
+
+          display_body: id_or_lit UPON_ENVIRONMENT_NAME on_disp_exception
+                          {
+                            # TODO: L4244
+                          }
+                      | id_or_lit UPON_ENVIRONMENT_VALUE on_disp_exception
+                          {
+                            # TODO: L4248
+                          }
+                      | id_or_lit UPON_ARGUMENT_NUMBER on_disp_exception
+                          {
+                            # TODO: L4252
+                          }
+                      | id_or_lit UPON_COMMAND_LINE on_disp_exception
+                          {
+                            # TODO: L4256
+                          }
+                      | x_list opt_at_line_column display_upon with_clause on_disp_exception
+                          {
+                            # TODO: L4260
+                          }
+
+          display_upon: /* empty */
+                          {
+                            # TODO: L4266
+                          }
+                      | UPON mnemonic_name
+                          {
+                            # TODO: L4267
+                          }
+                      | UPON WORD
+                          {
+                            # TODO: L4268
+                          }
+                      | UPON PRINTER
+                          {
+                            # TODO: L4269
+                          }
+                      | UPON CRT
+                          {
+                            # TODO: L4270
+                          }
+
+           with_clause: /* empty */
+                          {
+                            # TODO: L4274
+                          }
+                      | _with NO_ADVANCING
+                          {
+                            # TODO: L4275
+                          }
+                      | WITH disp_attrs
+                          {
+                            # TODO: L4276
+                          }
+
+            disp_attrs: disp_attr
+                      | disp_attrs disp_attr
+
+             disp_attr: BELL
+                          {
+                            # TODO: L4286
+                          }
+                      | BLINK
+                          {
+                            # TODO: L4287
+                          }
+                      | ERASE EOL
+                          {
+                            # TODO: L4288
+                          }
+                      | ERASE EOS
+                          {
+                            # TODO: L4289
+                          }
+                      | HIGHLIGHT
+                          {
+                            # TODO: L4290
+                          }
+                      | LOWLIGHT
+                          {
+                            # TODO: L4291
+                          }
+                      | REVERSE_VIDEO
+                          {
+                            # TODO: L4292
+                          }
+                      | UNDERLINE
+                          {
+                            # TODO: L4293
+                          }
+                      | OVERLINE
+                          {
+                            # TODO: L4294
+                          }
+                      | FOREGROUND_COLOR _is num_id_or_lit
+                          {
+                            # TODO: L4296
+                          }
+                      | BACKGROUND_COLOR _is num_id_or_lit
+                          {
+                            # TODO: L4300
+                          }
+                      | SCROLL UP _opt_scroll_lines
+                          {
+                            # TODO: L4304
+                          }
+                      | SCROLL DOWN _opt_scroll_lines
+                          {
+                            # TODO: L4308
+                          }
+                      | BLANK_LINE
+                          {
+                            # TODO: L4312
+                          }
+                      | BLANK_SCREEN
+                          {
+                            # TODO: L4313
+                          }
+
+           end_display: /* empty */
+                          {
+                            # TODO: L4317
+                          }
+                      | END_DISPLAY
+                          {
+                            # TODO: L4318
+                          }
+
+/*
+ * DIVIDE statement
+ */
+      divide_statement: DIVIDE
+                          {
+                            # TODO: L4327
+                          }
+                          divide_body end_divide
+
+           divide_body: x INTO arithmetic_x_list on_size_error
+                          {
+                            # TODO: L4334
+                          }
+                      | x INTO x GIVING arithmetic_x_list on_size_error
+                          {
+                            # TODO: L4338
+                          }
+                      | x BY x GIVING arithmetic_x_list on_size_error
+                          {
+                            # TODO: L4342
+                          }
+                      | x INTO x GIVING arithmetic_x REMAINDER arithmetic_x on_size_error
+                          {
+                            # TODO: L4346
+                          }
+                      | x BY x GIVING arithmetic_x REMAINDER arithmetic_x on_size_error
+                          {
+                            # TODO: L4350
+                          }
+
+            end_divide: /* empty */
+                          {
+                            # TODO: L4356
+                          }
+                      | END_DIVIDE
+                          {
+                            # TODO: L4357
+                          }
+
+/*
+ * ENTRY statement
+ */
+       entry_statement: ENTRY
+                          {
+                            # TODO: L4366
+                          }
+                          LITERAL call_using
+                          {
+                            # TODO: L4368
+                          }
+
+/*
+ * EVALUATE statement
+ */
+    evaluate_statement: EVALUATE
+                          {
+                            # TODO: L4388
+                          }
+                          evaluate_subject_list evaluate_condition_list end_evaluate
+                          {
+                            # TODO: L4399
+                          }
+
+ evaluate_subject_list: evaluate_subject
+                          {
+                            # TODO: L4406
+                          }
+                      | evaluate_subject_list ALSO evaluate_subject
+                          {
+                            # TODO: L4408
+                          }
+
+      evaluate_subject: expr
+                          {
+                            # TODO: L4413
+                          }
+                      | TOK_TRUE
+                          {
+                            # TODO: L4422
+                          }
+                      | TOK_FALSE
+                          {
+                            # TODO: L4427
+                          }
+
+evaluate_condition_list: evaluate_case_list evaluate_other
+                          {
+                            # TODO: L4435
+                          }
+
+    evaluate_case_list: evaluate_case
+                          {
+                            # TODO: L4444
+                          }
+                      | evaluate_case_list evaluate_case
+                          {
+                            # TODO: L4446
+                          }
+
+         evaluate_case: evaluate_when_list
+                          {
+                            # TODO: L4451
+                          }
+                          statement_list
+                          {
+                            # TODO: L4455
+                          }
+
+        evaluate_other: /* Empty */
+                          {
+                            # TODO: L4463
+                          }
+                      | WHEN OTHER
+                          {
+                            # TODO: L4467
+                          }
+                          statement_list
+                          {
+                            # TODO: L4471
+                          }
+
+    evaluate_when_list: WHEN evaluate_object_list
+                          {
+                            # TODO: L4478
+                          }
+                      | evaluate_when_list WHEN evaluate_object_list
+                          {
+                            # TODO: L4480
+                          }
+
+  evaluate_object_list: evaluate_object
+                          {
+                            # TODO: L4484
+                          }
+                      | evaluate_object_list ALSO evaluate_object
+                          {
+                            # TODO: L4486
+                          }
+
+       evaluate_object: partial_expr opt_evaluate_thru_expr
+                          {
+                            # TODO: L4491
+                          }
+                      | ANY
+                          {
+                            # TODO: L4519
+                          }
+                      | TOK_TRUE
+                          {
+                            # TODO: L4520
+                          }
+                      | TOK_FALSE
+                          {
+                            # TODO: L4521
+                          }
+
+opt_evaluate_thru_expr: /* empty */
+                          {
+                            # TODO: L4524
+                          }
+                      | THRU expr
+                          {
+                            # TODO: L4525
+                          }
+
+          end_evaluate: /* empty */
+                          {
+                            # TODO: L4529
+                          }
+                      | END_EVALUATE
+                          {
+                            # TODO: L4530
+                          }
+
+/*
+ * EXIT statement
+ */
+        exit_statement: EXIT
+                          {
+                            # TODO: L4539
+                          }
+                          exit_body
+
+             exit_body: /* empty */
+                          {
+                            # TODO: L4544
+                          }
+                      | PROGRAM
+                          {
+                            # TODO: L4546
+                          }
+                      | PERFORM
+                          {
+                            # TODO: L4554
+                          }
+                      | PERFORM CYCLE
+                          {
+                            # TODO: L4571
+                          }
+                      | SECTION
+                          {
+                            # TODO: L4588
+                          }
+                      | PARAGRAPH
+                          {
+                            # TODO: L4606
+                          }
+
+/*
+ * FREE statement
+ */
+        free_statement: FREE
+                          {
+                            # TODO: L4630
+                          }
+                          target_x_list
+                          {
+                            # TODO: L4632
+                          }
+
+/*
+ * GENERATE statement
+ */
+    generate_statement: GENERATE
+                          {
+                            # TODO: L4643
+                          }
+                          identifier
+                          {
+                            # TODO: L4645
+                          }
+
+/*
+ * GO TO statement
+ */
+        goto_statement: GO _to
+                          {
+                            # TODO: L4656
+                          }
+                          procedure_name_list goto_depending
+                          {
+                            # TODO: L4658
+                          }
+
+        goto_depending: /* empty */
+                          {
+                            # TODO: L4665
+                          }
+                      | DEPENDING _on identifier
+                          {
+                            # TODO: L4670
+                          }
+
+/*
+ * GOBACK statement
+ */
+      goback_statement: GOBACK
+                          {
+                            # TODO: L4682
+                          }
+                          {
+                            # TODO: L4683
+                          }
+
+/*
+ * IF statement
+ */
+          if_statement: IF
+                          {
+                            # TODO: L4695
+                          }
+                          condition _then
+                          {
+                            # TODO: L4697
+                          }
+                          statement_list if_else_sentence end_if
+                          {
+                            # TODO: L4702
+                          }
+                      | IF error END_IF
+
+      if_else_sentence: /* empty */
+                          {
+                            # TODO: L4710
+                          }
+                      | ELSE
+                          {
+                            # TODO: L4714
+                          }
+                          statement_list
+                          {
+                            # TODO: L4718
+                          }
+
+                end_if: /* empty */
+                          {
+                            # TODO: L4724
+                          }
+                      | END_IF
+                          {
+                            # TODO: L4725
+                          }
+
+/*
+ * INITIALIZE statement
+ */
+  initialize_statement: INITIALIZE
+                          {
+                            # TODO: L4734
+                          }
+                          target_x_list initialize_filler initialize_value initialize_replacing initialize_default
+                          {
+                            # TODO: L4736
+                          }
+
+     initialize_filler: /* empty */
+                          {
+                            # TODO: L4742
+                          }
+                      | _with FILLER
+                          {
+                            # TODO: L4743
+                          }
+
+      initialize_value: /* empty */
+                          {
+                            # TODO: L4747
+                          }
+                      | ALL _to VALUE
+                          {
+                            # TODO: L4748
+                          }
+                      | initialize_category _to VALUE
+                          {
+                            # TODO: L4749
+                          }
+
+  initialize_replacing: /* empty */
+                          {
+                            # TODO: L4753
+                          }
+                      | REPLACING initialize_replacing_list
+                          {
+                            # TODO: L4755
+                          }
+
+initialize_replacing_list: initialize_replacing_item
+                          {
+                            # TODO: L4759
+                          }
+                      | initialize_replacing_list initialize_replacing_item
+                          {
+                            # TODO: L4761
+                          }
+
+initialize_replacing_item: initialize_category _data BY x
+                          {
+                            # TODO: L4765
+                          }
+
+   initialize_category: ALPHABETIC
+                          {
+                            # TODO: L4769
+                          }
+                      | ALPHANUMERIC
+                          {
+                            # TODO: L4770
+                          }
+                      | NUMERIC
+                          {
+                            # TODO: L4771
+                          }
+                      | ALPHANUMERIC_EDITED
+                          {
+                            # TODO: L4772
+                          }
+                      | NUMERIC_EDITED
+                          {
+                            # TODO: L4773
+                          }
+                      | NATIONAL
+                          {
+                            # TODO: L4774
+                          }
+                      | NATIONAL_EDITED
+                          {
+                            # TODO: L4775
+                          }
+
+    initialize_default: /* empty */
+                          {
+                            # TODO: L4779
+                          }
+                      | DEFAULT
+                          {
+                            # TODO: L4780
+                          }
+
+/*
+ * INITIATE statement
+ */
+    initiate_statement: INITIATE
+                          {
+                            # TODO: L4789
+                          }
+                          identifier_list
+                          {
+                            # TODO: L4791
+                          }
+
+/*
+ * INSPECT statement
+ */
+     inspect_statement: INSPECT
+                          {
+                            # TODO: L4802
+                          }
+                          send_identifier inspect_list
+
+       send_identifier: identifier
+                          {
+                            # TODO: L4811
+                          }
+                      | literal
+                          {
+                            # TODO: L4812
+                          }
+                      | function
+                          {
+                            # TODO: L4813
+                          }
+
+          inspect_list: inspect_item
+                      | inspect_list inspect_item
+
+          inspect_item: inspect_tallying
+                          {
+                            # TODO: L4822
+                          }
+                      | inspect_replacing
+                          {
+                            # TODO: L4823
+                          }
+                      | inspect_converting
+                          {
+                            # TODO: L4824
+                          }
+
+/* INSPECT TALLYING */
+      inspect_tallying: TALLYING
+                          {
+                            # TODO: L4830
+                          }
+                          tallying_list
+                          {
+                            # TODO: L4831
+                          }
+
+         tallying_list: tallying_item
+                          {
+                            # TODO: L4835
+                          }
+                      | tallying_list tallying_item
+                          {
+                            # TODO: L4836
+                          }
+
+         tallying_item: simple_value FOR
+                          {
+                            # TODO: L4840
+                          }
+                      | CHARACTERS inspect_region
+                          {
+                            # TODO: L4841
+                          }
+                      | ALL
+                          {
+                            # TODO: L4842
+                          }
+                      | LEADING
+                          {
+                            # TODO: L4843
+                          }
+                      | TRAILING
+                          {
+                            # TODO: L4844
+                          }
+                      | simple_value inspect_region
+                          {
+                            # TODO: L4845
+                          }
+
+/* INSPECT REPLACING */
+     inspect_replacing: REPLACING replacing_list
+                          {
+                            # TODO: L4851
+                          }
+
+        replacing_list: replacing_item
+                          {
+                            # TODO: L4855
+                          }
+                      | replacing_list replacing_item
+                          {
+                            # TODO: L4856
+                          }
+
+        replacing_item: CHARACTERS BY simple_value inspect_region
+                          {
+                            # TODO: L4861
+                          }
+                      | rep_keyword replacing_region
+                          {
+                            # TODO: L4865
+                          }
+
+           rep_keyword: /* empty */
+                          {
+                            # TODO: L4869
+                          }
+                      | ALL
+                          {
+                            # TODO: L4870
+                          }
+                      | LEADING
+                          {
+                            # TODO: L4871
+                          }
+                      | FIRST
+                          {
+                            # TODO: L4872
+                          }
+                      | TRAILING
+                          {
+                            # TODO: L4873
+                          }
+
+      replacing_region: simple_value BY simple_all_value inspect_region
+                          {
+                            # TODO: L4878
+                          }
+
+/* INSPECT CONVERTING */
+    inspect_converting: CONVERTING simple_value TO simple_all_value inspect_region
+                          {
+                            # TODO: L4904
+                          }
+
+/* INSPECT BEFORE/AFTER */
+        inspect_region: /* empty */
+                          {
+                            # TODO: L4912
+                          }
+                      | inspect_region before_or_after _initial x
+                          {
+                            # TODO: L4914
+                          }
+
+              _initial:
+                      | TOK_INITIAL
+
+/*
+ * MERGE statement
+ */
+       merge_statement: MERGE
+                          {
+                            # TODO: L4925
+                          }
+                          sort_body
+
+/*
+ * MOVE statement
+ */
+        move_statement: MOVE
+                          {
+                            # TODO: L4935
+                          }
+                          move_body
+
+             move_body: x TO target_x_list
+                          {
+                            # TODO: L4941
+                          }
+                      | CORRESPONDING x TO target_x_list
+                          {
+                            # TODO: L4945
+                          }
+
+/*
+ * MULTIPLY statement
+ */
+    multiply_statement: MULTIPLY
+                          {
+                            # TODO: L4956
+                          }
+                          multiply_body end_multiply
+
+         multiply_body: x BY arithmetic_x_list on_size_error
+                          {
+                            # TODO: L4963
+                          }
+                      | x BY x GIVING arithmetic_x_list on_size_error
+                          {
+                            # TODO: L4967
+                          }
+
+          end_multiply: /* empty */
+                          {
+                            # TODO: L4973
+                          }
+                      | END_MULTIPLY
+                          {
+                            # TODO: L4974
+                          }
+
+/*
+ * OPEN statement
+ */
+        open_statement: OPEN
+                          {
+                            # TODO: L4983
+                          }
+                          open_list
+
+             open_list:
+                      | open_list open_mode open_sharing file_name_list open_option
+                          {
+                            # TODO: L4990
+                          }
+
+             open_mode: INPUT
+                          {
+                            # TODO: L5002
+                          }
+                      | OUTPUT
+                          {
+                            # TODO: L5003
+                          }
+                      | I_O
+                          {
+                            # TODO: L5004
+                          }
+                      | EXTEND
+                          {
+                            # TODO: L5005
+                          }
+
+          open_sharing: /* empty */
+                          {
+                            # TODO: L5009
+                          }
+                      | SHARING _with sharing_option
+                          {
+                            # TODO: L5010
+                          }
+
+           open_option: /* empty */
+                          {
+                            # TODO: L5014
+                          }
+                      | _with NO REWIND
+                          {
+                            # TODO: L5015
+                          }
+                      | _with LOCK
+                          {
+                            # TODO: L5016
+                          }
+
+/*
+ * PERFORM statement
+ */
+     perform_statement: PERFORM
+                          {
+                            # TODO: L5028
+                          }
+                          perform_body
+
+          perform_body: perform_procedure perform_option
+                          {
+                            # TODO: L5034
+                          }
+                      | perform_option
+                          {
+                            # TODO: L5038
+                          }
+                          statement_list end_perform
+                          {
+                            # TODO: L5043
+                          }
+                      | perform_option END_PERFORM
+                          {
+                            # TODO: L5048
+                          }
+
+           end_perform: /* empty */
+                          {
+                            # TODO: L5054
+                          }
+                      | END_PERFORM
+                          {
+                            # TODO: L5055
+                          }
+
+     perform_procedure: procedure_name
+                          {
+                            # TODO: L5060
+                          }
+                      | procedure_name THRU procedure_name
+                          {
+                            # TODO: L5065
+                          }
+
+        perform_option: /* empty */
+                          {
+                            # TODO: L5073
+                          }
+                      | FOREVER
+                          {
+                            # TODO: L5077
+                          }
+                      | id_or_lit_or_func TIMES
+                          {
+                            # TODO: L5081
+                          }
+                      | perform_test UNTIL condition
+                          {
+                            # TODO: L5086
+                          }
+                      | perform_test VARYING perform_varying_list
+                          {
+                            # TODO: L5093
+                          }
+
+          perform_test: /* empty */
+                          {
+                            # TODO: L5099
+                          }
+                      | _with TEST before_or_after
+                          {
+                            # TODO: L5100
+                          }
+
+  perform_varying_list: perform_varying
+                          {
+                            # TODO: L5104
+                          }
+                      | perform_varying_list AFTER perform_varying
+                          {
+                            # TODO: L5106
+                          }
+
+       perform_varying: identifier FROM x BY x UNTIL condition
+                          {
+                            # TODO: L5111
+                          }
+
+/*
+ * READ statements
+ */
+        read_statement: READ
+                          {
+                            # TODO: L5122
+                          }
+                          file_name flag_next _record read_into with_lock read_key read_handler end_read
+                          {
+                            # TODO: L5125
+                          }
+
+             read_into: /* empty */
+                          {
+                            # TODO: L5145
+                          }
+                      | INTO identifier
+                          {
+                            # TODO: L5146
+                          }
+
+             with_lock: /* empty */
+                          {
+                            # TODO: L5150
+                          }
+                      | IGNORING LOCK
+                          {
+                            # TODO: L5152
+                          }
+                      | _with LOCK
+                          {
+                            # TODO: L5156
+                          }
+                      | _with NO LOCK
+                          {
+                            # TODO: L5160
+                          }
+                      | _with IGNORE LOCK
+                          {
+                            # TODO: L5164
+                          }
+                      | _with WAIT
+                          {
+                            # TODO: L5168
+                          }
+
+              read_key: /* empty */
+                          {
+                            # TODO: L5174
+                          }
+                      | KEY _is identifier
+                          {
+                            # TODO: L5175
+                          }
+
+          read_handler:
+                      | at_end
+                      | invalid_key
+
+              end_read: /* empty */
+                          {
+                            # TODO: L5184
+                          }
+                      | END_READ
+                          {
+                            # TODO: L5185
+                          }
+
+/*
+ * RELEASE statement
+ */
+     release_statement: RELEASE
+                          {
+                            # TODO: L5194
+                          }
+                          record_name write_from
+                          {
+                            # TODO: L5196
+                          }
+
+/*
+ * RETURN statement
+ */
+      return_statement: RETURN
+                          {
+                            # TODO: L5209
+                          }
+                          file_name _record read_into at_end end_return
+                          {
+                            # TODO: L5212
+                          }
+
+            end_return: /* empty */
+                          {
+                            # TODO: L5220
+                          }
+                      | END_RETURN
+                          {
+                            # TODO: L5221
+                          }
+
+/*
+ * REWRITE statement
+ */
+     rewrite_statement: REWRITE
+                          {
+                            # TODO: L5230
+                          }
+                          record_name write_from write_lock opt_invalid_key end_rewrite
+                          {
+                            # TODO: L5233
+                          }
+
+            write_lock: /* empty */
+                          {
+                            # TODO: L5241
+                          }
+                      | _with LOCK
+                          {
+                            # TODO: L5243
+                          }
+                      | _with NO LOCK
+                          {
+                            # TODO: L5247
+                          }
+
+           end_rewrite: /* empty */
+                          {
+                            # TODO: L5253
+                          }
+                      | END_REWRITE
+                          {
+                            # TODO: L5254
+                          }
+
+/*
+ * ROLLBACK statement
+ */
+    rollback_statement: ROLLBACK
+                          {
+                            # TODO: L5264
+                          }
+
+/*
+ * SEARCH statement
+ */
+      search_statement: SEARCH
+                          {
+                            # TODO: L5276
+                          }
+                          search_body end_search
+
+           search_body: table_name search_varying search_at_end search_whens
+                          {
+                            # TODO: L5283
+                          }
+                      | ALL table_name search_at_end WHEN expr
+                          {
+                            # TODO: L5287
+                          }
+                          statement_list
+                          {
+                            # TODO: L5291
+                          }
+
+        search_varying: /* empty */
+                          {
+                            # TODO: L5297
+                          }
+                      | VARYING identifier
+                          {
+                            # TODO: L5298
+                          }
+
+         search_at_end: /* empty */
+                          {
+                            # TODO: L5302
+                          }
+                      | _at END
+                          {
+                            # TODO: L5304
+                          }
+                          statement_list
+                          {
+                            # TODO: L5308
+                          }
+
+          search_whens: search_when
+                          {
+                            # TODO: L5314
+                          }
+                      | search_when search_whens
+                          {
+                            # TODO: L5315
+                          }
+
+           search_when: WHEN condition
+                          {
+                            # TODO: L5320
+                          }
+                          statement_list
+                          {
+                            # TODO: L5324
+                          }
+
+            end_search: /* empty */
+                          {
+                            # TODO: L5330
+                          }
+                      | END_SEARCH
+                          {
+                            # TODO: L5331
+                          }
+
+/*
+ * SET statement
+ */
+         set_statement: SET
+                          {
+                            # TODO: L5340
+                          }
+                          set_body
+
+              set_body: set_environment
+                      | set_to
+                      | set_up_down
+                      | set_to_on_off_sequence
+                      | set_to_true_false_sequence
+
+/* SET ENVIRONMENT ... TO ... */
+       set_environment: ENVIRONMENT simple_value TO simple_value
+                          {
+                            # TODO: L5356
+                          }
+
+/* SET name ... TO expr */
+                set_to: target_x_list TO ENTRY alnum_or_id
+                          {
+                            # TODO: L5365
+                          }
+                      | target_x_list TO x
+                          {
+                            # TODO: L5369
+                          }
+
+/* SET name ... UP/DOWN BY expr */
+           set_up_down: target_x_list up_or_down BY x
+                          {
+                            # TODO: L5378
+                          }
+
+            up_or_down: UP
+                          {
+                            # TODO: L5384
+                          }
+                      | DOWN
+                          {
+                            # TODO: L5385
+                          }
+
+/* SET mnemonic-name-1 ... TO ON/OFF */
+set_to_on_off_sequence: set_to_on_off
+                      | set_to_on_off_sequence set_to_on_off
+
+         set_to_on_off: mnemonic_name_list TO on_or_off
+                          {
+                            # TODO: L5397
+                          }
+
+/* SET condition-name-1 ... TO TRUE/FALSE */
+set_to_true_false_sequence: set_to_true_false
+                      | set_to_true_false_sequence set_to_true_false
+
+     set_to_true_false: target_x_list TO TOK_TRUE
+                          {
+                            # TODO: L5411
+                          }
+                      | target_x_list TO TOK_FALSE
+                          {
+                            # TODO: L5415
+                          }
+
+/*
+ * SORT statement
+ */
+        sort_statement: SORT
+                          {
+                            # TODO: L5426
+                          }
+                          sort_body
+
+             sort_body: qualified_word sort_key_list sort_duplicates sort_collating
+                          {
+                            # TODO: L5432
+                          }
+                          sort_input sort_output
+                          {
+                            # TODO: L5441
+                          }
+
+         sort_key_list: /* empty */
+                          {
+                            # TODO: L5448
+                          }
+                      | sort_key_list _on ascending_or_descending _key opt_key_list
+                          {
+                            # TODO: L5453
+                          }
+
+          opt_key_list: /* empty */
+                          {
+                            # TODO: L5467
+                          }
+                      | opt_key_list qualified_word
+                          {
+                            # TODO: L5468
+                          }
+
+       sort_duplicates:
+                      | with_dups _in_order
+                          {
+                            # TODO: L5472
+                          }
+
+        sort_collating: /* empty */
+                          {
+                            # TODO: L5476
+                          }
+                      | coll_sequence _is reference
+                          {
+                            # TODO: L5477
+                          }
+
+            sort_input: /* empty */
+                          {
+                            # TODO: L5482
+                          }
+                      | USING file_name_list
+                          {
+                            # TODO: L5488
+                          }
+                      | INPUT PROCEDURE _is perform_procedure
+                          {
+                            # TODO: L5496
+                          }
+
+           sort_output: /* empty */
+                          {
+                            # TODO: L5507
+                          }
+                      | GIVING file_name_list
+                          {
+                            # TODO: L5513
+                          }
+                      | OUTPUT PROCEDURE _is perform_procedure
+                          {
+                            # TODO: L5521
+                          }
+
+/*
+ * START statement
+ */
+       start_statement: START
+                          {
+                            # TODO: L5536
+                          }
+                          file_name
+                          {
+                            # TODO: L5537
+                          }
+                          start_key opt_invalid_key end_start
+                          {
+                            # TODO: L5540
+                          }
+
+             start_key: /* empty */
+                          {
+                            # TODO: L5557
+                          }
+                      | KEY _is start_op x
+                          {
+                            # TODO: L5558
+                          }
+
+              start_op: flag_not eq
+                          {
+                            # TODO: L5562
+                          }
+                      | flag_not gt
+                          {
+                            # TODO: L5563
+                          }
+                      | flag_not lt
+                          {
+                            # TODO: L5564
+                          }
+                      | flag_not ge
+                          {
+                            # TODO: L5565
+                          }
+                      | flag_not le
+                          {
+                            # TODO: L5566
+                          }
+
+             end_start: /* empty */
+                          {
+                            # TODO: L5570
+                          }
+                      | END_START
+                          {
+                            # TODO: L5571
+                          }
+
+/*
+ * STOP statement
+ */
+        stop_statement: STOP RUN
+                          {
+                            # TODO: L5580
+                          }
+                          stop_returning
+                          {
+                            # TODO: L5582
+                          }
+                      | STOP LITERAL
+                          {
+                            # TODO: L5586
+                          }
+
+        stop_returning: /* empty */
+                          {
+                            # TODO: L5592
+                          }
+                      | RETURNING x
+                          {
+                            # TODO: L5593
+                          }
+                      | GIVING x
+                          {
+                            # TODO: L5594
+                          }
+
+/*
+ * STRING statement
+ */
+      string_statement: STRING
+                          {
+                            # TODO: L5603
+                          }
+                          string_item_list INTO identifier opt_with_pointer on_overflow end_string
+                          {
+                            # TODO: L5606
+                          }
+
+      string_item_list: string_item
+                          {
+                            # TODO: L5612
+                          }
+                      | string_item_list string_item
+                          {
+                            # TODO: L5613
+                          }
+
+           string_item: x
+                          {
+                            # TODO: L5617
+                          }
+                      | DELIMITED _by SIZE
+                          {
+                            # TODO: L5618
+                          }
+                      | DELIMITED _by x
+                          {
+                            # TODO: L5619
+                          }
+
+      opt_with_pointer: /* empty */
+                          {
+                            # TODO: L5623
+                          }
+                      | _with POINTER identifier
+                          {
+                            # TODO: L5624
+                          }
+
+            end_string: /* empty */
+                          {
+                            # TODO: L5628
+                          }
+                      | END_STRING
+                          {
+                            # TODO: L5629
+                          }
+
+/*
+ * SUBTRACT statement
+ */
+    subtract_statement: SUBTRACT
+                          {
+                            # TODO: L5638
+                          }
+                          subtract_body end_subtract
+
+         subtract_body: x_list FROM arithmetic_x_list on_size_error
+                          {
+                            # TODO: L5645
+                          }
+                      | x_list FROM x GIVING arithmetic_x_list on_size_error
+                          {
+                            # TODO: L5649
+                          }
+                      | CORRESPONDING identifier FROM identifier flag_rounded on_size_error
+                          {
+                            # TODO: L5653
+                          }
+
+          end_subtract: /* empty */
+                          {
+                            # TODO: L5659
+                          }
+                      | END_SUBTRACT
+                          {
+                            # TODO: L5660
+                          }
+
+/*
+ * SUPPRESS statement
+ */
+    suppress_statement: SUPPRESS _printing
+                          {
+                            # TODO: L5670
+                          }
+
+             _printing:
+                      | PRINTING
+
+/*
+ * TERMINATE statement
+ */
+   terminate_statement: TERMINATE
+                          {
+                            # TODO: L5685
+                          }
+                          identifier_list
+                          {
+                            # TODO: L5687
+                          }
+
+/*
+ * TRANSFORM statement
+ */
+   transform_statement: TRANSFORM
+                          {
+                            # TODO: L5698
+                          }
+                          identifier FROM simple_value TO simple_all_value
+                          {
+                            # TODO: L5700
+                          }
+
+/*
+ * UNLOCK statement
+ */
+      unlock_statement: UNLOCK
+                          {
+                            # TODO: L5714
+                          }
+                          file_name opt_record
+                          {
+                            # TODO: L5716
+                          }
+
+            opt_record:
+                      | RECORD
+                      | RECORDS
+
+/*
+ * UNSTRING statement
+ */
+    unstring_statement: UNSTRING
+                          {
+                            # TODO: L5735
+                          }
+                          identifier unstring_delimited unstring_into opt_with_pointer unstring_tallying on_overflow end_unstring
+                          {
+                            # TODO: L5739
+                          }
+
+    unstring_delimited: /* empty */
+                          {
+                            # TODO: L5745
+                          }
+                      | DELIMITED _by unstring_delimited_list
+                          {
+                            # TODO: L5747
+                          }
+
+unstring_delimited_list: unstring_delimited_item
+                          {
+                            # TODO: L5751
+                          }
+                      | unstring_delimited_list OR unstring_delimited_item
+                          {
+                            # TODO: L5753
+                          }
+
+unstring_delimited_item: flag_all simple_value
+                          {
+                            # TODO: L5758
+                          }
+
+         unstring_into: INTO unstring_into_item
+                          {
+                            # TODO: L5764
+                          }
+                      | unstring_into unstring_into_item
+                          {
+                            # TODO: L5766
+                          }
+
+    unstring_into_item: identifier unstring_into_delimiter unstring_into_count
+                          {
+                            # TODO: L5771
+                          }
+
+unstring_into_delimiter: /* empty */
+                          {
+                            # TODO: L5777
+                          }
+                      | DELIMITER _in identifier
+                          {
+                            # TODO: L5778
+                          }
+
+   unstring_into_count: /* empty */
+                          {
+                            # TODO: L5782
+                          }
+                      | COUNT _in identifier
+                          {
+                            # TODO: L5783
+                          }
+
+     unstring_tallying: /* empty */
+                          {
+                            # TODO: L5787
+                          }
+                      | TALLYING _in identifier
+                          {
+                            # TODO: L5788
+                          }
+
+          end_unstring: /* empty */
+                          {
+                            # TODO: L5792
+                          }
+                      | END_UNSTRING
+                          {
+                            # TODO: L5793
+                          }
+
+/*
+ * USE statement
+ */
+         use_statement: use_exception
+                      | use_debugging
+                      | use_reporting
+
+         use_exception: USE use_global _after _standard exception_or_error _procedure _on use_exception_target
+                          {
+                            # TODO: L5811
+                          }
+
+            use_global: /* empty */
+                          {
+                            # TODO: L5832
+                          }
+                      | GLOBAL
+                          {
+                            # TODO: L5836
+                          }
+
+  use_exception_target: file_name_list
+                          {
+                            # TODO: L5844
+                          }
+                      | INPUT
+                          {
+                            # TODO: L5854
+                          }
+                      | OUTPUT
+                          {
+                            # TODO: L5859
+                          }
+                      | I_O
+                          {
+                            # TODO: L5864
+                          }
+                      | EXTEND
+                          {
+                            # TODO: L5869
+                          }
+
+                _after:
+                      | AFTER
+
+             _standard:
+                      | STANDARD
+
+    exception_or_error: EXCEPTION
+                      | ERROR
+
+ exception_or_overflow: EXCEPTION
+                      | OVERFLOW
+
+not_exception_or_overflow: NOT_EXCEPTION
+                      | NOT_OVERFLOW
+
+            _procedure:
+                      | PROCEDURE
+
+         use_debugging: USE _for DEBUGGING _on use_debugging_target
+                          {
+                            # TODO: L5901
+                          }
+
+  use_debugging_target: procedure_name
+                      | ALL PROCEDURES
+
+         use_reporting: USE use_global BEFORE REPORTING identifier
+                          {
+                            # TODO: L5913
+                          }
+
+/*
+ * WRITE statement
+ */
+       write_statement: WRITE
+                          {
+                            # TODO: L5924
+                          }
+                          record_name write_from write_lock write_option write_handler end_write
+                          {
+                            # TODO: L5927
+                          }
+
+            write_from: /* empty */
+                          {
+                            # TODO: L5935
+                          }
+                      | FROM id_or_lit
+                          {
+                            # TODO: L5936
+                          }
+
+          write_option: /* empty */
+                          {
+                            # TODO: L5941
+                          }
+                      | before_or_after _advancing num_id_or_lit _line_or_lines
+                          {
+                            # TODO: L5945
+                          }
+                      | before_or_after _advancing mnemonic_name
+                          {
+                            # TODO: L5949
+                          }
+                      | before_or_after _advancing PAGE
+                          {
+                            # TODO: L5953
+                          }
+
+       before_or_after: BEFORE
+                          {
+                            # TODO: L5959
+                          }
+                      | AFTER
+                          {
+                            # TODO: L5960
+                          }
+
+         write_handler:
+                      | at_eop
+                      | invalid_key
+
+             end_write: /* empty */
+                          {
+                            # TODO: L5969
+                          }
+                      | END_WRITE
+                          {
+                            # TODO: L5970
+                          }
+
+/*
+ * ON EXCEPTION
+ */
+     on_accp_exception: opt_on_exception opt_not_on_exception
+                          {
+                            # TODO: L5985
+                          }
+
+     on_disp_exception: opt_on_exception opt_not_on_exception
+                          {
+                            # TODO: L5993
+                          }
+
+      opt_on_exception:
+                      | EXCEPTION
+                          {
+                            # TODO: L6000
+                          }
+                          statement_list
+                          {
+                            # TODO: L6004
+                          }
+
+  opt_not_on_exception:
+                      | NOT_EXCEPTION
+                          {
+                            # TODO: L6011
+                          }
+                          statement_list
+                          {
+                            # TODO: L6015
+                          }
+
+/*
+ * ON SIZE ERROR
+ */
+         on_size_error: opt_on_size_error opt_not_on_size_error
+                          {
+                            # TODO: L6027
+                          }
+
+     opt_on_size_error:
+                      | SIZE_ERROR
+                          {
+                            # TODO: L6034
+                          }
+                          statement_list
+                          {
+                            # TODO: L6038
+                          }
+
+ opt_not_on_size_error:
+                      | NOT_SIZE_ERROR
+                          {
+                            # TODO: L6045
+                          }
+                          statement_list
+                          {
+                            # TODO: L6049
+                          }
+
+/*
+ * ON OVERFLOW
+ */
+           on_overflow: opt_on_overflow opt_not_on_overflow
+                          {
+                            # TODO: L6061
+                          }
+
+       opt_on_overflow:
+                      | OVERFLOW
+                          {
+                            # TODO: L6068
+                          }
+                          statement_list
+                          {
+                            # TODO: L6072
+                          }
+
+   opt_not_on_overflow:
+                      | NOT_OVERFLOW
+                          {
+                            # TODO: L6079
+                          }
+                          statement_list
+                          {
+                            # TODO: L6083
+                          }
+
+/*
+ * AT END
+ */
+                at_end: at_end_sentence
+                          {
+                            # TODO: L6095
+                          }
+                      | not_at_end_sentence
+                          {
+                            # TODO: L6100
+                          }
+                      | at_end_sentence not_at_end_sentence
+                          {
+                            # TODO: L6105
+                          }
+
+       at_end_sentence: END
+                          {
+                            # TODO: L6114
+                          }
+                          statement_list
+                          {
+                            # TODO: L6118
+                          }
+
+   not_at_end_sentence: NOT_END
+                          {
+                            # TODO: L6125
+                          }
+                          statement_list
+                          {
+                            # TODO: L6129
+                          }
+
+/*
+ * AT EOP
+ */
+                at_eop: at_eop_sentence
+                          {
+                            # TODO: L6141
+                          }
+                      | not_at_eop_sentence
+                          {
+                            # TODO: L6146
+                          }
+                      | at_eop_sentence not_at_eop_sentence
+                          {
+                            # TODO: L6151
+                          }
+
+       at_eop_sentence: EOP
+                          {
+                            # TODO: L6160
+                          }
+                          statement_list
+                          {
+                            # TODO: L6164
+                          }
+
+   not_at_eop_sentence: NOT_EOP
+                          {
+                            # TODO: L6171
+                          }
+                          statement_list
+                          {
+                            # TODO: L6175
+                          }
+
+/*
+ * INVALID KEY
+ */
+       opt_invalid_key:
+                      | invalid_key
+
+           invalid_key: invalid_key_sentence
+                          {
+                            # TODO: L6191
+                          }
+                      | not_invalid_key_sentence
+                          {
+                            # TODO: L6196
+                          }
+                      | invalid_key_sentence not_invalid_key_sentence
+                          {
+                            # TODO: L6201
+                          }
+
+  invalid_key_sentence: INVALID_KEY
+                          {
+                            # TODO: L6210
+                          }
+                          statement_list
+                          {
+                            # TODO: L6214
+                          }
+
+not_invalid_key_sentence: NOT_INVALID_KEY
+                          {
+                            # TODO: L6221
+                          }
+                          statement_list
+                          {
+                            # TODO: L6225
+                          }
+
+/*****************************************************************************
+ * Common Constructs
+ *****************************************************************************/
+     _opt_scroll_lines: /* empty */
+                          {
+                            # TODO: L6237
+                          }
+                      | _by num_id_or_lit _line_or_lines
+                          {
+                            # TODO: L6241
+                          }
+
+/*******************
+ * Expressions
+ *******************/
+             condition: expr
+                          {
+                            # TODO: L6253
+                          }
+
+                  expr: partial_expr
+                          {
+                            # TODO: L6260
+                          }
+
+          partial_expr:
+                          {
+                            # TODO: L6266
+                          }
+                          expr_tokens
+                          {
+                            # TODO: L6270
+                          }
+
+           expr_tokens: expr_token
+                      | expr_tokens IS
+                      | expr_tokens expr_token
+
+            expr_token: x
+                          {
+                            # TODO: L6282
+                          }
+                      | '('
+                          {
+                            # TODO: L6284
+                          }
+                      | ')'
+                          {
+                            # TODO: L6285
+                          }
+                      | '+'
+                          {
+                            # TODO: L6287
+                          }
+                      | '-'
+                          {
+                            # TODO: L6288
+                          }
+                      | '*'
+                          {
+                            # TODO: L6289
+                          }
+                      | '/'
+                          {
+                            # TODO: L6290
+                          }
+                      | '^'
+                          {
+                            # TODO: L6291
+                          }
+                      | eq
+                          {
+                            # TODO: L6293
+                          }
+                      | gt
+                          {
+                            # TODO: L6294
+                          }
+                      | lt
+                          {
+                            # TODO: L6295
+                          }
+                      | GE
+                          {
+                            # TODO: L6296
+                          }
+                      | LE
+                          {
+                            # TODO: L6297
+                          }
+                      | NE
+                          {
+                            # TODO: L6298
+                          }
+                      | NOT
+                          {
+                            # TODO: L6300
+                          }
+                      | AND
+                          {
+                            # TODO: L6301
+                          }
+                      | OR
+                          {
+                            # TODO: L6302
+                          }
+                      | OMITTED
+                          {
+                            # TODO: L6304
+                          }
+                      | NUMERIC
+                          {
+                            # TODO: L6305
+                          }
+                      | ALPHABETIC
+                          {
+                            # TODO: L6306
+                          }
+                      | ALPHABETIC_LOWER
+                          {
+                            # TODO: L6307
+                          }
+                      | ALPHABETIC_UPPER
+                          {
+                            # TODO: L6308
+                          }
+                      | POSITIVE
+                          {
+                            # TODO: L6311
+                          }
+                      | NEGATIVE
+                          {
+                            # TODO: L6312
+                          }
+
+                    eq: '='
+                      | EQUAL _to
+                      | EQUALS
+
+                    gt: '>'
+                      | GREATER _than
+
+                    lt: '<'
+                      | LESS _than
+
+                    ge: GE
+                      | GREATER _than OR EQUAL _to
+
+                    le: LE
+                      | LESS _than OR EQUAL _to
+
+/* Arithmetic expression */
+              exp_list: exp
+                          {
+                            # TODO: L6324
+                          }
+                      | exp_list e_sep exp
+                          {
+                            # TODO: L6325
+                          }
+
+                 e_sep:
+                      | COMMA_DELIM
+                      | SEMI_COLON
+
+                   exp: arith_x
+                          {
+                            # TODO: L6334
+                          }
+                      | exp '+' exp
+                          {
+                            # TODO: L6335
+                          }
+                      | exp '-' exp
+                          {
+                            # TODO: L6336
+                          }
+                      | exp '*' exp
+                          {
+                            # TODO: L6337
+                          }
+                      | exp '/' exp
+                          {
+                            # TODO: L6338
+                          }
+                      | '+' exp =UNARY_SIGN
+                          {
+                            # TODO: L6339
+                          }
+                      | '-' exp =UNARY_SIGN
+                          {
+                            # TODO: L6340
+                          }
+                      | exp '^' exp
+                          {
+                            # TODO: L6341
+                          }
+                      | '(' exp ')'
+                          {
+                            # TODO: L6342
+                          }
+
+/* LINAGE-COUNTER */
+        linage_counter: LINAGE_COUNTER
+                          {
+                            # TODO: L6354
+                          }
+                      | LINAGE_COUNTER in_of WORD
+                          {
+                            # TODO: L6366
+                          }
+
+/* Data name */
+     arithmetic_x_list: arithmetic_x
+                          {
+                            # TODO: L6380
+                          }
+                      | arithmetic_x_list arithmetic_x
+                          {
+                            # TODO: L6382
+                          }
+
+          arithmetic_x: x flag_rounded
+                          {
+                            # TODO: L6386
+                          }
+
+/* Record name */
+           record_name: qualified_word
+                          {
+                            # TODO: L6392
+                          }
+
+/* Table name */
+            table_name: qualified_word
+                          {
+                            # TODO: L6399
+                          }
+
+/* File name */
+        file_name_list: file_name
+                          {
+                            # TODO: L6419
+                          }
+                      | file_name_list file_name
+                          {
+                            # TODO: L6423
+                          }
+
+             file_name: WORD
+                          {
+                            # TODO: L6439
+                          }
+
+/* Mnemonic name */
+    mnemonic_name_list: mnemonic_name
+                          {
+                            # TODO: L6452
+                          }
+                      | mnemonic_name_list mnemonic_name
+                          {
+                            # TODO: L6454
+                          }
+
+         mnemonic_name: MNEMONIC_NAME
+                          {
+                            # TODO: L6458
+                          }
+
+/* Procedure name */
+   procedure_name_list: /* empty */
+                          {
+                            # TODO: L6464
+                          }
+                      | procedure_name_list procedure_name
+                          {
+                            # TODO: L6466
+                          }
+
+        procedure_name: label
+                          {
+                            # TODO: L6471
+                          }
+
+                 label: qualified_word
+                      | integer_label
+                      | integer_label in_of integer_label
+
+         integer_label: LITERAL
+                          {
+                            # TODO: L6486
+                          }
+
+/* Reference */
+        reference_list: reference
+                          {
+                            # TODO: L6496
+                          }
+                      | reference_list reference
+                          {
+                            # TODO: L6497
+                          }
+
+             reference: qualified_word
+                          {
+                            # TODO: L6502
+                          }
+
+         opt_reference: /* empty */
+                          {
+                            # TODO: L6509
+                          }
+                      | reference
+                          {
+                            # TODO: L6510
+                          }
+
+  reference_or_literal: reference
+                      | LITERAL
+
+/* Undefined word */
+        undefined_word: WORD
+                          {
+                            # TODO: L6522
+                          }
+
+/*
+ * Primitive value
+ */
+         target_x_list: target_x
+                          {
+                            # TODO: L6541
+                          }
+                      | target_x_list target_x
+                          {
+                            # TODO: L6542
+                          }
+
+              target_x: identifier
+                      | ADDRESS _of identifier_1
+                          {
+                            # TODO: L6547
+                          }
+
+                x_list: x
+                          {
+                            # TODO: L6551
+                          }
+                      | x_list x
+                          {
+                            # TODO: L6552
+                          }
+
+                     x: identifier
+                      | LENGTH _of identifier_1
+                          {
+                            # TODO: L6557
+                          }
+                      | LENGTH _of basic_literal
+                          {
+                            # TODO: L6558
+                          }
+                      | LENGTH _of function
+                          {
+                            # TODO: L6559
+                          }
+                      | ADDRESS _of prog_or_entry alnum_or_id
+                          {
+                            # TODO: L6560
+                          }
+                      | ADDRESS _of identifier_1
+                          {
+                            # TODO: L6561
+                          }
+                      | literal
+                      | function
+                      | linage_counter
+
+               arith_x: identifier
+                      | LENGTH _of identifier_1
+                          {
+                            # TODO: L6569
+                          }
+                      | LENGTH _of basic_literal
+                          {
+                            # TODO: L6570
+                          }
+                      | LENGTH _of function
+                          {
+                            # TODO: L6571
+                          }
+                      | basic_literal
+                      | function
+                      | linage_counter
+
+         prog_or_entry: PROGRAM
+                      | ENTRY
+
+           alnum_or_id: identifier_1
+                          {
+                            # TODO: L6583
+                          }
+                      | LITERAL
+                          {
+                            # TODO: L6584
+                          }
+
+          simple_value: identifier
+                      | basic_literal
+
+      simple_all_value: identifier
+                      | literal
+
+/*
+numeric_value:
+  identifier
+| integer
+;
+*/
+             id_or_lit: identifier
+                      | LITERAL
+
+     id_or_lit_or_func: identifier
+                      | LITERAL
+                      | function
+
+         num_id_or_lit: identifier
+                      | integer
+                      | ZERO
+                          {
+                            # TODO: L6618
+                          }
+
+/*
+ * Identifier
+ */
+            identifier: identifier_1
+                          {
+                            # TODO: L6626
+                          }
+
+          identifier_1: qualified_word
+                          {
+                            # TODO: L6630
+                          }
+                      | qualified_word subref
+                          {
+                            # TODO: L6631
+                          }
+                      | qualified_word refmod
+                          {
+                            # TODO: L6632
+                          }
+                      | qualified_word subref refmod
+                          {
+                            # TODO: L6633
+                          }
+
+        qualified_word: WORD
+                          {
+                            # TODO: L6637
+                          }
+                      | WORD in_of qualified_word
+                          {
+                            # TODO: L6638
+                          }
+
+                subref: '(' exp_list ')'
+                          {
+                            # TODO: L6643
+                          }
+
+                refmod: '(' exp ':' ')'
+                          {
+                            # TODO: L6651
+                          }
+                      | '(' exp ':' exp ')'
+                          {
+                            # TODO: L6655
+                          }
+
+/*
+ * Literal
+ */
+               integer: LITERAL
+                          {
+                            # TODO: L6667
+                          }
+
+               literal: basic_literal
+                          {
+                            # TODO: L6678
+                          }
+                      | ALL basic_value
+                          {
+                            # TODO: L6680
+                          }
+
+         basic_literal: basic_value
+                          {
+                            # TODO: L6689
+                          }
+                      | basic_literal '&' basic_value
+                          {
+                            # TODO: L6690
+                          }
+
+           basic_value: LITERAL
+                          {
+                            # TODO: L6694
+                          }
+                      | SPACE
+                          {
+                            # TODO: L6695
+                          }
+                      | ZERO
+                          {
+                            # TODO: L6696
+                          }
+                      | QUOTE
+                          {
+                            # TODO: L6697
+                          }
+                      | HIGH_VALUE
+                          {
+                            # TODO: L6698
+                          }
+                      | LOW_VALUE
+                          {
+                            # TODO: L6699
+                          }
+                      | TOK_NULL
+                          {
+                            # TODO: L6700
+                          }
+
+/*
+ * Function
+ */
+              function: CURRENT_DATE_FUNC func_refmod
+                          {
+                            # TODO: L6709
+                          }
+                      | WHEN_COMPILED_FUNC func_refmod
+                          {
+                            # TODO: L6713
+                          }
+                      | UPPER_CASE_FUNC '(' exp ')' func_refmod
+                          {
+                            # TODO: L6717
+                          }
+                      | LOWER_CASE_FUNC '(' exp ')' func_refmod
+                          {
+                            # TODO: L6721
+                          }
+                      | REVERSE_FUNC '(' exp ')' func_refmod
+                          {
+                            # TODO: L6725
+                          }
+                      | CONCATENATE_FUNC '(' exp_list ')' func_refmod
+                          {
+                            # TODO: L6729
+                          }
+                      | SUBSTITUTE_FUNC '(' exp_list ')' func_refmod
+                          {
+                            # TODO: L6733
+                          }
+                      | SUBSTITUTE_CASE_FUNC '(' exp_list ')' func_refmod
+                          {
+                            # TODO: L6737
+                          }
+                      | TRIM_FUNCTION '(' trim_args ')' func_refmod
+                          {
+                            # TODO: L6741
+                          }
+                      | NUMVALC_FUNC '(' numvalc_args ')'
+                          {
+                            # TODO: L6745
+                          }
+                      | LOCALE_DT_FUNC '(' locale_dt_args ')' func_refmod
+                          {
+                            # TODO: L6749
+                          }
+                      | FUNCTION_NAME func_args
+                          {
+                            # TODO: L6753
+                          }
+
+           func_refmod: /* empty */
+                          {
+                            # TODO: L6759
+                          }
+                      | '(' exp ':' ')'
+                          {
+                            # TODO: L6760
+                          }
+                      | '(' exp ':' exp ')'
+                          {
+                            # TODO: L6761
+                          }
+
+             func_args: /* empty */
+                          {
+                            # TODO: L6765
+                          }
+                      | '(' list_func_args ')'
+                          {
+                            # TODO: L6766
+                          }
+
+        list_func_args: /* empty */
+                          {
+                            # TODO: L6770
+                          }
+                      | exp_list
+                          {
+                            # TODO: L6771
+                          }
+
+             trim_args: exp
+                          {
+                            # TODO: L6777
+                          }
+                      | exp e_sep LEADING
+                          {
+                            # TODO: L6784
+                          }
+                      | exp e_sep TRAILING
+                          {
+                            # TODO: L6791
+                          }
+
+          numvalc_args: exp
+                          {
+                            # TODO: L6801
+                          }
+                      | exp e_sep exp
+                          {
+                            # TODO: L6808
+                          }
+
+        locale_dt_args: exp
+                          {
+                            # TODO: L6818
+                          }
+                      | exp e_sep reference
+                          {
+                            # TODO: L6825
+                          }
+
+/*******************
+ * Common rules
+ *******************/
+        not_const_word:
+                          {
+                            # TODO: L6838
+                          }
+
+/*
+ * Common flags
+ */
+              flag_all: /* empty */
+                          {
+                            # TODO: L6848
+                          }
+                      | ALL
+                          {
+                            # TODO: L6849
+                          }
+
+       flag_duplicates: /* empty */
+                          {
+                            # TODO: L6853
+                          }
+                      | with_dups
+                          {
+                            # TODO: L6854
+                          }
+
+      flag_initialized: /* empty */
+                          {
+                            # TODO: L6858
+                          }
+                      | INITIALIZED
+                          {
+                            # TODO: L6859
+                          }
+
+             flag_next: /* empty */
+                          {
+                            # TODO: L6863
+                          }
+                      | NEXT
+                          {
+                            # TODO: L6864
+                          }
+                      | PREVIOUS
+                          {
+                            # TODO: L6865
+                          }
+
+              flag_not: /* empty */
+                          {
+                            # TODO: L6869
+                          }
+                      | NOT
+                          {
+                            # TODO: L6870
+                          }
+
+         flag_optional: /* empty */
+                          {
+                            # TODO: L6874
+                          }
+                      | OPTIONAL
+                          {
+                            # TODO: L6875
+                          }
+
+          flag_rounded: /* empty */
+                          {
+                            # TODO: L6879
+                          }
+                      | ROUNDED
+                          {
+                            # TODO: L6880
+                          }
+
+         flag_separate: /* empty */
+                          {
+                            # TODO: L6884
+                          }
+                      | SEPARATE _character
+                          {
+                            # TODO: L6885
+                          }
+
+/*
+ * Prepositions
+ */
+                 in_of: IN
+                      | OF
+
+               records: RECORD _is
+                      | RECORDS _are
+
+             with_dups: WITH DUPLICATES
+                      | DUPLICATES
+
+         coll_sequence: COLLATING SEQUENCE
+                      | SEQUENCE
+
+            _advancing:
+                      | ADVANCING
+
+                  _are:
+                      | ARE
+
+                 _area:
+                      | AREA
+
+                   _as:
+                      | AS
+
+                   _at:
+                      | AT
+
+               _binary:
+                      | BINARY
+
+                   _by:
+                      | BY
+
+            _character:
+                      | CHARACTER
+
+           _characters:
+                      | CHARACTERS
+
+             _contains:
+                      | CONTAINS
+
+                 _data:
+                      | DATA
+
+                 _file:
+                      | TOK_FILE
+
+                  _for:
+                      | FOR
+
+                 _from:
+                      | FROM
+
+                   _in:
+                      | IN
+
+                   _is:
+                      | IS
+
+               _is_are:
+                      | IS
+                      | ARE
+
+                  _key:
+                      | KEY
+
+        _line_or_lines:
+                      | LINE
+                      | LINES
+
+                _lines:
+                      | LINES
+
+                 _mode:
+                      | MODE
+
+               _number:
+                      | NUMBER
+
+                   _of:
+                      | OF
+
+                   _on:
+                      | ON
+
+             _in_order:
+                      | ORDER
+                      | IN ORDER
+
+                _other:
+                      | OTHER
+
+              _program:
+                      | PROGRAM
+
+               _record:
+                      | RECORD
+
+                _right:
+                      | RIGHT
+
+                  _set:
+                      | SET
+
+                 _sign:
+                      | SIGN
+
+              _sign_is:
+                      | SIGN
+                      | SIGN IS
+
+                 _size:
+                      | SIZE
+
+               _status:
+                      | STATUS
+
+                 _tape:
+                      | TAPE
+
+                 _than:
+                      | THAN
+
+                 _then:
+                      | THEN
+
+                _times:
+                      | TIMES
+
+                   _to:
+                      | TO
+
+/* _upon:		| UPON ; */
+                 _when:
+                      | WHEN
+
+                 _with:
+                      | WITH
+end
+
+# Local Variables:
+# mode: racc
+# racc-token-length-max: 20
+# End:

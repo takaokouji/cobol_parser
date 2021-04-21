@@ -1,0 +1,166 @@
+require: rubocop-rake
+
+AllCops:
+  TargetRubyVersion: 3.0
+  NewCops: enable
+  Exclude:
+    - 'lib/monkey_patches/**/*'
+    - '**/*.ry'
+    - 'lib/cobol_parser/pp_parser.rule.rb'
+    - 'lib/cobol_parser/parser.rule.rb'
+    - 'tmp/**/*'
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/BlockLength:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Naming/HeredocDelimiterNaming:
+  Enabled: false
+
+Style/TrailingCommaInArguments:
+  Enabled: true
+  EnforcedStyleForMultiline: no_comma
+
+Style/TrailingCommaInArrayLiteral:
+  Enabled: true
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInHashLiteral:
+  Enabled: true
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: false
+
+Style/NegatedIf:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
+Style/RescueModifier:
+  Enabled: false
+
+Style/SlicingWithRange:
+  Enabled: false
+
+Style/AccessorGrouping:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 40
+  Exclude:
+    - 'lib/cobol_parser/pp_lexer.rb'
+    - 'lib/cobol_parser/scanner.rb'
+
+Metrics/CyclomaticComplexity:
+  Max: 25
+  Exclude:
+    - 'lib/cobol_parser/pp_lexer.rb'
+    - 'lib/cobol_parser/scanner.rb'
+
+Metrics/MethodLength:
+  Max: 50
+  Exclude:
+    - 'lib/cobol_parser/pp_lexer.rb'
+    - 'lib/cobol_parser/scanner.rb'
+
+Metrics/PerceivedComplexity:
+  Max: 25
+  Exclude:
+    - 'lib/cobol_parser/pp_lexer.rb'
+    - 'lib/cobol_parser/scanner.rb'
+
+Style/FormatStringToken:
+  Enabled: false
+
+Style/FormatString:
+  Enabled: false
+
+Style/RegexpLiteral:
+  Enabled: false
+
+Style/ZeroLengthPredicate:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
+Lint/RescueException:
+  Enabled: false
+
+Style/StringConcatenation:
+  Enabled: false
+
+Style/Alias:
+  Enabled: false
+
+Naming/VariableNumber:
+  Enabled: false
+
+Style/RedundantRegexpEscape:
+  Exclude:
+    - 'lib/cobol_parser/pp_lexer.rb'
+    - 'lib/cobol_parser/scanner.rb'
+
+Style/BlockDelimiters:
+  Enabled: false
+
+Style/Semicolon:
+  Exclude:
+    - 'lib/cobol_parser/pp_lexer.rb'
+    - 'lib/cobol_parser/scanner.rb'
+
+Style/RedundantRegexpCharacterClass:
+  Exclude:
+    - 'lib/cobol_parser/pp_lexer.rb'
+    - 'lib/cobol_parser/scanner.rb'
+
+Metrics/BlockNesting:
+  Exclude:
+    - 'lib/cobol_parser/pp_lexer.rb'
+    - 'lib/cobol_parser/scanner.rb'
+
+Style/Next:
+  Exclude:
+    - 'lib/cobol_parser/pp_lexer.rb'
+    - 'lib/cobol_parser/scanner.rb'
+
+Style/SoleNestedConditional:
+  Exclude:
+    - 'lib/cobol_parser/pp_lexer.rb'
+    - 'lib/cobol_parser/scanner.rb'
+
+Style/ParallelAssignment:
+  Enabled: false
+
+Lint/SuppressedException:
+  Enabled: false
+
+Style/EmptyMethod:
+  Enabled: false
+
+Layout/HeredocIndentation:
+  Enabled: false

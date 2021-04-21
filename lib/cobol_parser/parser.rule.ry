@@ -448,14 +448,7 @@ rule
 /*****************************************************************************
  * COBOL Compilation Unit
  *****************************************************************************/
-                 start:
-                          {
-                            # TODO: L757
-                          }
-                          nested_list
-                          {
-                            # TODO: L781
-                          }
+                 start: nested_list
 
            nested_list: source_element
                       | nested_list source_element
@@ -508,7 +501,23 @@ rule
            end_program:
                       | END_PROGRAM program_name '.'
                           {
-                            # TODO: L841
+                            if val[1].is_a?(CobolParser::Tree::Literal)
+                              s = val[1].data
+                            else
+                              s = val[1].name
+                            end
+
+                            @depth -= 1 if @depth > 0
+
+                            if @stack_progid[@depth] == s
+                              @cb.error("END PROGRAM '%s' is different to PROGRAM-ID '%s'",
+                                        s, @stack_progid[@depth])
+                            end
+
+                            if !current_program.flag_validated
+                              current_program.flag_validated = true
+                              # TODO: cb_validate_program_body (current_program);
+                            end
                           }
 
          end_mandatory: END_PROGRAM program_name '.'
@@ -526,7 +535,41 @@ rule
  *****************************************************************************/
 identification_division: PROGRAM_ID '.' program_name as_literal
                           {
-                            # TODO: L918
+                            @current_section = nil
+                            @current_paragraph = nil
+                            if _values[2].is_a?(CobolParser::Tree::Literal)
+                              @stack_progid[@depth] = _values[2].data
+                            else
+                              @stack_progid[@depth] = _values[2].name
+                            end
+
+                            if @prog_end
+                              if !current_program.flag_validated
+                                current_program.flag_validated = true
+                                # TODO: cb_validate_program_body (current_program);
+                              end
+                              @perform_stack = nil
+                              @current_statement = nil
+                              @next_label_id = 0
+                              @current_linage = 0
+                              @current_storage = nil
+                              @eval_level = 0
+                              @inspect_keyword = 0
+                              @check_unreached = false
+                              @eval_inc = 0;
+                              @eval_inc2 = 0;
+                              @samearea = 1;
+                              @eval_check.clear
+                              @term_array.clear
+                              @linage_file = nil
+                              @next_label_list = nil
+                              self.current_program = @cb.build_program(current_program, @depth)
+                              @cb.build_registers
+                            else
+                              @prog_end = true
+                            end
+                            @depth += 1
+                            current_program.program_id = @cb.build_program_id(_values[2], _values[3])
                           }
                           program_type '.'
 
@@ -666,9 +709,9 @@ object_computer_segment: SEGMENT_LIMIT _is integer
                           }
 
 repository_literal_list: LITERAL
-                          { result = [val[0]] }
+                          { result = @cb.list_init(val[0]) }
                       | repository_literal_list LITERAL
-                          { result = val[0] + [val[1]] }
+                          { result = @cb.list_add(val[0], val[1]) }
 
 /*
  * SPECIAL-NAMES paragraph
@@ -747,9 +790,9 @@ special_name_mnemonic_on_off:
                           }
 
  alphabet_literal_list: alphabet_literal
-                          { result = [val[0]] }
+                          { result = @cb.list_init(val[0]) }
                       | alphabet_literal_list alphabet_literal
-                          { result = val[0] + [val[1]] }
+                          { result = @cb.list_add(val[0], val[1]) }
 
       alphabet_literal: alphabet_lits
                           { result = val[0] }
@@ -770,25 +813,15 @@ alphabet_also_sequence: alphabet_also_literal
          alphabet_lits: LITERAL
                           { result = val[0] }
                       | SPACE
-                          {
-                            # TODO: L1321
-                          }
+                          { result = @cb.space }
                       | ZERO
-                          {
-                            # TODO: L1322
-                          }
+                          { result = @cb.zero }
                       | QUOTE
-                          {
-                            # TODO: L1323
-                          }
+                          { result = @cb.quote }
                       | HIGH_VALUE
-                          {
-                            # TODO: L1324
-                          }
+                          { result = @cb.norm_high }
                       | LOW_VALUE
-                          {
-                            # TODO: L1325
-                          }
+                          { result = @cb.norm_low }
 
  alphabet_also_literal: LITERAL
                           {

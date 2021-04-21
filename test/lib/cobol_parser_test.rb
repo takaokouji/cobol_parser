@@ -18,7 +18,7 @@ class CobolParserTest < Test::Unit::TestCase
   end
 
   sub_test_case ".parse" do
-    test "first" do
+    test "COBOL to AST" do
       create_tempfile(<<-EOS) do |f|
        IDENTIFICATION          DIVISION.
        PROGRAM-ID.             PG1.
@@ -61,8 +61,83 @@ class CobolParserTest < Test::Unit::TestCase
       EOS
 
         ast = CobolParser.parse(f.path)
-        # TODO: check AST.to_s is expected s expressions
-        assert_nil(ast)
+
+        expected = <<-SEXP
+(begin
+  (send nil :require
+    (str "ostruct"))
+  (class
+    (const nil :Pg1) nil
+    (begin
+      (def :initialize
+        (args)
+        (begin
+          (ivasgn :@wrk_area
+            (send nil :new_wrk_area))
+          (ivasgn :@sys_area
+            (send nil :new_sys_area))))
+      (def :_000_proc_sec
+        (args)
+        (send nil :_100_init_sec))
+      (send nil :private)
+      (def :_100_init_sec
+        (args)
+        (begin
+          (ivasgn :@wrk_area
+            (send nil :new_wrk_area))
+          (send
+            (ivar :@wrk_area) :wrk_page=
+            (int 0))
+          (send
+            (ivar :@sys_area) :sys_time=
+            (send
+              (send
+                (send
+                  (const nil :Time) :now) :strftime
+                (str "%H%M%S00")) :to_i))
+          (send nil :_110_para_hensyu_sec)))
+      (def :_110_para_hensyu_sec
+        (args)
+        (if
+          (send
+            (send
+              (ivar :@wrk_area) :wrk_page) :!=
+            (int 0))
+          (send
+            (ivar :@wrk_area) :wrk_page=
+            (int 10)) nil))
+      (def :new_wrk_area
+        (args)
+        (send
+          (const nil :OpenStruct) :new
+          (kwargs
+            (pair
+              (sym :wrk_sysymd)
+              (send
+                (const nil :OpenStruct) :new
+                (kwargs
+                  (pair
+                    (sym :wrk_sysyy)
+                    (int 0))
+                  (pair
+                    (sym :wrk_sysmm)
+                    (int 0))
+                  (pair
+                    (sym :wrk_sysdd)
+                    (int 0)))))
+            (pair
+              (sym :wrk_page)
+              (int 0)))))
+      (def :new_sys_area
+        (args)
+        (send
+          (const nil :OpenStruct) :new
+          (kwargs
+            (pair
+              (sym :sys_time)
+              (int 0))))))))
+        SEXP
+        assert_text_equal(expected, ast.to_s)
       end
     end
   end

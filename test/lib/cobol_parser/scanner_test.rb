@@ -15,7 +15,11 @@ class CobolParser::ScannerTest < Test::Unit::TestCase
     assert_equal(expected_class, actual.class, msg)
     msg += ": " if msg
     expected_attributes.each do |name, value|
-      assert_equal(value, actual.send(name), "#{msg}CobolParser::Tree object attribute is different: #{name}")
+      assert_equal(
+        value,
+        actual.instance_variable_get("@#{name}"),
+        "#{msg}CobolParser::Tree object attribute is different: #{name}"
+      )
     end
   end
 
@@ -42,7 +46,7 @@ class CobolParser::ScannerTest < Test::Unit::TestCase
   sub_test_case "#each_token" do
     test "line directive" do
       yyin = StringIO.new(<<-EOS)
-# 1 "test/fixtures/jma-receipt/ORCHC01.CBL"
+# 1 "test/fixtures/copy/ADDRESS.INC"
 "string literal"
       EOS
 
@@ -52,7 +56,7 @@ class CobolParser::ScannerTest < Test::Unit::TestCase
       tokens = scanner.each_token
 
       token = assert_nothing_raised { tokens.next }
-      assert_equal("test/fixtures/jma-receipt/ORCHC01.CBL", token.value.source_file)
+      assert_equal("test/fixtures/copy/ADDRESS.INC", token.value.source_file)
       assert_equal(2, token.value.source_line)
 
       assert_raise(StopIteration) { tokens.next }
@@ -61,7 +65,7 @@ class CobolParser::ScannerTest < Test::Unit::TestCase
     test "IDENTIFICATION DIVISION" do
       yyin = StringIO.new(<<-EOS)
 IDENTIFICATION DIVISION.
-PROGRAM-ID. ORCHC01.
+PROGRAM-ID. PG1.
       EOS
 
       scanner = create_scanner
@@ -81,7 +85,7 @@ PROGRAM-ID. ORCHC01.
           class: CobolParser::Tree::Literal,
           attributes: {
             category: :ALPHANUMERIC,
-            data: "ORCHC01",
+            data: "PG1",
           },
           line: 2,
         },

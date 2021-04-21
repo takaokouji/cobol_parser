@@ -20,7 +20,6 @@ module CobolParser
   def self.parse(path, options = {})
     Tempfile.open do |tempfile|
       cb = Context.new
-      cb.current_program = cb.build_program(nil, 0)
       cb.include_list += Array(options[:include]) if options.key?(:include)
 
       pp_parser = PPParser.new(cb, options)

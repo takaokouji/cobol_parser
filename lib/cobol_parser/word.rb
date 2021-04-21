@@ -8,7 +8,7 @@ class CobolParser::Word
 
   def initialize(name)
     @name = name
-    @items = nil
+    @items = []
     @count = 0
     @error = false
   end

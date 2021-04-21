@@ -31,6 +31,12 @@ class CobolParser::Tree::Picture < CobolParser::Tree
   attribute :scale # 1/10^scale
   attribute :have_sign # have 'S'
 
+  class << self
+    def build(cb, str)
+      new(cb, category: :UNKNOWN, orig: str)
+    end
+  end
+
   def initialize(context, attributes = {})
     super
 

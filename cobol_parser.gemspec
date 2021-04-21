@@ -30,6 +30,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "lex", "~> 0.1.0"
+  spec.add_dependency "parser", "~> 3.0.1"
+  spec.add_dependency "unparser", "~> 0.6.0"
 
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rubocop", "~> 1.12.1"

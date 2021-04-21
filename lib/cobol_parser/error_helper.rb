@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 module CobolParser::ErrorHelper
+  attr_reader :warningcount
+  attr_reader :errorcount
+
   def warning(format, *arg)
     print_error(nil, 0, "Warning: ", format, *arg)
 
@@ -23,6 +26,45 @@ module CobolParser::ErrorHelper
     print_error(tree.source_file, tree.source_line, "Error: ", format, *arg)
 
     @errorcount += 1
+  end
+
+  def undefined_error(x)
+    s = "'#{x.name}'"
+    x.each_chain do |c|
+      s += " in '#{c.name}'"
+    end
+    @cb.error_x(x, "%s undefined", s)
+  end
+
+  def ambiguous_error(x)
+    w = x.word
+    return if w.error
+
+    # display error on the first time
+    s = "'#{x.name}'"
+    x.each_chain do |l|
+      s += " in '#{l.name}'"
+    end
+    @cb.error_x(x, "%s ambiguous; need qualification", s)
+    w.error = true
+
+    # display all fields with the same name
+    w.items.each do |l|
+      s = "'#{w.name}' "
+      y = l.value
+      case y
+      when CobolParser::Tree::Field
+        y.each_parent do |p|
+          s += "in '#{p.name}' "
+        end
+      when CobolParser::Tree::Label
+        if y.section
+          s += "in '#{y.section.name}' "
+        end
+      end
+      s += "defined here"
+      @cb.error_x(y, "%s", s)
+    end
   end
 
   private

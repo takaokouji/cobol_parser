@@ -64,13 +64,13 @@ module CobolParser::TypeCheckHelper
   end
 
   def build_program_id(name, alt_name)
-    if alt_name
-      current_program.orig_source_name = alt_name.data
-    elsif name.is_a?(CobolParser::Tree::Literal)
-      current_program.orig_source_name = name.data
-    else
-      current_program.orig_source_name = name.name
-    end
+    current_program.orig_source_name = if alt_name
+                                         alt_name.data
+                                       elsif name.is_a?(CobolParser::Tree::Literal)
+                                         name.data
+                                       else
+                                         name.name
+                                       end
 
     encode_class_name(current_program.orig_source_name)
   end

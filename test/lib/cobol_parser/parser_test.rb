@@ -24,16 +24,16 @@ PROGRAM-ID. PG1.
   (send nil :require
     (str "ostruct"))
   (class
-    (const nil :Pg1) nil
-    (begin
-      (def :initialize
-        (args)))))
+    (const nil "Pg1") nil
+    (def :initialize
+      (args))))
         EOS
         assert_equal(expected_sexp, ast.to_s)
       end
     end
 
     test "DATA DIVISION" do
+      omit("not implemented yet")
       create_tempfile(<<-EOS) do |f|
 # 1 "PG1.CBL"
 IDENTIFICATION DIVISION.
@@ -53,7 +53,7 @@ WORKING-STORAGE SECTION.
   (send nil :require
     (str "ostruct"))
   (class
-    (const nil :Pg1) nil
+    (const nil "Pg1") nil
     (begin
       (def :initialize
         (args)
@@ -80,6 +80,7 @@ WORKING-STORAGE SECTION.
     end
 
     test "MOVE" do
+      omit("not implemented yet")
       create_tempfile(<<-EOS) do |f|
 # 1 "PG1.CBL"
 IDENTIFICATION DIVISION.

@@ -19,6 +19,7 @@ class CobolParserTest < Test::Unit::TestCase
 
   sub_test_case ".parse" do
     test "COBOL to AST" do
+      omit("not implemented yet")
       create_tempfile(<<-EOS) do |f|
        IDENTIFICATION          DIVISION.
        PROGRAM-ID.             PG1.

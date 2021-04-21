@@ -18,6 +18,12 @@ class CobolParser::Tree::SystemName < CobolParser::Tree
   attribute :system_category
   attribute :token
 
+  class << self
+    def build(cb, category, token)
+      new(cb, category: :UNKNOWN, system_category: category, token: token)
+    end
+  end
+
   def initialize(context, attributes = {})
     super
 

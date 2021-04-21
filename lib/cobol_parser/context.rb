@@ -1,15 +1,18 @@
 # frozen_string_literal: true
 
 require "ostruct"
+require "set"
 require_relative "error_helper"
 require_relative "reserved_helper"
 require_relative "program_helper"
+require_relative "type_check_helper"
 require_relative "tree_helper"
 
 class CobolParser::Context
   include CobolParser::ErrorHelper
   include CobolParser::ReservedHelper
   include CobolParser::ProgramHelper
+  include CobolParser::TypeCheckHelper
   include CobolParser::TreeHelper
 
   FORMAT = {
@@ -28,7 +31,64 @@ class CobolParser::Context
     UNCONFORMABLE: 7,
   }.freeze
 
+  INVALID_NAMES = Set.new([
+                            "NULL",
+                            "L_initextern",
+                            "LRET_initextern",
+                            "P_switch",
+                            "alignof",
+                            "asm",
+                            "auto",
+                            "break",
+                            "case",
+                            "char",
+                            "const",
+                            "continue",
+                            "default",
+                            "do",
+                            "double",
+                            "else",
+                            "enum",
+                            "exit_program",
+                            "extern",
+                            "float",
+                            "for",
+                            "frame_pointer",
+                            "frame_stack",
+                            "goto",
+                            "if",
+                            "inline",
+                            "int",
+                            "long",
+                            "offsetof",
+                            "register",
+                            "restrict",
+                            "return",
+                            "short",
+                            "signed",
+                            "sizeof",
+                            "static",
+                            "struct",
+                            "switch",
+                            "typedef",
+                            "typeof",
+                            "union",
+                            "unsigned",
+                            "void",
+                            "volatile",
+                            "_Bool",
+                            "_Complex",
+                            "_Imaginary",
+                          ])
+
   ReplaceListItem = Struct.new(:old_text, :new_text, keyword_init: true)
+
+  attr_accessor :id
+  attr_accessor :attr_id
+  attr_accessor :literal_id
+  attr_accessor :field_id
+  attr_accessor :storage_id
+  attr_accessor :flag_main
 
   # Global variables
   attr_accessor :current_program
@@ -68,6 +128,15 @@ class CobolParser::Context
   attr_accessor :norestab
 
   def initialize
+    @cb = self
+
+    @id = 1
+    @attr_id = 1
+    @literal_id = 1
+    @field_id = 1
+    @storage_id = 1
+    @flag_main = false
+
     @functions_are_all = false
     @non_const_word = 0
 
@@ -151,5 +220,9 @@ class CobolParser::Context
     replace_list ||= []
     replace_list << ReplaceListItem.new(old_text: old_text, new_text: new_text)
     replace_list
+  end
+
+  def check_valid_name(name)
+    INVALID_NAMES.include?(name)
   end
 end

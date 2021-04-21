@@ -139,6 +139,7 @@ Style/RedundantRegexpCharacterClass:
     - 'lib/cobol_parser/scanner.rb'
 
 Metrics/BlockNesting:
+  Max: 4
   Exclude:
     - 'lib/cobol_parser/pp_lexer.rb'
     - 'lib/cobol_parser/scanner.rb'
@@ -163,4 +164,7 @@ Style/EmptyMethod:
   Enabled: false
 
 Layout/HeredocIndentation:
+  Enabled: false
+
+Naming/MethodParameterName:
   Enabled: false

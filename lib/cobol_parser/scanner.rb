@@ -487,8 +487,8 @@ class CobolParser::Scanner < Lex::Lexer
     # Special name handling
     word = yylval.value.word
     if word.count > 0
-      x = word.items
-      next :MNEMONIC_NAME if x.is_a?(CobolParser::SystemName)
+      x = word.items.value
+      next :MNEMONIC_NAME if x.is_a?(CobolParser::Tree::SystemName)
     end
 
     :WORD

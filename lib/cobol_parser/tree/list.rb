@@ -7,28 +7,44 @@ class CobolParser::Tree::List < CobolParser::Tree
   attribute :chain
   attribute :sizes
 
-  class << self
-    def build(cb, purpose, value, rest)
-      new(cb, category: :UNKNOWN, purpose: purpose, value: value, chain: rest)
+  module Helper
+    def build_list(purpose, value, rest)
+      CobolParser::Tree::List.new(self, purpose, value, rest)
     end
 
-    def init(cb, x)
-      build(cb, nil, x, nil)
+    def list_init(x)
+      build_list(nil, x, nil)
     end
 
-    def append(l1, l2)
+    def list_append(l1, l2)
       return l2 if !l1
 
-      l = l1
-      l = l.chain while l.chain
-      l.chain = l2
-
-      l1
+      l1.append(l2)
     end
 
-    def add(cb, l, x)
-      append(l, init(cb, x))
+    def list_add(l, x)
+      list_append(l, list_init(x))
     end
+
+    def build_pair(x, y)
+      build_list(x, y, nil)
+    end
+
+    def pair?(x)
+      x.is_a?(CobolParser::Tree::List) && pair_x(x)
+    end
+  end
+
+  def initialize(cb, purpose, value, rest)
+    super(cb, category: :UNKNOWN, purpose: purpose, value: value, chain: rest)
+  end
+
+  def append(list)
+    l = self
+    l = l.chain while l.chain
+    l.chain = list
+
+    self
   end
 
   def reverse
@@ -36,10 +52,10 @@ class CobolParser::Tree::List < CobolParser::Tree
 
     l = self
     while l
-      n = l.chain
+      c = l.chain
       l.chain = last
       last = l
-      l = n
+      l = c
     end
 
     last
@@ -47,11 +63,25 @@ class CobolParser::Tree::List < CobolParser::Tree
 
   def length
     n = 0
+    each_chain { |_| n += 1 }
+    n
+  end
+
+  def each_chain
+    return enum_for(:each_chain) if !block_given?
+
     l = self
     while l
-      n += 1
+      yield l
       l = l.chain
     end
-    n
+  end
+
+  def x
+    purpose
+  end
+
+  def y
+    value
   end
 end

@@ -70,28 +70,19 @@ Style/AccessorGrouping:
   Enabled: false
 
 Metrics/AbcSize:
-  Max: 40
-  Exclude:
-    - 'lib/cobol_parser/pp_lexer.rb'
-    - 'lib/cobol_parser/scanner.rb'
+  Enabled: false
 
 Metrics/CyclomaticComplexity:
-  Max: 25
-  Exclude:
-    - 'lib/cobol_parser/pp_lexer.rb'
-    - 'lib/cobol_parser/scanner.rb'
+  Enabled: false
 
 Metrics/MethodLength:
-  Max: 50
-  Exclude:
-    - 'lib/cobol_parser/pp_lexer.rb'
-    - 'lib/cobol_parser/scanner.rb'
+  Enabled: false
 
 Metrics/PerceivedComplexity:
-  Max: 25
-  Exclude:
-    - 'lib/cobol_parser/pp_lexer.rb'
-    - 'lib/cobol_parser/scanner.rb'
+  Enabled: false
+
+Metrics/BlockNesting:
+  Enabled: false
 
 Style/FormatStringToken:
   Enabled: false
@@ -134,12 +125,6 @@ Style/Semicolon:
     - 'lib/cobol_parser/scanner.rb'
 
 Style/RedundantRegexpCharacterClass:
-  Exclude:
-    - 'lib/cobol_parser/pp_lexer.rb'
-    - 'lib/cobol_parser/scanner.rb'
-
-Metrics/BlockNesting:
-  Max: 4
   Exclude:
     - 'lib/cobol_parser/pp_lexer.rb'
     - 'lib/cobol_parser/scanner.rb'

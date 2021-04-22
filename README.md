@@ -4,11 +4,20 @@ cobol_parser is a COBOL parser written in pure ruby. It outputs s-expressions wh
 
 The following class of cobol_parser is ported from the [open-cobol-1.1](https://sourceforge.net/projects/gnucobol/files/open-cobol/1.1/) source code.
 
+ - CobolParser::Config - [cobc/config.def](https://sourceforge.net/p/gnucobol/code/HEAD/tree/tags/1.1_release_open-cobol/cobc/config.def)
+ - CobolParser::ErrorHelper - [cobc/error.c](https://sourceforge.net/p/gnucobol/code/HEAD/tree/tags/1.1_release_open-cobol/cobc/error.c)
+ - CobolParser::Flag - [cobc/flag.def](https://sourceforge.net/p/gnucobol/code/HEAD/tree/tags/1.1_release_open-cobol/cobc/flag.def)
+ - CobolParser::Parser - [cobc/parser.y](https://sourceforge.net/p/gnucobol/code/HEAD/tree/tags/1.1_release_open-cobol/cobc/parser.y)
  - CobolParser::PPLexer - [cobc/pplex.l](https://sourceforge.net/p/gnucobol/code/HEAD/tree/tags/1.1_release_open-cobol/cobc/pplex.l)
  - CobolParser::PPParser - [cobc/ppparse.y](https://sourceforge.net/p/gnucobol/code/HEAD/tree/tags/1.1_release_open-cobol/cobc/ppparse.y)
+ - CobolParser::Program - [cobc/tree.c](https://sourceforge.net/p/gnucobol/code/HEAD/tree/tags/1.1_release_open-cobol/cobc/tree.c)
+ - CobolParser::ReservedHelper - [cobc/reserved.c](https://sourceforge.net/p/gnucobol/code/HEAD/tree/tags/1.1_release_open-cobol/cobc/reserved.c)
  - CobolParser::Scanner - [cobc/scanner.l](https://sourceforge.net/p/gnucobol/code/HEAD/tree/tags/1.1_release_open-cobol/cobc/scanner.l)
- - CobolParser::Parser - [cobc/parser.y](https://sourceforge.net/p/gnucobol/code/HEAD/tree/tags/1.1_release_open-cobol/cobc/parser.y)
- - CobolParser::Tree, CobolParser::TreeHelpler, CobolParser::Tree::* - [cobc/tree.c](https://sourceforge.net/p/gnucobol/code/HEAD/tree/tags/1.1_release_open-cobol/cobc/tree.c)
+ - CobolParser::Tree - [cobc/tree.c](https://sourceforge.net/p/gnucobol/code/HEAD/tree/tags/1.1_release_open-cobol/cobc/tree.c)
+ - CobolParser::TreeHelpler - [cobc/tree.c](https://sourceforge.net/p/gnucobol/code/HEAD/tree/tags/1.1_release_open-cobol/cobc/tree.c)
+ - CobolParser::Tree::* - [cobc/tree.c](https://sourceforge.net/p/gnucobol/code/HEAD/tree/tags/1.1_release_open-cobol/cobc/tree.c), [cobc/field.c](https://sourceforge.net/p/gnucobol/code/HEAD/tree/tags/1.1_release_open-cobol/cobc/field.c)
+ - CobolParser::TypeCheckHelper - [cobc/typeck.c](https://sourceforge.net/p/gnucobol/code/HEAD/tree/tags/1.1_release_open-cobol/cobc/typeck.c)
+ - CobolParser::Warning - [cobc/warning.def](https://sourceforge.net/p/gnucobol/code/HEAD/tree/tags/1.1_release_open-cobol/cobc/warning.def)
 
 ## License
 
@@ -38,7 +47,7 @@ TODO: Write usage instructions here
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 

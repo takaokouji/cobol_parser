@@ -28,6 +28,22 @@ module CobolParser::ErrorHelper
     @errorcount += 1
   end
 
+  def redefinition_error(x)
+    w = x.word
+    @cb.error_x(x, "Redefinition of '%s'", w.name)
+    @cb.error_x(w.items.value, "'%s' previously defined here", w.name)
+  end
+
+  def redefinition_warning(x, y)
+    w = x.word
+    @cb.warning_x(x, "Redefinition of '%s'", w.name)
+    if y
+      @cb.warning_x(y, "'%s' previously defined here", w.name)
+    else
+      @cb.warning_x(w.items.value, "'%s' previously defined here", w.name)
+    end
+  end
+
   def undefined_error(x)
     s = "'#{x.name}'"
     x.each_chain do |c|
@@ -49,7 +65,7 @@ module CobolParser::ErrorHelper
     w.error = true
 
     # display all fields with the same name
-    w.items.each do |l|
+    w.items.each_chain do |l|
       s = "'#{w.name}' "
       y = l.value
       case y

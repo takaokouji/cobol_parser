@@ -32,8 +32,9 @@ PROGRAM-ID. PG1.
       end
     end
 
-    test "DATA DIVISION" do
-      create_tempfile(<<-EOS) do |f|
+    sub_test_case "DATA DIVISION / WORKING-STORAGE SECTION" do
+      test "only PIC 9(n)" do
+        create_tempfile(<<-EOS) do |f|
 # 1 "PG1.CBL"
 IDENTIFICATION DIVISION.
 PROGRAM-ID. PG1.
@@ -44,10 +45,10 @@ WORKING-STORAGE SECTION.
  03 WRK-SYSYY PIC 9(04).
  03 WRK-SYSMM PIC 9(02).
  03 WRK-SYSDD PIC 9(02).
-      EOS
-        ast = @parser.parse(f)
+        EOS
+          ast = @parser.parse(f)
 
-        expected_sexp = <<-EOS.chomp
+          expected_sexp = <<-EOS.chomp
 (begin
   (send nil :require
     (str "ostruct"))
@@ -73,8 +74,82 @@ WORKING-STORAGE SECTION.
             (pair
               (sym :wrk_sysdd)
               (int 0))))))))
+          EOS
+          assert_text_equal(expected_sexp, ast.to_s)
+        end
+      end
+
+      test "some PIC types with VALUE" do
+        create_tempfile(<<-EOS) do |f|
+# 1 "PG1.CBL"
+IDENTIFICATION DIVISION.
+PROGRAM-ID. PG1.
+
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01 WRK-AREA.
+ 03 WRK-NUMBER PIC 9(04).
+ 03 WRK-STRING PIC X(50).
+ 03 WRK-FLOAT PIC ZZZZ9.999.
+01 WRK2-AREA.
+ 03 WRK2-G.
+ 05 WRK2-NUMBER PIC 9(04) VALUE 2021.
+ 05 WRK2-STRING PIC X(50) VALUE "あいうえお".
+ 05 WRK2-FLOAT PIC ZZZZ9.999 VALUE 87654.123.
         EOS
-        assert_equal(expected_sexp, ast.to_s)
+          ast = @parser.parse(f)
+
+          expected_sexp = <<-EOS.chomp
+(begin
+  (send nil :require
+    (str "ostruct"))
+  (class
+    (const nil :Pg1) nil
+    (begin
+      (def :initialize
+        (args)
+        (begin
+          (ivasgn :@wrk_area
+            (send nil :new_wrk_area))
+          (ivasgn :@wrk2_area
+            (send nil :new_wrk2_area))))
+      (send nil :private)
+      (def :new_wrk_area
+        (args)
+        (send
+          (const nil :OpenStruct) :new
+          (hash
+            (pair
+              (sym :wrk_number)
+              (int 0))
+            (pair
+              (sym :wrk_string)
+              (str ""))
+            (pair
+              (sym :wrk_float)
+              (float 0.0)))))
+      (def :new_wrk2_area
+        (args)
+        (send
+          (const nil :OpenStruct) :new
+          (hash
+            (pair
+              (sym :wrk2_g)
+              (send
+                (const nil :OpenStruct) :new
+                (hash
+                  (pair
+                    (sym :wrk2_number)
+                    (int 2021))
+                  (pair
+                    (sym :wrk2_string)
+                    (str "あいうえお"))
+                  (pair
+                    (sym :wrk2_float)
+                    (float 87654.123)))))))))))
+          EOS
+          assert_text_equal(expected_sexp, ast.to_s)
+        end
       end
     end
 
@@ -141,7 +216,7 @@ PROCEDURE DIVISION.
               (sym :wrk_sysdd)
               (int 0))))))))
         EOS
-        assert_equal(expected_sexp, ast.to_s)
+        assert_text_equal(expected_sexp, ast.to_s)
       end
     end
   end

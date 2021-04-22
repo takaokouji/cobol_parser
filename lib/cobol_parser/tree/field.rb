@@ -498,15 +498,19 @@ class CobolParser::Tree::Field < CobolParser::Tree
   end
 
   def initial_value
-    v = values&.value&.data || nil
+    v = values&.value || nil
     case pic.field_category
     when :ALPHABETIC, :ALPHANUMERIC, :ALPHANUMERIC_EDITED
-      v
+      v&.data.to_s
     when :NUMERIC, :NUMERIC_EDITED
       if pic.scale == 0
-        v.to_i
+        v&.data.to_i
+      elsif v && v.scale > 0
+        s = v.data.dup
+        s[-v.scale] = "." + s[-v.scale]
+        s.to_f
       else
-        v.to_f
+        v&.data.to_f
       end
     else
       raise NotImplementedError

@@ -64,7 +64,7 @@ WORKING-STORAGE SECTION.
         (args)
         (send
           (const nil :OpenStruct) :new
-          (hash
+          (kwargs
             (pair
               (sym :wrk_sysyy)
               (int 0))
@@ -118,7 +118,7 @@ WORKING-STORAGE SECTION.
         (args)
         (send
           (const nil :OpenStruct) :new
-          (hash
+          (kwargs
             (pair
               (sym :wrk_number)
               (int 0))
@@ -132,12 +132,12 @@ WORKING-STORAGE SECTION.
         (args)
         (send
           (const nil :OpenStruct) :new
-          (hash
+          (kwargs
             (pair
               (sym :wrk2_g)
               (send
                 (const nil :OpenStruct) :new
-                (hash
+                (kwargs
                   (pair
                     (sym :wrk2_number)
                     (int 2021))
@@ -147,6 +147,63 @@ WORKING-STORAGE SECTION.
                   (pair
                     (sym :wrk2_float)
                     (float 87654.123)))))))))))
+          EOS
+          assert_text_equal(expected_sexp, ast.to_s)
+        end
+      end
+
+      test "OCCURS" do
+        create_tempfile(<<-EOS) do |f|
+# 1 "PG1.CBL"
+IDENTIFICATION DIVISION.
+PROGRAM-ID. PG1.
+
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01 WRK-AREA.
+ 03 WRK-G OCCURS 30.
+ 05 WRK-SYSYY PIC 9(04).
+ 05 WRK-SYSMM PIC 9(02).
+ 05 WRK-SYSDD PIC 9(02).
+        EOS
+          ast = @parser.parse(f)
+
+          expected_sexp = <<-EOS.chomp
+(begin
+  (send nil :require
+    (str "ostruct"))
+  (class
+    (const nil :Pg1) nil
+    (begin
+      (def :initialize
+        (args)
+        (ivasgn :@wrk_area
+          (send nil :new_wrk_area)))
+      (send nil :private)
+      (def :new_wrk_area
+        (args)
+        (send
+          (const nil :OpenStruct) :new
+          (kwargs
+            (pair
+              (sym :wrk_g)
+              (block
+                (send
+                  (const nil :Array) :new
+                  (int 30))
+                (args)
+                (send
+                  (const nil :OpenStruct) :new
+                  (kwargs
+                    (pair
+                      (sym :wrk_sysyy)
+                      (int 0))
+                    (pair
+                      (sym :wrk_sysmm)
+                      (int 0))
+                    (pair
+                      (sym :wrk_sysdd)
+                      (int 0))))))))))))
           EOS
           assert_text_equal(expected_sexp, ast.to_s)
         end
@@ -205,7 +262,7 @@ PROCEDURE DIVISION.
         (args)
         (send
           (const nil :OpenStruct) :new
-          (hash
+          (kwargs
             (pair
               (sym :wrk_sysyy)
               (int 0))

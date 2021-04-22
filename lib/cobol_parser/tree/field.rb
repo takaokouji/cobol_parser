@@ -261,6 +261,8 @@ class CobolParser::Tree::Field < CobolParser::Tree
     @usage = :DISPLAY
     @storage = :WORKING
     @occurs_max = 1
+
+    @indexes = 0
   end
 
   def add(p)
@@ -343,7 +345,7 @@ class CobolParser::Tree::Field < CobolParser::Tree
         raise NotImplementedError
       end
 
-      index_list.each_chain do |l|
+      index_list&.each_chain do |l|
         @cb.field(l.value).flag_is_global = flag_is_global
       end
     end

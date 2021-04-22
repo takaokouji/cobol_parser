@@ -161,7 +161,7 @@ class CobolParser::Parser < Racc::Parser
   end
 
   def define_new_var_method_body(field)
-    hash_asts = []
+    kwargs_asts = []
     field.children.each_sister do |f|
       name = to_var_name(f.name)
       iv_ast = if f.children
@@ -179,13 +179,20 @@ class CobolParser::Parser < Racc::Parser
                    raise NotImplementedError
                  end
                end
-      hash_asts << s_(:pair, s_(:sym, name), iv_ast)
+
+      if f.flag_occurs
+        iv_ast = s_(:block,
+                    s_(:send, s_(:const, nil, :Array), :new, s_(:int, f.occurs_max)),
+                    s_(:args),
+                    iv_ast)
+      end
+      kwargs_asts << s_(:pair, s_(:sym, name), iv_ast)
     end
 
     s_(:send,
        s_(:const, nil, :OpenStruct), :new,
-       s_(:hash,
-          *hash_asts))
+       s_(:kwargs,
+          *kwargs_asts))
   end
 
   def to_class_name(name)

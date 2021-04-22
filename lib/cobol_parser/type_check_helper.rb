@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module CobolParser::TypeCheckHelper
-  def build_registers # rubocop:disable Metrics/AbcSize
+  def build_registers
     # RETURN-CODE
     if current_program.nested_level > 0
       current_program.cb_return_code =
@@ -73,5 +73,10 @@ module CobolParser::TypeCheckHelper
                                        end
 
     encode_class_name(current_program.orig_source_name)
+  end
+
+  def validate_move(src, dst, is_value)
+    # TODO: typeck.c:3944: validate_move (cb_tree src, cb_tree dst, size_t is_value)
+    # Check only, so this is unnecessary.
   end
 end

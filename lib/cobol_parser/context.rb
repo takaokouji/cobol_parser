@@ -1,34 +1,29 @@
 # frozen_string_literal: true
 
+require "forwardable"
 require "ostruct"
 require "set"
 require_relative "error_helper"
 require_relative "reserved_helper"
-require_relative "program_helper"
+require_relative "program"
 require_relative "type_check_helper"
 require_relative "tree_helper"
+require_relative "config"
+require_relative "warning"
+require_relative "flag"
 
 class CobolParser::Context
+  extend Forwardable
+
   include CobolParser::ErrorHelper
   include CobolParser::ReservedHelper
-  include CobolParser::ProgramHelper
+  include CobolParser::Program::Helper
   include CobolParser::TypeCheckHelper
   include CobolParser::TreeHelper
 
   FORMAT = {
     FIXED: 0,
     FREE: 1,
-  }.freeze
-
-  SUPPORT = {
-    OK: 0,
-    WARNING: 1,
-    ARCHAIC: 2,
-    OBSOLETE: 3,
-    SKIP: 4,
-    IGNORE: 5,
-    ERROR: 6,
-    UNCONFORMABLE: 7,
   }.freeze
 
   INVALID_NAMES = Set.new([
@@ -90,6 +85,10 @@ class CobolParser::Context
   attr_accessor :storage_id
   attr_accessor :flag_main
 
+  attr_accessor :alt_ebcdic
+  attr_accessor :optimize_flag
+  attr_accessor :has_external
+
   # Global variables
   attr_accessor :current_program
   attr_accessor :current_statement
@@ -108,27 +107,20 @@ class CobolParser::Context
   attr_accessor :extension_list
   attr_accessor :include_list
 
-  attr_accessor :config_name
-
-  attr_accessor :author_paragraph
-  attr_accessor :eject_statement
-  attr_accessor :tab_width
-  attr_accessor :text_column
-
-  attr_accessor :flag_mfcomment
-  attr_accessor :flag_debugging_line
-  attr_accessor :flag_fold_copy_lower
-  attr_accessor :flag_fold_copy_upper
-  attr_accessor :flag_functions_all
-
-  attr_accessor :warn_archaic
-  attr_accessor :warn_obsolate
-  attr_accessor :warn_column_overflow
-
   attr_accessor :norestab
+
+  attr_accessor :needs_01
+
+  def_delegators :@config, :verify, *CobolParser::Config.types.values.map { |x| x[:var] }
+  def_delegators :@warning, *CobolParser::Warning.warnings.values.map { |x| x[:var] }
+  def_delegators :@flag, *CobolParser::Flag.flags.values.map { |x| x[:var] }
 
   def initialize
     @cb = self
+
+    @config = CobolParser::Config.new(self)
+    @warning = CobolParser::Warning.new(self)
+    @flag = CobolParser::Flag.new(self)
 
     @id = 1
     @attr_id = 1
@@ -136,6 +128,14 @@ class CobolParser::Context
     @field_id = 1
     @storage_id = 1
     @flag_main = false
+
+    @warningcount = 0
+    @errorcount = 0
+    @alt_ebcdic = false
+    @optimize_flag = false
+    @has_external = false
+
+    @needs_01 = false
 
     @functions_are_all = false
     @non_const_word = 0
@@ -160,27 +160,8 @@ class CobolParser::Context
     @extension_list << ""
     @include_list = []
 
-    @config_name = nil
-
-    @author_paragraph = SUPPORT[:OBSOLETE]
-    @eject_statement = SUPPORT[:SKIP]
-    @tab_width = 8
-    @text_column = 72
-
-    @flag_mfcomment = false
-    @flag_debugging_line = false
-    @flag_fold_copy_lower = false
-    @flag_fold_copy_upper = false
-
-    @warn_archaic = SUPPORT[:WARNING]
-    @warn_obsolate = SUPPORT[:WARNING]
-    @warn_column_overflow = SUPPORT[:WARNING]
-
     @current_section = nil
     @current_paragraph = nil
-
-    @warningcount = 0
-    @errorcount = 0
 
     @norestab = []
   end
@@ -191,29 +172,6 @@ class CobolParser::Context
 
   def free_source_format?
     source_format == FORMAT[:FREE]
-  end
-
-  def verify(tag, feature)
-    case tag
-    when SUPPORT[:OK], SUPPORT[:WARNING]
-      true
-    when SUPPORT[:ARCHAIC]
-      warning("%s is archaic in %s", feature, config_name) if warn_archaic
-      true
-    when SUPPORT[:OBSOLETE]
-      warning("%s is obsolete in %s", feature, config_name) if warn_obsolate
-      true
-    when SUPPORT[:SKIP], SUPPORT[:ERROR]
-      false
-    when SUPPORT[:IGNORE]
-      warning("%s ignored", feature)
-      false
-    when SUPPORT[:UNCONFORMABLE]
-      error("%s does not conform to %s", feature, config_name)
-      false
-    else # rubocop:disable Lint/DuplicateBranch
-      false
-    end
   end
 
   def replace_list_add(replace_list, old_text, new_text)

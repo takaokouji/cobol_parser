@@ -90,40 +90,12 @@ module CobolParser::TreeHelper
     CobolParser::Tree::Literal.build_alphanumeric(self, data)
   end
 
-  def build_reference(name)
-    CobolParser::Tree::Reference.build(self, name)
-  end
-
-  def define(name, val)
-    CobolParser::Tree::Reference.define(name, val)
-  end
-
   def build_picture(str)
     CobolParser::Tree::Picture.build(self, str)
   end
 
   def build_system_name(category, token)
     CobolParser::Tree::SystemName.build(self, category, token)
-  end
-
-  def build_field(name)
-    CobolParser::Tree::Field.build(self, name)
-  end
-
-  def field_add(f, p)
-    CobolParser::Tree::Field.add(f, p)
-  end
-
-  def field(x)
-    if x.is_a?(CobolParser::Tree::Reference)
-      x.ref
-    else
-      x
-    end
-  end
-
-  def build_constant(name, value)
-    CobolParser::Tree::Field.build_constant(self, name, value)
   end
 
   def build_label(name, section)
@@ -142,19 +114,8 @@ module CobolParser::TreeHelper
     CobolParser::Tree::LocaleName.build(self, name, list)
   end
 
-  def build_list(purpose, value, rest)
-    CobolParser::Tree::List.build(self, purpose, value, rest)
-  end
-
-  def list_init(x)
-    CobolParser::Tree::List.init(self, x)
-  end
-
-  def list_append(l1, l2)
-    CobolParser::Tree::List.append(self, l1, l2)
-  end
-
-  def list_add(l, x)
-    CobolParser::Tree::List.add(self, l, x)
-  end
+  include CobolParser::Tree::List::Helper
+  include CobolParser::Tree::File::Helper
+  include CobolParser::Tree::Field::Helper
+  include CobolParser::Tree::Reference::Helper
 end

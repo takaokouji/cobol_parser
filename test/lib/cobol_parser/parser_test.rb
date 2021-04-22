@@ -24,7 +24,7 @@ PROGRAM-ID. PG1.
   (send nil :require
     (str "ostruct"))
   (class
-    (const nil "Pg1") nil
+    (const nil :Pg1) nil
     (def :initialize
       (args))))
         EOS
@@ -33,7 +33,6 @@ PROGRAM-ID. PG1.
     end
 
     test "DATA DIVISION" do
-      omit("not implemented yet")
       create_tempfile(<<-EOS) do |f|
 # 1 "PG1.CBL"
 IDENTIFICATION DIVISION.
@@ -48,12 +47,12 @@ WORKING-STORAGE SECTION.
       EOS
         ast = @parser.parse(f)
 
-        expected_sexp = <<-EOS
+        expected_sexp = <<-EOS.chomp
 (begin
   (send nil :require
     (str "ostruct"))
   (class
-    (const nil "Pg1") nil
+    (const nil :Pg1) nil
     (begin
       (def :initialize
         (args)
@@ -103,7 +102,7 @@ PROCEDURE DIVISION.
       EOS
         ast = @parser.parse(f)
 
-        expected_sexp = <<-EOS
+        expected_sexp = <<-EOS.chomp
 (begin
   (send nil :require
     (str "ostruct"))

@@ -537,10 +537,10 @@ identification_division: PROGRAM_ID '.' program_name as_literal
                           {
                             @current_section = nil
                             @current_paragraph = nil
-                            if _values[2].is_a?(CobolParser::Tree::Literal)
-                              @stack_progid[@depth] = _values[2].data
+                            if _values[-2].is_a?(CobolParser::Tree::Literal)
+                              @stack_progid[@depth] = _values[-2].data
                             else
-                              @stack_progid[@depth] = _values[2].name
+                              @stack_progid[@depth] = _values[-2].name
                             end
 
                             if @prog_end
@@ -569,7 +569,7 @@ identification_division: PROGRAM_ID '.' program_name as_literal
                               @prog_end = true
                             end
                             @depth += 1
-                            current_program.program_id = @cb.build_program_id(_values[2], _values[3])
+                            current_program.program_id = @cb.build_program_id(_values[-2], _values[-1])
                           }
                           program_type '.'
 
@@ -1444,36 +1444,33 @@ _records_or_characters:
  * WORKING-STORAGE SECTION
  *******************/
 working_storage_section:
-                      | WORKING_STORAGE SECTION '.'
-                          {
-                            # TODO: L2280
-                          }
+                      | WORKING_STORAGE SECTION '.' { @current_storage = :WORKING }
                           record_description_list
                           {
-                            # TODO: L2282
+                            if val[4]
+                              current_program.working_storage =
+                                @cb.field_add(current_program.working_storage, val[4])
+                            end
                           }
 
 record_description_list: /* empty */
-                          {
-                            result = nil
-                          }
+                          { result = nil }
                       | record_description_list_1
-                          {
-                            result = val[0]
-                          }
+                          { result = val[0] }
 
 record_description_list_1:
                           {
                             @current_field = nil
                             @description_field = nil
-                            # TODO: L2299 | cb_clear_real_field ();
+                            @cb.clear_real_field
                           }
                           record_description_list_2
                           {
-                            # TODO: L2305
-                            # for (p = description_field; p; p = p->sister) {
-                            #   cb_validate_field (p);
-                            # }
+                            p = @description_field
+                            while p
+                              p.validate
+                              p = p.sister
+                            end
                             result = @description_field
                           }
 
@@ -1484,22 +1481,51 @@ record_description_list_2: not_const_word data_description '.'
       data_description: constant_entry
                       | level_number entry_name
                           {
-                            # TODO: L2322
+                            x = @cb.build_field_tree(_values[-2], _values[-1],
+                                                     @current_field, @current_storage, @current_file)
+                            if x == @cb.error_node
+                              # TODO: YYERROR
+                              raise NotImplementedError
+                            else
+                              @current_field = x
+                            end
                           }
                           data_description_clause_sequence
                           {
-                            # TODO: L2333
+                            if !@qualifier && [88, 78, 66].include?(@current_field.level) ||
+                              @current_field.flag_item_78
+                              @cb.error("Item requires a data name")
+                            end
+
+                            if @current_field.level == 88
+                              # TODO: @cb.validate_88_item(@current_field)
+                              raise NotImplementedError
+                            end
+
+                            if @current_field.flag_item_78
+                              # Reset to last non-78 item
+                              # TODO: @current_field = @cb.validate_78_item(@current_field)
+                              raise NotImplementedError
+                            end
+
+                            if !@description_field
+                              @description_field = @current_field
+                            end
                           }
 
           level_number: WORD
 
             entry_name: /* empty */
                           {
-                            # TODO: L2358
+                            result = @cb.build_filler
+                            @qualifier = nil
+                            @non_const_word = false
                           }
                       | FILLER
                           {
-                            # TODO: L2364
+                            result = @cb.build_filler
+                            @qualifier = nil
+                            @non_const_word = false
                           }
                       | WORD
                           {
@@ -1541,11 +1567,13 @@ record_description_list_2: not_const_word data_description '.'
 
 data_description_clause_sequence: /* empty */
                           {
-                            # TODO: L2421
+                            # required to check redefines
+                            result = nil
                           }
                       | data_description_clause_sequence data_description_clause
                           {
-                            # TODO: L2427
+                            # required to check redefines
+                            result = @cb.constants.true
                           }
 
 data_description_clause: redefines_clause
@@ -1592,9 +1620,7 @@ data_description_clause: redefines_clause
 
 /* PICTURE clause */
         picture_clause: PICTURE
-                          {
-                            # TODO: L2531
-                          }
+                          { @current_field.pic = val[0] }
 
 /* USAGE clause */
           usage_clause: usage
@@ -1845,33 +1871,24 @@ ascending_or_descending: ASCENDING
 
 /* VALUE clause */
           value_clause: VALUE _is_are value_item_list
-                          {
-                            # TODO: L2779
-                          }
+                          { @current_field.values = _values[-1] }
                           _when _set _to false_is
 
        value_item_list: value_item
-                          {
-                            # TODO: L2784
-                          }
+                          { result = @cb.list_init(val[0]) }
                       | value_item_list value_item
-                          {
-                            # TODO: L2785
-                          }
+                          { result = @cb.list_add(val[0], val[1]) }
 
             value_item: literal
-                          {
-                            # TODO: L2789
-                          }
+                          { result = val[0] }
                       | literal THRU literal
-                          {
-                            # TODO: L2790
-                          }
+                          { result = @cb.build_pair(val[0], val[2]) }
 
               false_is:
                       | TOK_FALSE _is literal
                           {
-                            # TODO: L2795
+                            @cb.error("FALSE clause only allowed for 88 level") if @current_field.level != 88
+                            @current_field.false_88 = @cb.list_init(val[2])
                           }
 
 /* RENAMES clause */
@@ -5525,7 +5542,7 @@ numeric_value:
  *******************/
         not_const_word:
                           {
-                            # TODO: L6838
+                            @non_const_word = true
                           }
 
 /*

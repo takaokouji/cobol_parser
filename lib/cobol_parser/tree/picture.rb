@@ -49,7 +49,7 @@ class CobolParser::Tree::Picture < CobolParser::Tree
 
   private
 
-  def parse_picture_string(str) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
+  def parse_picture_string(str)
     raise InvalidPictureStringError, str, "too long" if str.length > 50
 
     pattern =

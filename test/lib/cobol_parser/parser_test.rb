@@ -286,6 +286,43 @@ end
     end
 
     sub_test_case "PROCEDURE DIVISION" do
+      test "SECTION / EXIT PROGRAM" do
+        parse_and_assert_ast_equal(<<-COBOL, <<-RUBY)
+# 1 "PG1.CBL"
+IDENTIFICATION DIVISION.
+PROGRAM-ID. PG1.
+
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01 WRK-AREA.
+ 03 WRK-SYSYY PIC 9(04).
+
+PROCEDURE DIVISION.
+000-PROC-SEC SECTION.
+000-PROC-EXT.
+ EXIT PROGRAM.
+        COBOL
+require "ostruct"
+
+class Pg1
+  def initialize
+    @wrk_area = new_wrk_area
+  end
+
+  def _000_proc_sec
+  end
+
+  private
+
+  def new_wrk_area
+    OpenStruct.new(
+      wrk_sysyy: 0,
+    )
+  end
+end
+        RUBY
+      end
+
       test "MOVE" do
         omit("not implemented yet")
         parse_and_assert_ast_equal(<<-COBOL, <<-RUBY)

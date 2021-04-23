@@ -4,11 +4,10 @@ require "racc/parser.rb" # rubocop:disable Style/RedundantFileExtensionInRequire
 require "forwardable"
 require_relative "scanner"
 require_relative "parser.rule"
-require_relative "ast_helper"
+require_relative "ast_generator"
 
 class CobolParser::Parser < Racc::Parser
   extend Forwardable
-  include CobolParser::AstHelper
 
   attr_reader :scanner
 
@@ -70,7 +69,7 @@ class CobolParser::Parser < Racc::Parser
     #   emit_entry(current_program->program_id, 0, NULL);
     # }
 
-    to_ast
+    CobolParser::AstGenerator.generate(@cb)
   end
 
   def next_token
@@ -79,135 +78,4 @@ class CobolParser::Parser < Racc::Parser
   rescue StopIteration
     [false, "$end"]
   end
-
-  private
-
-  def to_ast
-    s_(:begin,
-       s_(:send, nil, :require, s_(:str, "ostruct")),
-       s_(:class, s_(:const, nil, to_class_name(current_program.orig_source_name)), nil,
-          define_class_body))
-  end
-
-  def define_class_body
-    class_body = [
-      define_initialize,
-      *define_public_methods,
-      *define_private_methods,
-    ].compact
-    if class_body.empty?
-      nil
-    elsif class_body.length == 1
-      class_body.first
-    else
-      s_(:begin, *class_body)
-    end
-  end
-
-  def define_initialize
-    names = []
-    current_program.working_storage.each_sister do |field|
-      names << field.name if field.storage == :WORKING && field.level == 1
-    end
-    initialize_vars = names.map { |name| initialize_var(name) }
-
-    if initialize_vars.empty?
-      nil
-    elsif initialize_vars.length == 1
-      s_(:def, :initialize,
-         s_(:args),
-         initialize_vars.first)
-    else
-      s_(:def, :initialize,
-         s_(:args),
-         s_(:begin,
-            *initialize_vars))
-    end
-  end
-
-  def initialize_var(name)
-    s_(:ivasgn, to_ivar_name(name),
-       s_(:send, nil, to_method_name("new_#{name}")))
-  end
-
-  def define_public_methods
-    []
-  end
-
-  def define_private_methods
-    private_methods = []
-    private_methods += define_new_var_methods
-
-    return nil if private_methods.empty?
-
-    [s_(:send, nil, :private)] + private_methods
-  end
-
-  def define_new_var_methods
-    new_var_methods = []
-    current_program.working_storage.each_sister do |field|
-      new_var_methods << define_new_var_method(field) if field.storage == :WORKING && field.level == 1
-    end
-
-    new_var_methods
-  end
-
-  def define_new_var_method(field)
-    method_name = to_method_name("new_#{field.name}")
-    body_ast = define_new_var_method_body(field)
-
-    s_(:def, method_name,
-       s_(:args),
-       body_ast)
-  end
-
-  def define_new_var_method_body(field)
-    kwargs_asts = []
-    field.children.each_sister do |f|
-      name = to_var_name(f.name)
-      iv_ast = if f.children
-                 define_new_var_method_body(f)
-               else
-                 iv = f.initial_value
-                 case iv
-                 when Integer
-                   s_(:int, iv)
-                 when String
-                   s_(:str, iv)
-                 when Float
-                   s_(:float, iv)
-                 else
-                   raise NotImplementedError
-                 end
-               end
-
-      if f.flag_occurs
-        iv_ast = s_(:block,
-                    s_(:send, s_(:const, nil, :Array), :new, s_(:int, f.occurs_max)),
-                    s_(:args),
-                    iv_ast)
-      end
-      kwargs_asts << s_(:pair, s_(:sym, name), iv_ast)
-    end
-
-    s_(:send,
-       s_(:const, nil, :OpenStruct), :new,
-       s_(:kwargs,
-          *kwargs_asts))
-  end
-
-  def to_class_name(name)
-    name.sub(/^[^A-Z]/, "C\\1").split(/[-_]/).map(&:capitalize).join.to_sym
-  end
-
-  def to_ivar_name(name)
-    "@#{to_method_name(name)}".to_sym
-  end
-
-  def to_method_name(name)
-    # TODO: fix rule
-    name.downcase.sub(/^[^a-z_]/, "_\\1").gsub("-", "_").to_sym
-  end
-
-  alias_method :to_var_name, :to_method_name
 end

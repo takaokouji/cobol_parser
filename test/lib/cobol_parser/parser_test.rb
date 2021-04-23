@@ -28,7 +28,7 @@ class Pg1
 end
           EOS
 
-          assert_text_equal(expected.to_s, actual.to_s)
+          assert_equal(expected, actual)
         end
       end
     end

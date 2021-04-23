@@ -1,6 +1,17 @@
 # frozen_string_literal: true
 
 module CobolParser::TypeCheckHelper
+  def emit(x)
+    # TODO: current_statement
+    # TODO: cb_list_add
+    current_statement.body = cb_list_add(current_statement.body, x)
+  end
+
+  def cb_emit_list(l)
+    # TODO: cb_list_append
+    current_statement.body = cb_list_append(current_statement.body, l)
+  end
+
   def build_registers
     # RETURN-CODE
     if current_program.nested_level > 0
@@ -78,5 +89,90 @@ module CobolParser::TypeCheckHelper
   def validate_move(src, dst, is_value)
     # TODO: typeck.c:3944: validate_move (cb_tree src, cb_tree dst, size_t is_value)
     # Check only, so this is unnecessary.
+  end
+
+  def build_add(v, n, round_opt)
+    if v.index? || v.tree_class == :POINTER
+      # TODO: @cb.build_binary_op(v, '+', n)
+      # TODO: @cb.build_move(@cb.build_binary_op(v, '+', n), v)
+      return @cb.build_move(@cb.build_binary_op(v, "+", n), v)
+    end
+
+    if v.ref_or_field?
+      f = @cb.field(v)
+      f.count += 1
+    end
+    if n.ref_or_field?
+      f = @cb.field(n)
+      f.count += 1
+    end
+    if round_opt == @cb.high
+      # TODO: @cb.fits_int(n)
+      # TODO: @cb.build_optim_add(v, n)
+      return @cb.build_optim_add(v, n) if @cb.fits_int(n)
+
+      # TODO: @cb.build_funcall_3("cob_add", v, n, @cb.int0)
+      return @cb.build_funcall_3("cob_add", v, n, @cb.int0)
+    end
+    # build_store_option(v, round_opt)
+    opt = build_store_option(v, round_opt)
+    if opt == @cb.int0 && @cb.fits_int(n)
+      return @cb.build_optim_add(v, n)
+    end
+
+    @cb.build_funcall_3("cob_add", v, n, opt)
+  end
+
+  # PERFORM statement
+
+  def emit_perform(perform, body)
+    return if perform == @cb.error_node
+
+    perform.body = body
+    # TODO: @cb.emit(perform)
+    @cb.emit(perform)
+  end
+
+  def cb_build_perform_once(body)
+    return @cb.error_node if body == @cb.error_node
+
+    x = @cb.build_perform(:ONCE)
+    x.body = body
+
+    x
+  end
+
+  def build_perform_times(times)
+    # TODO: @cb.check_integer_value(times)
+    return @cb.error_node if @cb.check_integer_value(times) == @cb.error_node
+
+    x = @cb.build_perform(:TIMES)
+    x.data = times
+
+    x
+  end
+
+  def cb_build_perform_until(condition, varying)
+    x = @cb.build_perform(:UNTIL)
+    x.test = condition
+    x.varying = varying
+
+    x
+  end
+
+  def cb_build_perform_forever(body)
+    return @cb.error_node if body == @cb.error_node
+
+    x = @cb.build_perform(:FOREVER)
+    x.body = body
+
+    x
+  end
+
+  def build_perform_exit(label)
+    x = @cb.build_perform(:EXIT)
+    x.data = label
+
+    x
   end
 end

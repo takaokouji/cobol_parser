@@ -2297,11 +2297,25 @@ screen_line_plus_minus: /* empty */
                           }
                           procedure_declaratives
                           {
-                            # TODO: L3318
+                            if current_program.flag_main && !current_program.flag_chained && _values[-5]
+                              @cb.error("Executable program requested but PROCEDURE/ENTRY has USING clause")
+                            end
                           }
                           procedure_list
                           {
-                            # TODO: L3328
+                            if @current_paragraph
+                              if @current_paragraph.exit_label
+                                emit_statement(@current_paragraph.exit_label)
+                              end
+                              # TODO: @cb.build_perform_exit(@current_paragraph)
+                              emit_statement(@cb.build_perform_exit(@current_paragraph))
+                            end
+                            if @current_section
+                              if @current_section.exit_label
+                                emit_statement(current_section.exit_label)
+                              end
+                              emit_statement(@cb.build_perform_exit(@urrent_section))
+                            end
                           }
 
 procedure_using_chaining: /* empty */

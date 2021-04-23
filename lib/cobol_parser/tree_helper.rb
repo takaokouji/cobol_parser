@@ -98,10 +98,12 @@ module CobolParser::TreeHelper
     CobolParser::Tree::LocaleName.build(self, name, list)
   end
 
-  include CobolParser::Tree::List::Helper
-  include CobolParser::Tree::File::Helper
   include CobolParser::Tree::Field::Helper
-  include CobolParser::Tree::Reference::Helper
+  include CobolParser::Tree::File::Helper
+  include CobolParser::Tree::List::Helper
   include CobolParser::Tree::Literal::Helper
+  include CobolParser::Tree::Perform::Helper
+  include CobolParser::Tree::PerformVarying::Helper
+  include CobolParser::Tree::Reference::Helper
   include CobolParser::Tree::SystemName::Helper
 end

@@ -64,7 +64,9 @@ class CobolParser::Parser < Racc::Parser
     end
     if @cb.errorcount > 0
       # TODO: YYABORT;
+      return
     end
+
     # TODO: below
     # if !current_program.entry_list {
     #   emit_entry(current_program->program_id, 0, NULL);
@@ -99,5 +101,9 @@ class CobolParser::Parser < Racc::Parser
     cb_reset_in_procedure
     @cb.clear_real_field
     CobolParser::Program.new(@cb, last_program, nest_level)
+  end
+
+  def emit_statement(x)
+    current_program.exec_list = @cb.cons(x, current_program.exec_list)
   end
 end

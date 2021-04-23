@@ -16,6 +16,10 @@ class CobolParser::Tree::List < CobolParser::Tree
       build_list(nil, x, nil)
     end
 
+    def cons(x, l)
+      build_list(nil, x, l)
+    end
+
     def list_append(l1, l2)
       return l2 if !l1
 

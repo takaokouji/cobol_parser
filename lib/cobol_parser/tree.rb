@@ -166,6 +166,16 @@ class CobolParser::Tree
   end
 
   alias_method :to_s, :inspect
+
+  # CB_INDEX_P
+  def index?
+    ref_or_field? && @cb.field(self).usage == :INDEX
+  end
+
+  # CB_REF_OR_FIELD_P
+  def ref_or_field?
+    is_a?(CobolParser::Tree::Field) || is_a?(CobolParser::Tree::Reference)
+  end
 end
 
 require_relative "tree/alphabet_name"
@@ -179,6 +189,8 @@ require_relative "tree/label"
 require_relative "tree/list"
 require_relative "tree/literal"
 require_relative "tree/locale_name"
+require_relative "tree/perform"
+require_relative "tree/perform_varying"
 require_relative "tree/picture"
 require_relative "tree/reference"
 require_relative "tree/system_name"

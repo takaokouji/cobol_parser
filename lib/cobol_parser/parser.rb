@@ -95,7 +95,9 @@ class CobolParser::Parser < Racc::Parser
       *define_public_methods,
       *define_private_methods,
     ].compact
-    if class_body.length == 1
+    if class_body.empty?
+      nil
+    elsif class_body.length == 1
       class_body.first
     else
       s_(:begin, *class_body)
@@ -110,12 +112,11 @@ class CobolParser::Parser < Racc::Parser
     initialize_vars = names.map { |name| initialize_var(name) }
 
     if initialize_vars.empty?
-      s_(:def, :initialize,
-         s_(:args))
+      nil
     elsif initialize_vars.length == 1
       s_(:def, :initialize,
          s_(:args),
-         *initialize_vars)
+         initialize_vars.first)
     else
       s_(:def, :initialize,
          s_(:args),

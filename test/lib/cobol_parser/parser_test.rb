@@ -2,6 +2,7 @@
 
 require "test_helper"
 require "tempfile"
+require "parser/current"
 
 class CobolParser::ParserTest < Test::Unit::TestCase
   setup do
@@ -11,24 +12,24 @@ class CobolParser::ParserTest < Test::Unit::TestCase
   end
 
   sub_test_case "#parse" do
-    test "IDENTIFICATION DIVISION" do
-      create_tempfile(<<-EOS) do |f|
+    sub_test_case "IDENTIFICATION DIVISION" do
+      test "PROGRAM-ID" do
+        create_tempfile(<<-EOS) do |f|
 # 1 "PG1.CBL"
 IDENTIFICATION DIVISION.
 PROGRAM-ID. PG1.
-      EOS
-        ast = @parser.parse(f)
-
-        expected_sexp = <<-EOS.chomp
-(begin
-  (send nil :require
-    (str "ostruct"))
-  (class
-    (const nil :Pg1) nil
-    (def :initialize
-      (args))))
         EOS
-        assert_equal(expected_sexp, ast.to_s)
+          actual = @parser.parse(f)
+
+          expected = Parser::CurrentRuby.parse(<<-EOS)
+require "ostruct"
+
+class Pg1
+end
+          EOS
+
+          assert_text_equal(expected.to_s, actual.to_s)
+        end
       end
     end
 
@@ -152,7 +153,7 @@ WORKING-STORAGE SECTION.
         end
       end
 
-      test "OCCURS" do
+      test "table (OCCURS)" do
         create_tempfile(<<-EOS) do |f|
 # 1 "PG1.CBL"
 IDENTIFICATION DIVISION.

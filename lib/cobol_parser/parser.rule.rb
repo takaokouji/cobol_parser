@@ -12037,18 +12037,16 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5030)
 
 # reduce 1276 omitted
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5052)
+module_eval(<<'.,.,', 'parser.rule.ry', 5051)
   def _reduce_1277(val, _values, result)
-                                # TODO: L6324
-
+     result = @cb.list_init(val[0])
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5056)
+module_eval(<<'.,.,', 'parser.rule.ry', 5053)
   def _reduce_1278(val, _values, result)
-                                # TODO: L6325
-
+     result = @cb.list_add(val[0], val[2])
     result
   end
 .,.,
@@ -12059,7 +12057,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5056)
 
 # reduce 1281 omitted
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5065)
+module_eval(<<'.,.,', 'parser.rule.ry', 5061)
   def _reduce_1282(val, _values, result)
                                 # TODO: L6334
 
@@ -12067,7 +12065,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5065)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5069)
+module_eval(<<'.,.,', 'parser.rule.ry', 5065)
   def _reduce_1283(val, _values, result)
                                 # TODO: L6335
 
@@ -12075,7 +12073,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5069)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5073)
+module_eval(<<'.,.,', 'parser.rule.ry', 5069)
   def _reduce_1284(val, _values, result)
                                 # TODO: L6336
 
@@ -12083,7 +12081,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5073)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5077)
+module_eval(<<'.,.,', 'parser.rule.ry', 5073)
   def _reduce_1285(val, _values, result)
                                 # TODO: L6337
 
@@ -12091,7 +12089,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5077)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5081)
+module_eval(<<'.,.,', 'parser.rule.ry', 5077)
   def _reduce_1286(val, _values, result)
                                 # TODO: L6338
 
@@ -12099,7 +12097,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5081)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5085)
+module_eval(<<'.,.,', 'parser.rule.ry', 5081)
   def _reduce_1287(val, _values, result)
                                 # TODO: L6339
 
@@ -12107,7 +12105,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5085)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5089)
+module_eval(<<'.,.,', 'parser.rule.ry', 5085)
   def _reduce_1288(val, _values, result)
                                 # TODO: L6340
 
@@ -12115,7 +12113,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5089)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5093)
+module_eval(<<'.,.,', 'parser.rule.ry', 5089)
   def _reduce_1289(val, _values, result)
                                 # TODO: L6341
 
@@ -12123,7 +12121,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5093)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5097)
+module_eval(<<'.,.,', 'parser.rule.ry', 5093)
   def _reduce_1290(val, _values, result)
                                 # TODO: L6342
 
@@ -12131,7 +12129,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5097)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5103)
+module_eval(<<'.,.,', 'parser.rule.ry', 5099)
   def _reduce_1291(val, _values, result)
                                 # TODO: L6354
 
@@ -12139,7 +12137,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5103)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5107)
+module_eval(<<'.,.,', 'parser.rule.ry', 5103)
   def _reduce_1292(val, _values, result)
                                 # TODO: L6366
 
@@ -12147,7 +12145,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5107)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5113)
+module_eval(<<'.,.,', 'parser.rule.ry', 5109)
   def _reduce_1293(val, _values, result)
                                 # TODO: L6380
 
@@ -12155,7 +12153,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5113)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5117)
+module_eval(<<'.,.,', 'parser.rule.ry', 5113)
   def _reduce_1294(val, _values, result)
                                 # TODO: L6382
 
@@ -12163,7 +12161,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5117)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5122)
+module_eval(<<'.,.,', 'parser.rule.ry', 5118)
   def _reduce_1295(val, _values, result)
                                 # TODO: L6386
 
@@ -12171,7 +12169,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5122)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5128)
+module_eval(<<'.,.,', 'parser.rule.ry', 5124)
   def _reduce_1296(val, _values, result)
                                 # TODO: L6392
 
@@ -12179,7 +12177,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5128)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5134)
+module_eval(<<'.,.,', 'parser.rule.ry', 5130)
   def _reduce_1297(val, _values, result)
                                 # TODO: L6399
 
@@ -12187,7 +12185,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5134)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5140)
+module_eval(<<'.,.,', 'parser.rule.ry', 5136)
   def _reduce_1298(val, _values, result)
                                 # TODO: L6419
 
@@ -12195,7 +12193,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5140)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5144)
+module_eval(<<'.,.,', 'parser.rule.ry', 5140)
   def _reduce_1299(val, _values, result)
                                 # TODO: L6423
 
@@ -12203,7 +12201,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5144)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5149)
+module_eval(<<'.,.,', 'parser.rule.ry', 5145)
   def _reduce_1300(val, _values, result)
                                 # TODO: L6439
 
@@ -12211,7 +12209,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5149)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5155)
+module_eval(<<'.,.,', 'parser.rule.ry', 5151)
   def _reduce_1301(val, _values, result)
                                 # TODO: L6452
 
@@ -12219,7 +12217,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5155)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5159)
+module_eval(<<'.,.,', 'parser.rule.ry', 5155)
   def _reduce_1302(val, _values, result)
                                 # TODO: L6454
 
@@ -12227,7 +12225,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5159)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5164)
+module_eval(<<'.,.,', 'parser.rule.ry', 5160)
   def _reduce_1303(val, _values, result)
                                 # TODO: L6458
 
@@ -12235,7 +12233,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5164)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5170)
+module_eval(<<'.,.,', 'parser.rule.ry', 5166)
   def _reduce_1304(val, _values, result)
                                 # TODO: L6464
 
@@ -12243,7 +12241,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5170)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5174)
+module_eval(<<'.,.,', 'parser.rule.ry', 5170)
   def _reduce_1305(val, _values, result)
                                 # TODO: L6466
 
@@ -12251,7 +12249,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5174)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5179)
+module_eval(<<'.,.,', 'parser.rule.ry', 5175)
   def _reduce_1306(val, _values, result)
                                 # TODO: L6471
 
@@ -12265,7 +12263,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5179)
 
 # reduce 1309 omitted
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5188)
+module_eval(<<'.,.,', 'parser.rule.ry', 5184)
   def _reduce_1310(val, _values, result)
                                 # TODO: L6486
 
@@ -12273,7 +12271,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5188)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5194)
+module_eval(<<'.,.,', 'parser.rule.ry', 5190)
   def _reduce_1311(val, _values, result)
                                 # TODO: L6496
 
@@ -12281,7 +12279,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5194)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5198)
+module_eval(<<'.,.,', 'parser.rule.ry', 5194)
   def _reduce_1312(val, _values, result)
                                 # TODO: L6497
 
@@ -12289,7 +12287,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5198)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5203)
+module_eval(<<'.,.,', 'parser.rule.ry', 5199)
   def _reduce_1313(val, _values, result)
                                 # TODO: L6502
 
@@ -12297,7 +12295,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5203)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5208)
+module_eval(<<'.,.,', 'parser.rule.ry', 5204)
   def _reduce_1314(val, _values, result)
                                 # TODO: L6509
 
@@ -12305,7 +12303,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5208)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5212)
+module_eval(<<'.,.,', 'parser.rule.ry', 5208)
   def _reduce_1315(val, _values, result)
                                 # TODO: L6510
 
@@ -12317,7 +12315,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5212)
 
 # reduce 1317 omitted
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5221)
+module_eval(<<'.,.,', 'parser.rule.ry', 5217)
   def _reduce_1318(val, _values, result)
                                 # TODO: L6522
 
@@ -12325,7 +12323,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5221)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5229)
+module_eval(<<'.,.,', 'parser.rule.ry', 5225)
   def _reduce_1319(val, _values, result)
                                 # TODO: L6541
 
@@ -12333,7 +12331,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5229)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5233)
+module_eval(<<'.,.,', 'parser.rule.ry', 5229)
   def _reduce_1320(val, _values, result)
                                 # TODO: L6542
 
@@ -12343,7 +12341,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5233)
 
 # reduce 1321 omitted
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5239)
+module_eval(<<'.,.,', 'parser.rule.ry', 5235)
   def _reduce_1322(val, _values, result)
                                 # TODO: L6547
 
@@ -12351,7 +12349,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5239)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5244)
+module_eval(<<'.,.,', 'parser.rule.ry', 5240)
   def _reduce_1323(val, _values, result)
                                 # TODO: L6551
 
@@ -12359,7 +12357,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5244)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5248)
+module_eval(<<'.,.,', 'parser.rule.ry', 5244)
   def _reduce_1324(val, _values, result)
                                 # TODO: L6552
 
@@ -12369,7 +12367,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5248)
 
 # reduce 1325 omitted
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5254)
+module_eval(<<'.,.,', 'parser.rule.ry', 5250)
   def _reduce_1326(val, _values, result)
                                 # TODO: L6557
 
@@ -12377,7 +12375,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5254)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5258)
+module_eval(<<'.,.,', 'parser.rule.ry', 5254)
   def _reduce_1327(val, _values, result)
                                 # TODO: L6558
 
@@ -12385,7 +12383,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5258)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5262)
+module_eval(<<'.,.,', 'parser.rule.ry', 5258)
   def _reduce_1328(val, _values, result)
                                 # TODO: L6559
 
@@ -12393,7 +12391,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5262)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5266)
+module_eval(<<'.,.,', 'parser.rule.ry', 5262)
   def _reduce_1329(val, _values, result)
                                 # TODO: L6560
 
@@ -12401,7 +12399,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5266)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5270)
+module_eval(<<'.,.,', 'parser.rule.ry', 5266)
   def _reduce_1330(val, _values, result)
                                 # TODO: L6561
 
@@ -12417,7 +12415,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5270)
 
 # reduce 1334 omitted
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5279)
+module_eval(<<'.,.,', 'parser.rule.ry', 5275)
   def _reduce_1335(val, _values, result)
                                 # TODO: L6569
 
@@ -12425,7 +12423,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5279)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5283)
+module_eval(<<'.,.,', 'parser.rule.ry', 5279)
   def _reduce_1336(val, _values, result)
                                 # TODO: L6570
 
@@ -12433,7 +12431,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5283)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5287)
+module_eval(<<'.,.,', 'parser.rule.ry', 5283)
   def _reduce_1337(val, _values, result)
                                 # TODO: L6571
 
@@ -12451,18 +12449,16 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5287)
 
 # reduce 1342 omitted
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5298)
+module_eval(<<'.,.,', 'parser.rule.ry', 5293)
   def _reduce_1343(val, _values, result)
-                                # TODO: L6583
-
+     result = val[0]
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5302)
+module_eval(<<'.,.,', 'parser.rule.ry', 5295)
   def _reduce_1344(val, _values, result)
-                                # TODO: L6584
-
+     result = val[0]
     result
   end
 .,.,
@@ -12489,59 +12485,58 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5302)
 
 # reduce 1355 omitted
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5328)
+module_eval(<<'.,.,', 'parser.rule.ry', 5319)
   def _reduce_1356(val, _values, result)
-                                # TODO: L6618
-
+     result = @cb.zero
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5336)
+module_eval(<<'.,.,', 'parser.rule.ry', 5326)
   def _reduce_1357(val, _values, result)
                                 # TODO: @cb.build_identifier(val[0])
-                            result = @cb.build_identifier(val[0])
+                            #result = @cb.build_identifier(val[0])
 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5341)
+module_eval(<<'.,.,', 'parser.rule.ry', 5331)
   def _reduce_1358(val, _values, result)
      result = val[0]
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5343)
+module_eval(<<'.,.,', 'parser.rule.ry', 5333)
   def _reduce_1359(val, _values, result)
      result = val[0]
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5345)
+module_eval(<<'.,.,', 'parser.rule.ry', 5335)
   def _reduce_1360(val, _values, result)
      result = val[0]
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5347)
+module_eval(<<'.,.,', 'parser.rule.ry', 5337)
   def _reduce_1361(val, _values, result)
      result = val[0]
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5350)
+module_eval(<<'.,.,', 'parser.rule.ry', 5340)
   def _reduce_1362(val, _values, result)
      result = val[0]
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5353)
+module_eval(<<'.,.,', 'parser.rule.ry', 5343)
   def _reduce_1363(val, _values, result)
                                 result = val[0]
                             val[0].chain = val[2]
@@ -12550,16 +12545,16 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5353)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5359)
+module_eval(<<'.,.,', 'parser.rule.ry', 5349)
   def _reduce_1364(val, _values, result)
-                                result = val[0]
-                            val[0].subs = @cb.list_reverse(val[1])
+                                result = _values[-1]
+                            _values[-1].subs = val[1].reverse
 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5365)
+module_eval(<<'.,.,', 'parser.rule.ry', 5355)
   def _reduce_1365(val, _values, result)
                                 _values[-1].offset = val[1]
 
@@ -12567,7 +12562,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5365)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5369)
+module_eval(<<'.,.,', 'parser.rule.ry', 5359)
   def _reduce_1366(val, _values, result)
                                 _values[-1].offset = val[1]
                             _values[-1].length = val[3]
@@ -12576,7 +12571,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5369)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5378)
+module_eval(<<'.,.,', 'parser.rule.ry', 5368)
   def _reduce_1367(val, _values, result)
                                 if val[0].category != :NUMERIC
                                 @cb.error("Integer value expected")
@@ -12589,14 +12584,14 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5378)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5387)
+module_eval(<<'.,.,', 'parser.rule.ry', 5377)
   def _reduce_1368(val, _values, result)
      result = val[0]
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5390)
+module_eval(<<'.,.,', 'parser.rule.ry', 5380)
   def _reduce_1369(val, _values, result)
                                 result = val[1]
                             val[1].all = true if val[1].is_a?(CobolParser::Tree::Literal)
@@ -12605,70 +12600,70 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5390)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5395)
+module_eval(<<'.,.,', 'parser.rule.ry', 5385)
   def _reduce_1370(val, _values, result)
      result = val[0]
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5397)
+module_eval(<<'.,.,', 'parser.rule.ry', 5387)
   def _reduce_1371(val, _values, result)
      result = @cb.concat_literals(val[0], val[2])
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5400)
+module_eval(<<'.,.,', 'parser.rule.ry', 5390)
   def _reduce_1372(val, _values, result)
      result = val[0]
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5402)
+module_eval(<<'.,.,', 'parser.rule.ry', 5392)
   def _reduce_1373(val, _values, result)
      result = @cb.space
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5404)
+module_eval(<<'.,.,', 'parser.rule.ry', 5394)
   def _reduce_1374(val, _values, result)
      result = @cb.zero
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5406)
+module_eval(<<'.,.,', 'parser.rule.ry', 5396)
   def _reduce_1375(val, _values, result)
      result = @cb.quote
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5408)
+module_eval(<<'.,.,', 'parser.rule.ry', 5398)
   def _reduce_1376(val, _values, result)
      result = @cb.high
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5410)
+module_eval(<<'.,.,', 'parser.rule.ry', 5400)
   def _reduce_1377(val, _values, result)
      result = @cb.low
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5412)
+module_eval(<<'.,.,', 'parser.rule.ry', 5402)
   def _reduce_1378(val, _values, result)
      result = @cb.null
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5419)
+module_eval(<<'.,.,', 'parser.rule.ry', 5409)
   def _reduce_1379(val, _values, result)
                                 # TODO: L6709
 
@@ -12676,7 +12671,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5419)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5423)
+module_eval(<<'.,.,', 'parser.rule.ry', 5413)
   def _reduce_1380(val, _values, result)
                                 # TODO: L6713
 
@@ -12684,7 +12679,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5423)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5427)
+module_eval(<<'.,.,', 'parser.rule.ry', 5417)
   def _reduce_1381(val, _values, result)
                                 # TODO: L6717
 
@@ -12692,7 +12687,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5427)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5431)
+module_eval(<<'.,.,', 'parser.rule.ry', 5421)
   def _reduce_1382(val, _values, result)
                                 # TODO: L6721
 
@@ -12700,7 +12695,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5431)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5435)
+module_eval(<<'.,.,', 'parser.rule.ry', 5425)
   def _reduce_1383(val, _values, result)
                                 # TODO: L6725
 
@@ -12708,7 +12703,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5435)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5439)
+module_eval(<<'.,.,', 'parser.rule.ry', 5429)
   def _reduce_1384(val, _values, result)
                                 # TODO: L6729
 
@@ -12716,7 +12711,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5439)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5443)
+module_eval(<<'.,.,', 'parser.rule.ry', 5433)
   def _reduce_1385(val, _values, result)
                                 # TODO: L6733
 
@@ -12724,7 +12719,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5443)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5447)
+module_eval(<<'.,.,', 'parser.rule.ry', 5437)
   def _reduce_1386(val, _values, result)
                                 # TODO: L6737
 
@@ -12732,7 +12727,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5447)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5451)
+module_eval(<<'.,.,', 'parser.rule.ry', 5441)
   def _reduce_1387(val, _values, result)
                                 # TODO: L6741
 
@@ -12740,7 +12735,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5451)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5455)
+module_eval(<<'.,.,', 'parser.rule.ry', 5445)
   def _reduce_1388(val, _values, result)
                                 # TODO: L6745
 
@@ -12748,7 +12743,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5455)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5459)
+module_eval(<<'.,.,', 'parser.rule.ry', 5449)
   def _reduce_1389(val, _values, result)
                                 # TODO: L6749
 
@@ -12756,7 +12751,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5459)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5463)
+module_eval(<<'.,.,', 'parser.rule.ry', 5453)
   def _reduce_1390(val, _values, result)
                                 # TODO: L6753
 
@@ -12764,7 +12759,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5463)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5468)
+module_eval(<<'.,.,', 'parser.rule.ry', 5458)
   def _reduce_1391(val, _values, result)
                                 # TODO: L6759
 
@@ -12772,7 +12767,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5468)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5472)
+module_eval(<<'.,.,', 'parser.rule.ry', 5462)
   def _reduce_1392(val, _values, result)
                                 # TODO: L6760
 
@@ -12780,7 +12775,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5472)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5476)
+module_eval(<<'.,.,', 'parser.rule.ry', 5466)
   def _reduce_1393(val, _values, result)
                                 # TODO: L6761
 
@@ -12788,7 +12783,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5476)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5481)
+module_eval(<<'.,.,', 'parser.rule.ry', 5471)
   def _reduce_1394(val, _values, result)
                                 # TODO: L6765
 
@@ -12796,7 +12791,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5481)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5485)
+module_eval(<<'.,.,', 'parser.rule.ry', 5475)
   def _reduce_1395(val, _values, result)
                                 # TODO: L6766
 
@@ -12804,7 +12799,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5485)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5490)
+module_eval(<<'.,.,', 'parser.rule.ry', 5480)
   def _reduce_1396(val, _values, result)
                                 # TODO: L6770
 
@@ -12812,7 +12807,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5490)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5494)
+module_eval(<<'.,.,', 'parser.rule.ry', 5484)
   def _reduce_1397(val, _values, result)
                                 # TODO: L6771
 
@@ -12820,7 +12815,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5494)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5499)
+module_eval(<<'.,.,', 'parser.rule.ry', 5489)
   def _reduce_1398(val, _values, result)
                                 # TODO: L6777
 
@@ -12828,7 +12823,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5499)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5503)
+module_eval(<<'.,.,', 'parser.rule.ry', 5493)
   def _reduce_1399(val, _values, result)
                                 # TODO: L6784
 
@@ -12836,7 +12831,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5503)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5507)
+module_eval(<<'.,.,', 'parser.rule.ry', 5497)
   def _reduce_1400(val, _values, result)
                                 # TODO: L6791
 
@@ -12844,7 +12839,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5507)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5512)
+module_eval(<<'.,.,', 'parser.rule.ry', 5502)
   def _reduce_1401(val, _values, result)
                                 # TODO: L6801
 
@@ -12852,7 +12847,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5512)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5516)
+module_eval(<<'.,.,', 'parser.rule.ry', 5506)
   def _reduce_1402(val, _values, result)
                                 # TODO: L6808
 
@@ -12860,7 +12855,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5516)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5521)
+module_eval(<<'.,.,', 'parser.rule.ry', 5511)
   def _reduce_1403(val, _values, result)
                                 # TODO: L6818
 
@@ -12868,7 +12863,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5521)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5525)
+module_eval(<<'.,.,', 'parser.rule.ry', 5515)
   def _reduce_1404(val, _values, result)
                                 # TODO: L6825
 
@@ -12876,7 +12871,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5525)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5533)
+module_eval(<<'.,.,', 'parser.rule.ry', 5523)
   def _reduce_1405(val, _values, result)
                                 @non_const_word = true
 
@@ -12884,7 +12879,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5533)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5541)
+module_eval(<<'.,.,', 'parser.rule.ry', 5531)
   def _reduce_1406(val, _values, result)
                                 # TODO: L6848
 
@@ -12892,7 +12887,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5541)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5545)
+module_eval(<<'.,.,', 'parser.rule.ry', 5535)
   def _reduce_1407(val, _values, result)
                                 # TODO: L6849
 
@@ -12900,7 +12895,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5545)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5550)
+module_eval(<<'.,.,', 'parser.rule.ry', 5540)
   def _reduce_1408(val, _values, result)
                                 # TODO: L6853
 
@@ -12908,7 +12903,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5550)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5554)
+module_eval(<<'.,.,', 'parser.rule.ry', 5544)
   def _reduce_1409(val, _values, result)
                                 # TODO: L6854
 
@@ -12916,7 +12911,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5554)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5559)
+module_eval(<<'.,.,', 'parser.rule.ry', 5549)
   def _reduce_1410(val, _values, result)
                                 # TODO: L6858
 
@@ -12924,7 +12919,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5559)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5563)
+module_eval(<<'.,.,', 'parser.rule.ry', 5553)
   def _reduce_1411(val, _values, result)
                                 # TODO: L6859
 
@@ -12932,7 +12927,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5563)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5568)
+module_eval(<<'.,.,', 'parser.rule.ry', 5558)
   def _reduce_1412(val, _values, result)
                                 # TODO: L6863
 
@@ -12940,7 +12935,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5568)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5572)
+module_eval(<<'.,.,', 'parser.rule.ry', 5562)
   def _reduce_1413(val, _values, result)
                                 # TODO: L6864
 
@@ -12948,7 +12943,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5572)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5576)
+module_eval(<<'.,.,', 'parser.rule.ry', 5566)
   def _reduce_1414(val, _values, result)
                                 # TODO: L6865
 
@@ -12956,7 +12951,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5576)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5581)
+module_eval(<<'.,.,', 'parser.rule.ry', 5571)
   def _reduce_1415(val, _values, result)
                                 # TODO: L6869
 
@@ -12964,7 +12959,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5581)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5585)
+module_eval(<<'.,.,', 'parser.rule.ry', 5575)
   def _reduce_1416(val, _values, result)
                                 # TODO: L6870
 
@@ -12972,7 +12967,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5585)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5590)
+module_eval(<<'.,.,', 'parser.rule.ry', 5580)
   def _reduce_1417(val, _values, result)
                                 # TODO: L6874
 
@@ -12980,7 +12975,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5590)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5594)
+module_eval(<<'.,.,', 'parser.rule.ry', 5584)
   def _reduce_1418(val, _values, result)
                                 # TODO: L6875
 
@@ -12988,7 +12983,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5594)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5599)
+module_eval(<<'.,.,', 'parser.rule.ry', 5589)
   def _reduce_1419(val, _values, result)
                                 # TODO: L6879
 
@@ -12996,7 +12991,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5599)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5603)
+module_eval(<<'.,.,', 'parser.rule.ry', 5593)
   def _reduce_1420(val, _values, result)
                                 # TODO: L6880
 
@@ -13004,7 +12999,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5603)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5608)
+module_eval(<<'.,.,', 'parser.rule.ry', 5598)
   def _reduce_1421(val, _values, result)
                                 # TODO: L6884
 
@@ -13012,7 +13007,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5608)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.rule.ry', 5612)
+module_eval(<<'.,.,', 'parser.rule.ry', 5602)
   def _reduce_1422(val, _values, result)
                                 # TODO: L6885
 

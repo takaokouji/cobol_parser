@@ -157,6 +157,43 @@ end
           RUBY
         end
 
+        test "FILLER" do
+          parse_and_assert_ast_equal(<<-COBOL, <<-RUBY)
+# 1 "PG1.CBL"
+IDENTIFICATION DIVISION.
+PROGRAM-ID. PG1.
+
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01 WRK-AREA.
+ 03 WRK-SYSYY PIC 9(04).
+ 03 FILLER PIC X(01) VALUE ".".
+ 03 WRK-SYSMM PIC 9(02).
+ 03 FILLER PIC X(01) VALUE ".".
+ 03 WRK-SYSDD PIC 9(02).
+          COBOL
+require "ostruct"
+
+class Pg1
+  def initialize
+    @wrk_area = new_wrk_area
+  end
+
+  private
+
+  def new_wrk_area
+    OpenStruct.new(
+      wrk_sysyy: 0,
+      _filler_1_: ".",
+      wrk_sysmm: 0,
+      _filler_2_: ".",
+      wrk_sysdd: 0
+    )
+  end
+end
+          RUBY
+        end
+
         test "table (OCCURS)" do
           parse_and_assert_ast_equal(<<-COBOL, <<-RUBY)
 # 1 "PG1.CBL"

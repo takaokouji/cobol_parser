@@ -21,6 +21,7 @@ module CobolParser
     Tempfile.open do |tempfile|
       cb = Context.new
       cb.include_list += Array(options[:include]) if options.key?(:include)
+      cb.extension_list += Array(options[:extension]) if options.key?(:extension)
 
       pp_parser = PPParser.new(cb, options)
       pp_parser.ppout = tempfile

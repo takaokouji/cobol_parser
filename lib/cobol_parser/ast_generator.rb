@@ -108,11 +108,11 @@ class CobolParser::AstGenerator
     kwargs_asts = []
 
     if field.redefines
-      kwargs_asts << s(:pair, s(:sym, :redefines), s(:sym, make_var_name(field.redefines.name)))
+      kwargs_asts << s(:pair, s(:sym, :redefines), s(:sym, make_var_name(field.redefines)))
     end
 
-    field.children.each_sister do |f|
-      name = make_var_name(f.name)
+    field.children&.each_sister do |f|
+      name = make_var_name(f)
       iv_ast = if f.children
                  define_new_var_method_body(f)
                else
@@ -158,5 +158,11 @@ class CobolParser::AstGenerator
     name.downcase.sub(/^[^a-z_]/, "_\\1").gsub("-", "_").to_sym
   end
 
-  alias_method :make_var_name, :make_method_name
+  def make_var_name(field)
+    if field.filler?
+      (field.name.sub(/^WORK\$/, "_filler_") + "_").to_sym
+    else
+      make_method_name(field.name)
+    end
+  end
 end

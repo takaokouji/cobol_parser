@@ -265,6 +265,10 @@ class CobolParser::Tree::Field < CobolParser::Tree
     @indexes = 0
   end
 
+  def filler?
+    name.start_with?("WORK$")
+  end
+
   def add(p)
     t = self
     t = t.sister while t.sister

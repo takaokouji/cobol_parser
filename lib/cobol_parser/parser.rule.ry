@@ -5049,13 +5049,9 @@ not_invalid_key_sentence: NOT_INVALID_KEY
 
 /* Arithmetic expression */
               exp_list: exp
-                          {
-                            # TODO: L6324
-                          }
+                          { result = @cb.list_init(val[0]) }
                       | exp_list e_sep exp
-                          {
-                            # TODO: L6325
-                          }
+                          { result = @cb.list_add(val[0], val[2]) }
 
                  e_sep:
                       | COMMA_DELIM
@@ -5295,13 +5291,9 @@ not_invalid_key_sentence: NOT_INVALID_KEY
                       | ENTRY
 
            alnum_or_id: identifier_1
-                          {
-                            # TODO: L6583
-                          }
+                          { result = val[0] }
                       | LITERAL
-                          {
-                            # TODO: L6584
-                          }
+                          { result = val[0] }
 
           simple_value: identifier
                       | basic_literal
@@ -5325,9 +5317,7 @@ numeric_value:
          num_id_or_lit: identifier
                       | integer
                       | ZERO
-                          {
-                            # TODO: L6618
-                          }
+                          { result = @cb.zero }
 
 /*
  * Identifier
@@ -5335,7 +5325,7 @@ numeric_value:
             identifier: identifier_1
                           {
                             # TODO: @cb.build_identifier(val[0])
-                            result = @cb.build_identifier(val[0])
+                            #result = @cb.build_identifier(val[0])
                           }
 
           identifier_1: qualified_word
@@ -5357,8 +5347,8 @@ numeric_value:
 
                 subref: '(' exp_list ')'
                           {
-                            result = val[0]
-                            val[0].subs = @cb.list_reverse(val[1])
+                            result = _values[-1]
+                            _values[-1].subs = val[1].reverse
                           }
 
                 refmod: '(' exp ':' ')'

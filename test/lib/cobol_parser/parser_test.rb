@@ -118,6 +118,45 @@ end
           RUBY
         end
 
+        test "REDEFINES" do
+          parse_and_assert_ast_equal(<<-COBOL, <<-RUBY)
+# 1 "PG1.CBL"
+IDENTIFICATION DIVISION.
+PROGRAM-ID. PG1.
+
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01 WRK-AREA.
+ 05 WRK-NUM PIC 9(05).9(03).
+ 05 WRK-NUM-G REDEFINES WRK-NUM.
+ 10 WRK-NUM-INTEGER PIC 9(05).
+ 10 WRK-NUM-X PIC X(01).
+ 10 WRK-NUM-FRACTION PIC 9(03).
+          COBOL
+require "ostruct"
+
+class Pg1
+  def initialize
+    @wrk_area = new_wrk_area
+  end
+
+  private
+
+  def new_wrk_area
+    OpenStruct.new(
+      wrk_num: 0.0,
+      wrk_num_g: OpenStruct.new(
+        redefines: :wrk_num,
+        wrk_num_integer: 0,
+        wrk_num_x: "",
+        wrk_num_fraction: 0
+      )
+    )
+  end
+end
+          RUBY
+        end
+
         test "table (OCCURS)" do
           parse_and_assert_ast_equal(<<-COBOL, <<-RUBY)
 # 1 "PG1.CBL"

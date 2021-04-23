@@ -106,6 +106,11 @@ class CobolParser::AstGenerator
 
   def define_new_var_method_body(field)
     kwargs_asts = []
+
+    if field.redefines
+      kwargs_asts << s(:pair, s(:sym, :redefines), s(:sym, make_var_name(field.redefines.name)))
+    end
+
     field.children.each_sister do |f|
       name = make_var_name(f.name)
       iv_ast = if f.children

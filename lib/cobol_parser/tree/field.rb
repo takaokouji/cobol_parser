@@ -473,6 +473,57 @@ class CobolParser::Tree::Field < CobolParser::Tree
     end
   end
 
+  def resolve_redefines(redefines)
+    r = redefines
+    name = redefines.name
+    x = self
+
+    # check qualification
+    if r.chain
+      @cb.error_x(x, "'%s' cannot be qualified here", name)
+      return
+    end
+
+    # check subscripts
+    if r.subs
+      @cb.error_x(x, "'%s' cannot be subscripted here", name)
+      return
+    end
+
+    # resolve the name in the current group (if any)
+    if parent&.children
+      f = parent.children.each_sister.detect { |i| i.name.casecmp?(name) }
+      if !f
+        @cb.error_x(x, "'%s' undefined in '%s'", name, parent.name)
+        return
+      end
+    else
+      return if redefines.ref == @cb.error_node
+
+      f = @cb.field(redefines)
+    end
+
+    # check level number
+    if f.level != level
+      @cb.error_x(x, "Level number of REDEFINES entries must be identical")
+      return
+    end
+    if f.level == 66 || f.level == 88
+      @cb.error_x(x, "Level number of REDEFINES entry cannot be 66 or 88")
+      return
+    end
+
+    if !@cb.indirect_redefines && f.redefines
+      @cb.error_x(x, "'%s' not the original definition", f.name)
+      return
+    end
+
+    # return the original definition
+    f = f.redefines while f.redefines
+
+    @redefines = f
+  end
+
   def each_sister
     return enum_for(:each_sister) if !block_given?
 

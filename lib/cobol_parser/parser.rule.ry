@@ -1594,7 +1594,19 @@ data_description_clause: redefines_clause
 /* REDEFINES clause */
       redefines_clause: REDEFINES identifier_1
                           {
-                            # TODO: L2455
+                            if _values[-1]
+                              # hack for MF compatibility
+                              if @cb.relaxed_syntax_check
+                                @cb.warning_x(val[1], "REDEFINES clause should follow entry-name")
+                              else
+                                @cb.error_x(val[1], "REDEFINES clause must follow entry-name")
+                              end
+                            end
+
+                            @current_field.resolve_redefines(val[1])
+                            if !@current_field.redefines
+                              # TODO: YYERROR;
+                            end
                           }
 
 /* EXTERNAL clause */
@@ -5322,47 +5334,41 @@ numeric_value:
  */
             identifier: identifier_1
                           {
-                            # TODO: L6626
+                            # TODO: @cb.build_identifier(val[0])
+                            result = @cb.build_identifier(val[0])
                           }
 
           identifier_1: qualified_word
-                          {
-                            # TODO: L6630
-                          }
+                          { result = val[0] }
                       | qualified_word subref
-                          {
-                            # TODO: L6631
-                          }
+                          { result = val[0] }
                       | qualified_word refmod
-                          {
-                            # TODO: L6632
-                          }
+                          { result = val[0] }
                       | qualified_word subref refmod
-                          {
-                            # TODO: L6633
-                          }
+                          { result = val[0] }
 
         qualified_word: WORD
-                          {
-                            # TODO: L6637
-                          }
+                          { result = val[0] }
                       | WORD in_of qualified_word
                           {
-                            # TODO: L6638
+                            result = val[0]
+                            val[0].chain = val[2]
                           }
 
                 subref: '(' exp_list ')'
                           {
-                            # TODO: L6643
+                            result = val[0]
+                            val[0].subs = @cb.list_reverse(val[1])
                           }
 
                 refmod: '(' exp ':' ')'
                           {
-                            # TODO: L6651
+                            _values[-1].offset = val[1]
                           }
                       | '(' exp ':' exp ')'
                           {
-                            # TODO: L6655
+                            _values[-1].offset = val[1]
+                            _values[-1].length = val[3]
                           }
 
 /*

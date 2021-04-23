@@ -78,18 +78,6 @@ module CobolParser::TreeHelper
                  :cb_intr_e,
                  :standard_error_handler
 
-  def build_literal(category, data)
-    CobolParser::Tree::Literal.build(self, category, data)
-  end
-
-  def build_numeric_literal(sign, data, scale)
-    CobolParser::Tree::Literal.build_numeric(self, sign, data, scale)
-  end
-
-  def build_alphanumeric_literal(data)
-    CobolParser::Tree::Literal.build_alphanumeric(self, data)
-  end
-
   def build_picture(str)
     CobolParser::Tree::Picture.build(self, str)
   end
@@ -118,4 +106,5 @@ module CobolParser::TreeHelper
   include CobolParser::Tree::File::Helper
   include CobolParser::Tree::Field::Helper
   include CobolParser::Tree::Reference::Helper
+  include CobolParser::Tree::Literal::Helper
 end

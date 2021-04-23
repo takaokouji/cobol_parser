@@ -111,6 +111,8 @@ class CobolParser::Context
 
   attr_accessor :needs_01
 
+  attr_reader :max_subscripts
+
   def_delegators :@config, :verify, *CobolParser::Config.types.values.map { |x| x[:var] }
   def_delegators :@warning, *CobolParser::Warning.warnings.values.map { |x| x[:var] }
   def_delegators :@flag, *CobolParser::Flag.flags.values.map { |x| x[:var] }
@@ -164,6 +166,8 @@ class CobolParser::Context
     @current_paragraph = nil
 
     @norestab = []
+
+    @max_subscripts = 16
   end
 
   def fixed_source_format?

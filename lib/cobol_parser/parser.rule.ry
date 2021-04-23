@@ -1780,17 +1780,22 @@ data_description_clause: redefines_clause
 /* OCCURS clause */
          occurs_clause: OCCURS integer occurs_to_integer _times occurs_depending occurs_keys occurs_indexed
                           {
-                            # TODO: L2631
+                            if @current_field.occurs_depending && !val[2]
+                              @cb.verify(@cb.odo_without_to, "ODO without TO clause")
+                            end
+                            @current_field.occurs_min = val[2] ? @cb.get_int(val[1]) : 1
+                            @current_field.occurs_max = val[2] ? @cb.get_int(val[2]) : @cb.get_int(val[1])
+                            @current_field.indexes += 1
+                            if @current_field.indexes > @cb.max_subscripts
+                              @cb.error("Maximum OCCURS depth exceeded")
+                            end
+                            @current_field.flag_occurs = true
                           }
 
      occurs_to_integer: /* empty */
-                          {
-                            # TODO: L2646
-                          }
+                          { result = nil }
                       | TO integer
-                          {
-                            # TODO: L2647
-                          }
+                          { result = val[1] }
 
       occurs_depending:
                       | DEPENDING _on reference
@@ -1813,32 +1818,24 @@ data_description_clause: redefines_clause
                           }
 
 ascending_or_descending: ASCENDING
-                          {
-                            # TODO: L2700
-                          }
+                          { result = @cb.int(COB_ASCENDING) }
                       | DESCENDING
-                          {
-                            # TODO: L2701
-                          }
+                          { result = @cb.int(COB_DESCENDING) }
 
         occurs_indexed:
                       | INDEXED _by occurs_index_list
                           {
-                            # TODO: L2706
+                            @current_field.index_list = val[2]
                           }
 
      occurs_index_list: occurs_index
-                          {
-                            # TODO: L2712
-                          }
+                          { result = @cb.list_init(val[0]) }
                       | occurs_index_list occurs_index
-                          {
-                            # TODO: L2714
-                          }
+                          { result = @cb.list_add(val[0], val[1]) }
 
           occurs_index: WORD
                           {
-                            # TODO: L2719
+                            result = @cb.build_index(val[0], @cb.int1, 1, @current_field)
                           }
 
 /* JUSTIFIED clause */
@@ -5373,55 +5370,41 @@ numeric_value:
  */
                integer: LITERAL
                           {
-                            # TODO: L6667
+                            if val[0].category != :NUMERIC
+                                @cb.error("Integer value expected")
+                            elsif val[0].sign == :NEGATIVE || val[0].scale > 0
+                              @cb.error("Integer value expected")
+                            end
+                            result = val[0]
                           }
 
                literal: basic_literal
-                          {
-                            # TODO: L6678
-                          }
+                          { result = val[0] }
                       | ALL basic_value
                           {
-                            # TODO: L6680
+                            result = val[1]
+                            val[1].all = true if val[1].is_a?(CobolParser::Tree::Literal)
                           }
 
          basic_literal: basic_value
-                          {
-                            # TODO: L6689
-                          }
+                          { result = val[0] }
                       | basic_literal '&' basic_value
-                          {
-                            # TODO: L6690
-                          }
+                          { result = @cb.concat_literals(val[0], val[2]) }
 
            basic_value: LITERAL
-                          {
-                            # TODO: L6694
-                          }
+                          { result = val[0] }
                       | SPACE
-                          {
-                            # TODO: L6695
-                          }
+                          { result = @cb.space }
                       | ZERO
-                          {
-                            # TODO: L6696
-                          }
+                          { result = @cb.zero }
                       | QUOTE
-                          {
-                            # TODO: L6697
-                          }
+                          { result = @cb.quote }
                       | HIGH_VALUE
-                          {
-                            # TODO: L6698
-                          }
+                          { result = @cb.high }
                       | LOW_VALUE
-                          {
-                            # TODO: L6699
-                          }
+                          { result = @cb.low }
                       | TOK_NULL
-                          {
-                            # TODO: L6700
-                          }
+                          { result = @cb.null }
 
 /*
  * Function

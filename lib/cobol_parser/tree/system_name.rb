@@ -18,15 +18,15 @@ class CobolParser::Tree::SystemName < CobolParser::Tree
   attribute :system_category
   attribute :token
 
-  class << self
-    def build(cb, category, token)
-      new(cb, category: :UNKNOWN, system_category: category, token: token)
+  module Helper
+    def build_system_name(system_category, token)
+      CobolParser::Tree::SystemName.new(self, system_category, token)
     end
   end
 
-  def initialize(context, attributes = {})
-    super
+  def initialize(cb, system_category, token)
+    raise ArgumentError, "Invalid system_category: #{system_category.inspect}" if !CATEGORY.include?(system_category)
 
-    raise ArgumentError, "Invalid system_category: #{@system_category.inspect}" if !CATEGORY.include?(@system_category)
+    super(cb, category: :UNKNOWN, system_category: system_category, token: token)
   end
 end

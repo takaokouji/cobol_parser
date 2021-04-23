@@ -5,6 +5,7 @@ require "forwardable"
 require_relative "scanner"
 require_relative "parser.rule"
 require_relative "ast_generator"
+require_relative "program"
 
 class CobolParser::Parser < Racc::Parser
   extend Forwardable
@@ -41,7 +42,7 @@ class CobolParser::Parser < Racc::Parser
     @term_array = []
     @linage_file = nil
     @next_label_list = nil
-    self.current_program = @cb.build_program(nil, 0)
+    self.current_program = cb_build_program(nil, 0)
     @cb.build_registers
     current_program.flag_main = @cb.flag_main
 
@@ -77,5 +78,26 @@ class CobolParser::Parser < Racc::Parser
     [token.name, token.value]
   rescue StopIteration
     [false, "$end"]
+  end
+
+  private
+
+  def cb_set_in_procedure
+    @scanner.in_procedure = true
+  end
+
+  def cb_reset_in_procedure
+    @scanner.in_procedure = false
+  end
+
+  def cb_reset_78
+    @scanner.lev78.clear
+  end
+
+  def cb_build_program(last_program, nest_level)
+    cb_reset_78
+    cb_reset_in_procedure
+    @cb.clear_real_field
+    CobolParser::Program.new(@cb, last_program, nest_level)
   end
 end

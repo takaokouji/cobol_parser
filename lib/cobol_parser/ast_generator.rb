@@ -56,9 +56,10 @@ class CobolParser::AstGenerator
   end
 
   def define_initialize
-    initialize_vars = program.working_storage.each_sister.select { |f|
+    top_fields = program.working_storage.each_sister.select { |f|
       f.storage == :WORKING && f.level == 1
-    }.map { |f|
+    }
+    initialize_vars = top_fields.map { |f|
       initialize_var(f)
     }
 

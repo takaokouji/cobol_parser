@@ -5,7 +5,6 @@ require "ostruct"
 require "set"
 require_relative "error_helper"
 require_relative "reserved_helper"
-require_relative "program"
 require_relative "type_check_helper"
 require_relative "tree_helper"
 require_relative "config"
@@ -17,7 +16,6 @@ class CobolParser::Context
 
   include CobolParser::ErrorHelper
   include CobolParser::ReservedHelper
-  include CobolParser::Program::Helper
   include CobolParser::TypeCheckHelper
   include CobolParser::TreeHelper
 
@@ -147,6 +145,7 @@ class CobolParser::Context
     @source_file = nil
 
     init_constants
+    init_reserved
 
     @depend_file = nil
     @depend_list = []

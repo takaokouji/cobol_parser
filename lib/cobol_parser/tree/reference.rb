@@ -43,6 +43,13 @@ class CobolParser::Tree::Reference < CobolParser::Tree
       name.value = val
       w.name
     end
+
+    def define_system_name(name)
+      x = build_reference(name)
+      return if x.word.count > 0
+
+      @cb.define(x, @cb.lookup_system_name(name))
+    end
   end
 
   def initialize(cb, name)

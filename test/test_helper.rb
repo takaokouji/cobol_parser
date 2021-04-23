@@ -32,7 +32,7 @@ class Test::Unit::TestCase
 
   def create_context
     cb = CobolParser::Context.new
-    cb.current_program = cb.build_program(nil, 0)
+    # cb.current_program = cb.build_program(nil, 0)
     cb.include_list << "test/fixtures/copy"
     cb
   end

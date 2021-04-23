@@ -82,10 +82,6 @@ module CobolParser::TreeHelper
     CobolParser::Tree::Picture.build(self, str)
   end
 
-  def build_system_name(category, token)
-    CobolParser::Tree::SystemName.build(self, category, token)
-  end
-
   def build_label(name, section)
     CobolParser::Tree::Label.build(self, name, section)
   end
@@ -107,4 +103,5 @@ module CobolParser::TreeHelper
   include CobolParser::Tree::Field::Helper
   include CobolParser::Tree::Reference::Helper
   include CobolParser::Tree::Literal::Helper
+  include CobolParser::Tree::SystemName::Helper
 end

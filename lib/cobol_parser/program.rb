@@ -60,15 +60,6 @@ class CobolParser::Program
   attr_accessor :gen_file_error # Gen error routine
   attr_accessor :prog_type # Program type
 
-  module Helper
-    def build_program(last_program, nest_level)
-      # TODO: cb_reset_78 (); - scanner.lev78.clear
-      # TODO: cb_reset_in_procedure (); - scanner.in_procedure = false
-      @cb.clear_real_field
-      CobolParser::Program.new(self, last_program, nest_level)
-    end
-  end
-
   def initialize(context, last_program, nest_level)
     @cb = context
 

@@ -6,6 +6,7 @@ require "stringio"
 class CobolParser::ScannerTest < Test::Unit::TestCase
   def create_scanner
     @cb = create_context
+    @cb.current_program = CobolParser::Program.new(@cb, nil, 0)
     @cb.source_line = 1
     options = create_common_options
     CobolParser::Scanner.new(@cb, options)

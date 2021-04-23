@@ -563,7 +563,7 @@ identification_division: PROGRAM_ID '.' program_name as_literal
                               @term_array.clear
                               @linage_file = nil
                               @next_label_list = nil
-                              self.current_program = @cb.build_program(current_program, @depth)
+                              self.current_program = cb_build_program(current_program, @depth)
                               @cb.build_registers
                             else
                               @prog_end = true
@@ -2287,7 +2287,13 @@ screen_line_plus_minus: /* empty */
     procedure_division:
                       | PROCEDURE DIVISION procedure_using_chaining procedure_returning '.'
                           {
-                            # TODO: L3308
+                            @current_section = nil
+                            @current_paragraph = nil
+                            @cb.define_system_name("CONSOLE")
+                            @cb.define_system_name("SYSIN")
+                            @cb.define_system_name("SYSOUT")
+                            @cb.define_system_name("SYSERR")
+                            cb_set_in_procedure
                           }
                           procedure_declaratives
                           {

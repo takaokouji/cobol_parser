@@ -3,6 +3,49 @@
 require "ostruct"
 
 module CobolParser::ReservedHelper
+  system_table = [
+    ["SYSIN", :DEVICE_NAME, :DEVICE_SYSIN],
+    ["SYSIPT", :DEVICE_NAME, :DEVICE_SYSIN],
+    ["SYSOUT", :DEVICE_NAME, :DEVICE_SYSOUT],
+    ["SYSLIST", :DEVICE_NAME, :DEVICE_SYSOUT],
+    ["SYSLST", :DEVICE_NAME, :DEVICE_SYSOUT],
+    ["PRINTER", :DEVICE_NAME, :DEVICE_SYSOUT],
+    ["SYSERR", :DEVICE_NAME, :DEVICE_SYSERR],
+    ["CONSOLE", :DEVICE_NAME, :DEVICE_CONSOLE],
+    ["C01", :FEATURE_NAME, :FEATURE_C01],
+    ["C02", :FEATURE_NAME, :FEATURE_C02],
+    ["C03", :FEATURE_NAME, :FEATURE_C03],
+    ["C04", :FEATURE_NAME, :FEATURE_C04],
+    ["C05", :FEATURE_NAME, :FEATURE_C05],
+    ["C06", :FEATURE_NAME, :FEATURE_C06],
+    ["C07", :FEATURE_NAME, :FEATURE_C07],
+    ["C08", :FEATURE_NAME, :FEATURE_C08],
+    ["C09", :FEATURE_NAME, :FEATURE_C09],
+    ["C10", :FEATURE_NAME, :FEATURE_C10],
+    ["C11", :FEATURE_NAME, :FEATURE_C11],
+    ["C12", :FEATURE_NAME, :FEATURE_C12],
+    ["FORMFEED", :FEATURE_NAME, :FEATURE_FORMFEED],
+    ["SWITCH-1", :SWITCH_NAME, :SWITCH_1],
+    ["SWITCH-2", :SWITCH_NAME, :SWITCH_2],
+    ["SWITCH-3", :SWITCH_NAME, :SWITCH_3],
+    ["SWITCH-4", :SWITCH_NAME, :SWITCH_4],
+    ["SWITCH-5", :SWITCH_NAME, :SWITCH_5],
+    ["SWITCH-6", :SWITCH_NAME, :SWITCH_6],
+    ["SWITCH-7", :SWITCH_NAME, :SWITCH_7],
+    ["SWITCH-8", :SWITCH_NAME, :SWITCH_8],
+  ].freeze
+  SYSTEM_TABLE = system_table.to_h { |x|
+    [
+      x[0].upcase,
+      OpenStruct.new(
+        name: x[0],
+        system_category: x[1],
+        token: x[2],
+        node: nil
+      ),
+    ]
+  }
+
   function_list = [
     ["ABS", 1, 1, :ABS,
      "cob_intr_abs",
@@ -825,6 +868,14 @@ module CobolParser::ReservedHelper
     ]
   }
 
+  def lookup_system_name(name)
+    if SYSTEM_TABLE.key?(name.upcase)
+      SYSTEM_TABLE[name].node
+    else
+      @cb.error_node
+    end
+  end
+
   def lookup_reserved_word(name)
     p = RESERVED_WORDS[name.upcase]
     return nil if !p
@@ -845,5 +896,36 @@ module CobolParser::ReservedHelper
     return cbp if cbp&.implemented
 
     nil
+  end
+
+  def list_reserved
+    printf("Reserved Words (Parsed Y/N)\n\n")
+
+    RESERVED_WORDS.each_value do |x|
+      printf("%s%s(%s)\n", x.name, "\t" * (4 - x.name.length / 8), x.token == -1 ? "N" : "Y")
+    end
+  end
+
+  def list_intrinsics
+    printf("Intrinsic Function (Implemented Y/N)\n\n")
+
+    FUNCTION_LIST.each_value do |x|
+      printf("%s%s(%s)\n", x.name, "\t" * (4 - x.name.length / 8), x.implemented ? "Y" : "N")
+    end
+  end
+
+  def list_mnemonics
+    printf("Mnemonic names\n\n")
+
+    SYSTEM_TABLE.each_value do |x|
+      printf("%s\n", x.name)
+    end
+  end
+
+  def init_reserved
+    # build system-name table
+    SYSTEM_TABLE.each_value do |x|
+      x.node = @cb.build_system_name(x.system_category, x.token)
+    end
   end
 end

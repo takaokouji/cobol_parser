@@ -287,6 +287,7 @@ end
 
     sub_test_case "PROCEDURE DIVISION" do
       test "SECTION / EXIT PROGRAM" do
+        omit("not implemented yet")
         parse_and_assert_ast_equal(<<-COBOL, <<-RUBY)
 # 1 "PG1.CBL"
 IDENTIFICATION DIVISION.

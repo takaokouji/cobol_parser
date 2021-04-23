@@ -17,6 +17,8 @@ class CobolParser::AstGenerator
   end
 
   def generate(cb, program)
+    reset
+
     @cb = cb
     @program = program
 
@@ -31,6 +33,12 @@ class CobolParser::AstGenerator
   end
 
   private
+
+  def reset
+    @cb = nil
+    @program = nil
+    @new_var_methods = {}
+  end
 
   def define_class_body
     class_body = [
@@ -48,11 +56,11 @@ class CobolParser::AstGenerator
   end
 
   def define_initialize
-    names = []
-    program.working_storage.each_sister do |field|
-      names << field.name if field.storage == :WORKING && field.level == 1
-    end
-    initialize_vars = names.map { |name| initialize_var(name) }
+    initialize_vars = program.working_storage.each_sister.select { |f|
+      f.storage == :WORKING && f.level == 1
+    }.map { |f|
+      initialize_var(f)
+    }
 
     if initialize_vars.empty?
       nil
@@ -68,9 +76,16 @@ class CobolParser::AstGenerator
     end
   end
 
-  def initialize_var(name)
-    s(:ivasgn, make_ivar_name(name),
-      s(:send, nil, make_method_name("new_#{name}")))
+  def initialize_var(field)
+    ivar_name = make_ivar_name(field)
+    if field.pic
+      s(:ivasgn, ivar_name, literal(field.initial_value))
+    else
+      @new_var_methods[field] = define_new_var_method(field)
+
+      s(:ivasgn, ivar_name,
+        s(:send, nil, make_method_name("new_#{field.name}")))
+    end
   end
 
   def define_public_methods
@@ -79,20 +94,11 @@ class CobolParser::AstGenerator
 
   def define_private_methods
     private_methods = []
-    private_methods += define_new_var_methods
+    private_methods += @new_var_methods.values if @new_var_methods.length > 0
 
     return nil if private_methods.empty?
 
     [s(:send, nil, :private)] + private_methods
-  end
-
-  def define_new_var_methods
-    new_var_methods = []
-    program.working_storage.each_sister do |field|
-      new_var_methods << define_new_var_method(field) if field.storage == :WORKING && field.level == 1
-    end
-
-    new_var_methods
   end
 
   def define_new_var_method(field)
@@ -111,22 +117,12 @@ class CobolParser::AstGenerator
       kwargs_asts << s(:pair, s(:sym, :redefines), s(:sym, make_var_name(field.redefines)))
     end
 
-    field.children&.each_sister do |f|
+    field.children.each_sister do |f|
       name = make_var_name(f)
       iv_ast = if f.children
                  define_new_var_method_body(f)
                else
-                 iv = f.initial_value
-                 case iv
-                 when Integer
-                   s(:int, iv)
-                 when String
-                   s(:str, iv)
-                 when Float
-                   s(:float, iv)
-                 else
-                   raise NotImplementedError
-                 end
+                 literal(f.initial_value)
                end
 
       if f.flag_occurs
@@ -144,13 +140,26 @@ class CobolParser::AstGenerator
         *kwargs_asts))
   end
 
+  def literal(value)
+    case value
+    when Integer
+      s(:int, value)
+    when String
+      s(:str, value)
+    when Float
+      s(:float, value)
+    else
+      raise NotImplementedError
+    end
+  end
+
   def make_class_name(name)
     # TODO: fix rule
     name.sub(/^[^A-Z]/, "C\\1").split(/[-_]/).map(&:capitalize).join.to_sym
   end
 
-  def make_ivar_name(name)
-    "@#{make_method_name(name)}".to_sym
+  def make_ivar_name(field)
+    "@#{make_var_name(field)}".to_sym
   end
 
   def make_method_name(name)

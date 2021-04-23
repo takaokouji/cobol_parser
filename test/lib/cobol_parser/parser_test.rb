@@ -194,6 +194,57 @@ end
           RUBY
         end
 
+        test "top level PIC" do
+          parse_and_assert_ast_equal(<<-COBOL, <<-RUBY)
+# 1 "PG1.CBL"
+IDENTIFICATION DIVISION.
+PROGRAM-ID. PG1.
+
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01 WRK-SYSYY PIC 9(04).
+          COBOL
+require "ostruct"
+
+class Pg1
+  def initialize
+    @wrk_sysyy = 0
+  end
+end
+          RUBY
+        end
+
+        test "top level PIC 2" do
+          parse_and_assert_ast_equal(<<-COBOL, <<-RUBY)
+# 1 "PG1.CBL"
+IDENTIFICATION DIVISION.
+PROGRAM-ID. PG1.
+
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01 WRK-SYSYY PIC 9(04) VALUE 2021.
+01 WRK2-AREA.
+ 03 WRK2-SYSYY PIC 9(04).
+          COBOL
+require "ostruct"
+
+class Pg1
+  def initialize
+    @wrk_sysyy = 2021
+    @wrk2_area = new_wrk2_area
+  end
+
+  private
+
+  def new_wrk2_area
+    OpenStruct.new(
+      wrk2_sysyy: 0
+    )
+  end
+end
+          RUBY
+        end
+
         test "table (OCCURS)" do
           parse_and_assert_ast_equal(<<-COBOL, <<-RUBY)
 # 1 "PG1.CBL"

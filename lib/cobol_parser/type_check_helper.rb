@@ -116,9 +116,7 @@ module CobolParser::TypeCheckHelper
     end
     # build_store_option(v, round_opt)
     opt = build_store_option(v, round_opt)
-    if opt == @cb.int0 && @cb.fits_int(n)
-      return @cb.build_optim_add(v, n)
-    end
+    return @cb.build_optim_add(v, n) if opt == @cb.int0 && @cb.fits_int(n)
 
     @cb.build_funcall_3("cob_add", v, n, opt)
   end

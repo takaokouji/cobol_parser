@@ -3,6 +3,7 @@
 require "forwardable"
 require "ostruct"
 require "set"
+require_relative "attribute_helper"
 require_relative "error_helper"
 require_relative "reserved_helper"
 require_relative "type_check_helper"
@@ -11,179 +12,204 @@ require_relative "config"
 require_relative "warning"
 require_relative "flag"
 
-class CobolParser::Context
-  extend Forwardable
+module CobolParser
+  class Context
+    extend Forwardable
 
-  include CobolParser::ErrorHelper
-  include CobolParser::ReservedHelper
-  include CobolParser::TypeCheckHelper
-  include CobolParser::TreeHelper
+    extend AttributeHelper
 
-  FORMAT = {
-    FIXED: 0,
-    FREE: 1,
-  }.freeze
+    include CobolParser::ErrorHelper
+    include CobolParser::ReservedHelper
+    include CobolParser::TypeCheckHelper
+    include CobolParser::TreeHelper
 
-  INVALID_NAMES = Set.new([
-                            "NULL",
-                            "L_initextern",
-                            "LRET_initextern",
-                            "P_switch",
-                            "alignof",
-                            "asm",
-                            "auto",
-                            "break",
-                            "case",
-                            "char",
-                            "const",
-                            "continue",
-                            "default",
-                            "do",
-                            "double",
-                            "else",
-                            "enum",
-                            "exit_program",
-                            "extern",
-                            "float",
-                            "for",
-                            "frame_pointer",
-                            "frame_stack",
-                            "goto",
-                            "if",
-                            "inline",
-                            "int",
-                            "long",
-                            "offsetof",
-                            "register",
-                            "restrict",
-                            "return",
-                            "short",
-                            "signed",
-                            "sizeof",
-                            "static",
-                            "struct",
-                            "switch",
-                            "typedef",
-                            "typeof",
-                            "union",
-                            "unsigned",
-                            "void",
-                            "volatile",
-                            "_Bool",
-                            "_Complex",
-                            "_Imaginary",
-                          ])
+    INVALID_NAMES = Set.new([
+                              "NULL",
+                              "L_initextern",
+                              "LRET_initextern",
+                              "P_switch",
+                              "alignof",
+                              "asm",
+                              "auto",
+                              "break",
+                              "case",
+                              "char",
+                              "const",
+                              "continue",
+                              "default",
+                              "do",
+                              "double",
+                              "else",
+                              "enum",
+                              "exit_program",
+                              "extern",
+                              "float",
+                              "for",
+                              "frame_pointer",
+                              "frame_stack",
+                              "goto",
+                              "if",
+                              "inline",
+                              "int",
+                              "long",
+                              "offsetof",
+                              "register",
+                              "restrict",
+                              "return",
+                              "short",
+                              "signed",
+                              "sizeof",
+                              "static",
+                              "struct",
+                              "switch",
+                              "typedef",
+                              "typeof",
+                              "union",
+                              "unsigned",
+                              "void",
+                              "volatile",
+                              "_Bool",
+                              "_Complex",
+                              "_Imaginary",
+                            ])
 
-  ReplaceListItem = Struct.new(:old_text, :new_text, keyword_init: true)
+    ReplaceListItem = Struct.new(:old_text, :new_text, keyword_init: true)
 
-  attr_accessor :id
-  attr_accessor :attr_id
-  attr_accessor :literal_id
-  attr_accessor :field_id
-  attr_accessor :storage_id
-  attr_accessor :flag_main
+    attribute :cb_source_format
+    attribute :cb_display_sign
 
-  attr_accessor :alt_ebcdic
-  attr_accessor :optimize_flag
-  attr_accessor :has_external
+    attribute :cb_id
+    attribute :cb_attr_id
+    attribute :cb_literal_id
+    attribute :cb_field_id
+    attribute :cb_storage_id
+    attribute :cb_flag_main
 
-  # Global variables
-  attr_accessor :current_program
-  attr_accessor :current_statement
-  attr_accessor :current_section
-  attr_accessor :current_paragraph
-  attr_accessor :functions_are_all
-  attr_accessor :non_const_word
+    attribute :warningcount
+    attribute :errorcount
+    attribute :alt_ebcdic
+    attribute :optimize_flag
+    attribute :has_external
 
-  attr_accessor :source_format
-  attr_accessor :source_line
-  attr_accessor :source_file
+    attribute :cb_oc_build_stamp
+    attribute :cb_source_line
+    attribute :cb_source_file
 
-  attr_accessor :depend_file
-  attr_accessor :depend_list
+    attribute :cob_config_dir
 
-  attr_accessor :extension_list
-  attr_accessor :include_list
+    attribute :source_name
+    attribute :demangle_name
+    attribute :cb_storage_file
+    attribute :cb_storage_file_name
 
-  attr_accessor :norestab
+    attribute :cb_listing_file
+    attribute :cb_depend_file
+    attribute :cb_depend_target
+    attribute :cb_depend_list
+    attribute :cb_include_list
+    attribute :cb_extension_list
 
-  attr_accessor :needs_01
+    attribute :current_program
+    attribute :current_statement
+    attribute :current_section
+    attribute :current_paragraph
+    attribute :functions_are_all
 
-  attr_reader :max_subscripts
+    attribute :norestab
 
-  def_delegators :@config, :verify, *CobolParser::Config.types.values.map { |x| x[:var] }
-  def_delegators :@warning, *CobolParser::Warning.warnings.values.map { |x| x[:var] }
-  def_delegators :@flag, *CobolParser::Flag.flags.values.map { |x| x[:var] }
+    # TODO: what is it?
+    attribute :sending_id
+    # TODO: what is it?
+    attribute :suppress_warn
 
-  def initialize
-    @cb = self
+    attr_accessor :non_const_word
 
-    @config = CobolParser::Config.new(self)
-    @warning = CobolParser::Warning.new(self)
-    @flag = CobolParser::Flag.new(self)
+    attr_accessor :needs_01
 
-    @id = 1
-    @attr_id = 1
-    @literal_id = 1
-    @field_id = 1
-    @storage_id = 1
-    @flag_main = false
+    def_delegators :@config, *CobolParser::Config.types.values.map { |x| x[:var] }
+    def_delegators :@warning, *CobolParser::Warning.warnings.values.map { |x| x[:var] }
+    def_delegators :@flag, *CobolParser::Flag.flags.values.map { |x| x[:var] }
 
-    @warningcount = 0
-    @errorcount = 0
-    @alt_ebcdic = false
-    @optimize_flag = false
-    @has_external = false
+    def initialize
+      @cb = self
+      @context = self
 
-    @needs_01 = false
+      @config = CobolParser::Config.new
+      @warning = CobolParser::Warning.new
+      @flag = CobolParser::Flag.new
 
-    @functions_are_all = false
-    @non_const_word = 0
+      @cb_source_format = CB_FORMAT_FIXED
+      @cb_display_sign = COB_DISPLAY_SIGN_ASCII
 
-    @source_format = FORMAT[:FIXED]
-    @source_line = 0
-    @source_file = nil
+      @cb_id = 1
+      @cb_attr_id = 1
+      @cb_literal_id = 1
+      @cb_field_id = 1
+      @cb_storage_id = 1
+      @cb_flag_main = false
 
-    init_constants
-    init_reserved
+      @errorcount = 0
+      @warningcount = 0
+      @alt_ebcdic = false
+      @optimize_flag = false
 
-    @depend_file = nil
-    @depend_list = []
+      @cb_source_file = nil
+      @cb_oc_build_stamp = nil
+      @source_name = nil
+      @demangle_name = nil
+      @cb_source_line = 0
 
-    @extension_list = %w[
-      .CPY
-      .CBL
-      .COB
-      .cpy
-      .cbl
-      .cob
-    ]
-    @extension_list << ""
-    @include_list = []
+      @cb_storage_file = nil
+      @cb_storage_file_name = nil
 
-    @current_section = nil
-    @current_paragraph = nil
+      @cb_listing_file = nil
+      @cb_depend_file = nil
+      @cb_depend_target = nil
+      @cb_depend_list = []
+      @cb_include_list = []
+      @cb_extension_list = [""] + %w[
+        .CPY
+        .CBL
+        .COB
+        .cpy
+        .cbl
+        .cob
+      ]
 
-    @norestab = []
+      @cob_config_dir = nil
 
-    @max_subscripts = 16
-  end
+      @current_section = nil
+      @current_paragraph = nil
 
-  def fixed_source_format?
-    source_format == FORMAT[:FIXED]
-  end
+      @has_external = false
 
-  def free_source_format?
-    source_format == FORMAT[:FREE]
-  end
+      # TODO: move define place, rename cb_needs_01
+      @needs_01 = false
 
-  def replace_list_add(replace_list, old_text, new_text)
-    replace_list ||= []
-    replace_list << ReplaceListItem.new(old_text: old_text, new_text: new_text)
-    replace_list
-  end
+      # TODO: move define place
+      @non_const_word = 0
 
-  def check_valid_name(name)
-    INVALID_NAMES.include?(name)
+      @norestab = []
+    end
+
+    def replace_list_add(replace_list, old_text, new_text)
+      replace_list ||= []
+      replace_list << ReplaceListItem.new(old_text: old_text, new_text: new_text)
+      replace_list
+    end
+
+    def check_valid_name(name)
+      INVALID_NAMES.include?(name)
+    end
+
+    module Helper
+      extend Forwardable
+
+      def_delegators :@context, *Context.read_attributes
+      def_delegators :@context, *Context.write_attributes.map { |x| "#{x}=".to_sym }
+      def_delegators :@context, *CobolParser::Config.types.values.map { |x| x[:var] }
+      def_delegators :@context, *CobolParser::Warning.warnings.values.map { |x| x[:var] }
+      def_delegators :@context, *CobolParser::Flag.flags.values.map { |x| x[:var] }
+    end
   end
 end

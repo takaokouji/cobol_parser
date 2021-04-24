@@ -20,6 +20,10 @@ class CobolParser::Parser < Racc::Parser
     super()
 
     @cb = context
+
+    init_constants
+    init_reserved
+
     @scanner = CobolParser::Scanner.new(context, options)
   end
 

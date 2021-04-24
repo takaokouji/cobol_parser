@@ -28,17 +28,17 @@ module CobolParser
 
     def redefinition_error(x)
       w = x.word
-      @cb.error_x(x, "Redefinition of '%s'", w.name)
-      @cb.error_x(w.items.value, "'%s' previously defined here", w.name)
+      cb_error_x(x, "Redefinition of '%s'", w.name)
+      cb_error_x(w.items.value, "'%s' previously defined here", w.name)
     end
 
     def redefinition_warning(x, y)
       w = x.word
-      @cb.warning_x(x, "Redefinition of '%s'", w.name)
+      cb_warning_x(x, "Redefinition of '%s'", w.name)
       if y
-        @cb.warning_x(y, "'%s' previously defined here", w.name)
+        cb_warning_x(y, "'%s' previously defined here", w.name)
       else
-        @cb.warning_x(w.items.value, "'%s' previously defined here", w.name)
+        cb_warning_x(w.items.value, "'%s' previously defined here", w.name)
       end
     end
 
@@ -47,7 +47,7 @@ module CobolParser
       x.each_chain do |c|
         s += " in '#{c.name}'"
       end
-      @cb.error_x(x, "%s undefined", s)
+      cb_error_x(x, "%s undefined", s)
     end
 
     def ambiguous_error(x)
@@ -59,7 +59,7 @@ module CobolParser
       x.each_chain do |l|
         s += " in '#{l.name}'"
       end
-      @cb.error_x(x, "%s ambiguous; need qualification", s)
+      cb_error_x(x, "%s ambiguous; need qualification", s)
       w.error = true
 
       # display all fields with the same name
@@ -77,37 +77,27 @@ module CobolParser
           end
         end
         s += "defined here"
-        @cb.error_x(y, "%s", s)
+        cb_error_x(y, "%s", s)
       end
-    end
-
-    # TODO: delete alias_method
-    %i[
-      warning
-      warning_x
-      error
-      error_x
-    ].each do |x|
-      alias_method x, :"cb_#{x}"
     end
 
     private
 
     def print_error(file, line, prefix, format, *arg)
-      @@last_section ||= nil
-      @@last_paragraph ||= nil
+      last_section = @context.method_storage[:last_section]
+      last_paragraph = @context.method_storage[:last_paragraph]
 
       file ||= cb_source_file
       line ||= cb_source_line
 
-      if current_section != @@last_section || current_paragraph != @@last_paragraph
+      if current_section != last_section || current_paragraph != last_paragraph
         if current_paragraph&.name == "MAIN PARAGRAPH"
           warn(sprintf("%s: In paragraph '%s':\n", file, current_paragraph.name))
         elsif current_section&.name == "MAIN SECTION"
           warn(sprintf("%s: In section '%s':\n", file, current_section.name))
         end
-        @@last_section = current_section
-        @@last_paragraph = current_paragraph
+        @context.method_storage[:last_section] = current_section
+        @context.method_storage[:last_paragraph] = current_paragraph
       end
 
       warn("#{file}:#{line}: #{prefix}" + sprintf(format, *arg))

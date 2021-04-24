@@ -190,6 +190,12 @@ module CobolParser
       @norestab = []
     end
 
+    def method_storage
+      method_name = caller[0].slice(/`([^']+)'/, 1).to_sym
+      @method_storage ||= {}
+      @method_storage[method_name] ||= {}
+    end
+
     def check_valid_name(name)
       INVALID_NAMES.include?(name)
     end

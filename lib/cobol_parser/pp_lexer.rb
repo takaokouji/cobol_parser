@@ -214,7 +214,7 @@ module CobolParser
       end
 
       # Add to dependency list
-      self.cb_depend_list << name if cb_depend_file
+      cb_depend_list << name if cb_depend_file
 
       # Preserve the current buffer
       copy_info = CopyInfo.new(

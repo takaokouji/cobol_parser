@@ -41,11 +41,11 @@ module CobolParser
       end
 
       def ppopen(name, replace_list = nil)
-        @context.pp_lexer.open(name, replace_list)
+        @context.pp_lexer.ppopen(name, replace_list)
       end
 
       def ppcopy(name, lib, replace_list)
-        @context.pp_lexer.copy(name, lib, replace_list)
+        @context.pp_lexer.ppcopy(name, lib, replace_list)
       end
 
       def pp_set_replace_list(replace_list)
@@ -219,7 +219,7 @@ module CobolParser
       @quotation_mark = c.quotation_mark
     }
 
-    def open(name, replace_list = nil)
+    def ppopen(name, replace_list = nil)
       if @newline_count > 0
         @newline_count.times do
           ppin.ungetc("\n")
@@ -260,21 +260,21 @@ module CobolParser
       true
     end
 
-    def copy(name, lib = nil, replace_list = nil)
+    def ppcopy(name, lib = nil, replace_list = nil)
       path = name
       path = File.join(lib, path) if lib
-      return open(path, replace_list) if File.exist?(path) # rubocop:disable Security/Open
+      return ppopen(path, replace_list) if File.exist?(path)
 
       cb_extension_list.each do |ext|
         s = path + ext
-        return open(s, replace_list) if File.exist?(s) # rubocop:disable Security/Open
+        return ppopen(s, replace_list) if File.exist?(s)
       end
 
       if path[0] != "/"
         cb_include_list.each do |inc|
           cb_extension_list.each do |ext|
             s = File.join(inc, path + ext)
-            return open(s, replace_list) if File.exist?(s) # rubocop:disable Security/Open
+            return ppopen(s, replace_list) if File.exist?(s)
           end
         end
       end

@@ -21,7 +21,7 @@ module CobolParser
       @context = context
       @context.pp_parser = self
 
-      @context.pp_lexer = PPLexer.new(context, options)
+      PPLexer.new(context, options)
       self.ppout = StringIO.new
     end
 

@@ -20,7 +20,7 @@ class CobolParser::PPLexerTest < Test::Unit::TestCase
       tempfile.close(false)
 
       pp_lexer = create_pp_lexer
-      pp_lexer.open(tempfile.path)
+      pp_lexer.ppopen(tempfile.path)
 
       tokens = pp_lexer.each_token
       assert_token_equal(:COPY, "COPY", tokens.next)
@@ -51,7 +51,7 @@ class CobolParser::PPLexerTest < Test::Unit::TestCase
       tempfile.close(false)
 
       pp_lexer = create_pp_lexer
-      pp_lexer.open(tempfile.path)
+      pp_lexer.ppopen(tempfile.path)
 
       tokens = pp_lexer.each_token
       assert_raise(StopIteration) do

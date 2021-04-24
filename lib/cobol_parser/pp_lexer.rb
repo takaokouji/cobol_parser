@@ -27,10 +27,37 @@ module CobolParser
 
     attr_accessor :current_replace_list
 
+    module Helper
+      def ppout
+        @context.pp_lexer.ppout
+      end
+
+      def ppout=(val)
+        @context.pp_lexer.ppout = val
+      end
+
+      def pplex
+        @context.pp_lexer.each_token
+      end
+
+      def ppopen(name, replace_list = nil)
+        @context.pp_lexer.open(name, replace_list)
+      end
+
+      def ppcopy(name, lib, replace_list)
+        @context.pp_lexer.copy(name, lib, replace_list)
+      end
+
+      def pp_set_replace_list(replace_list)
+        @context.pp_lexer.current_replace_list = replace_list
+      end
+    end
+
     def initialize(context, options = {})
       super({ lint: false }.merge(options))
 
       @context = context
+      @context.pp_lexer = self
 
       @newline_count = 0
       @within_comment = false

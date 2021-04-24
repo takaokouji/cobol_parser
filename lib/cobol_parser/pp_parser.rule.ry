@@ -25,7 +25,7 @@ rule
                                 val[2].upcase!
                               end
                             end
-                            pp_lexer.copy(val[1], val[2], val[4])
+                            ppcopy(val[1], val[2], val[4])
                           }
 
                copy_in: /* nothing */
@@ -44,9 +44,9 @@ rule
                           { result = val[1] }
 
      replace_statement: REPLACE replacing_list '.'
-                          { pp_lexer.current_replace_list = val[1] }
+                          { pp_set_replace_list(val[1]) }
                       | REPLACE OFF '.'
-                          { pp_lexer.current_replace_list = nil }
+                          { pp_set_replace_list(nil) }
 
         replacing_list: text BY text
                           { result = cb_replace_list_add(nil, val[0], val[2]) }

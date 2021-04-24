@@ -199,7 +199,7 @@ module_eval(<<'.,.,', 'pp_parser.rule.ry', 13)
                                 val[2].upcase!
                               end
                             end
-                            pp_lexer.copy(val[1], val[2], val[4])
+                            ppcopy(val[1], val[2], val[4])
 
     result
   end
@@ -246,14 +246,14 @@ module_eval(<<'.,.,', 'pp_parser.rule.ry', 43)
 
 module_eval(<<'.,.,', 'pp_parser.rule.ry', 46)
   def _reduce_13(val, _values, result)
-     pp_lexer.current_replace_list = val[1]
+     pp_set_replace_list(val[1])
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'pp_parser.rule.ry', 48)
   def _reduce_14(val, _values, result)
-     pp_lexer.current_replace_list = nil
+     pp_set_replace_list(nil)
     result
   end
 .,.,

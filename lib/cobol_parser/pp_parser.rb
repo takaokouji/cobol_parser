@@ -11,25 +11,23 @@ module CobolParser
     extend Forwardable
 
     include Context::Helper
+    include PPLexer::Helper
 
     ReplaceListItem = Struct.new(:old_text, :new_text, keyword_init: true)
-
-    attr_reader :pp_lexer
-
-    def_delegator :@pp_lexer, :output_file, :ppout
-    def_delegator :@pp_lexer, :output_file=, :ppout=
 
     def initialize(context, options = {})
       super()
 
       @context = context
-      @pp_lexer = PPLexer.new(context, options)
-      @pp_lexer.output_file = StringIO.new
+      @context.pp_parser = self
+
+      @context.pp_lexer = PPLexer.new(context, options)
+      self.ppout = StringIO.new
     end
 
     def parse(path)
-      pp_lexer.open(path)
-      @tokens = pp_lexer.each_token
+      ppopen(path)
+      @tokens = pplex
 
       do_parse
 

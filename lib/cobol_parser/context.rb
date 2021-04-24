@@ -124,6 +124,11 @@ module CobolParser
 
     attr_accessor :needs_01
 
+    attr_accessor :pp_lexer
+    attr_accessor :pp_parser
+    attr_accessor :scanner
+    attr_accessor :parser
+
     def_delegators :@config, *CobolParser::Config.types.values.map { |x| x[:var] }
     def_delegators :@warning, *CobolParser::Warning.warnings.values.map { |x| x[:var] }
     def_delegators :@flag, *CobolParser::Flag.flags.values.map { |x| x[:var] }
@@ -188,6 +193,11 @@ module CobolParser
       @non_const_word = 0
 
       @norestab = []
+
+      @pp_lexer = nil
+      @pp_parser = nil
+      @scanner = nil
+      @parser = nil
     end
 
     def method_storage

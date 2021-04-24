@@ -73,8 +73,6 @@ module CobolParser
                               "_Imaginary",
                             ])
 
-    ReplaceListItem = Struct.new(:old_text, :new_text, keyword_init: true)
-
     attribute :cb_source_format
     attribute :cb_display_sign
 
@@ -190,12 +188,6 @@ module CobolParser
       @non_const_word = 0
 
       @norestab = []
-    end
-
-    def replace_list_add(replace_list, old_text, new_text)
-      replace_list ||= []
-      replace_list << ReplaceListItem.new(old_text: old_text, new_text: new_text)
-      replace_list
     end
 
     def check_valid_name(name)

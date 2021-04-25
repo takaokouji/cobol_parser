@@ -72,7 +72,7 @@ module CobolParser
         cb_build_binary_op(x, "@", nil)
       end
 
-      def cb_build_negation(cb, x)
+      def cb_build_negation(_cb, x)
         cb_build_binary_op(x, "!", nil)
       end
     end

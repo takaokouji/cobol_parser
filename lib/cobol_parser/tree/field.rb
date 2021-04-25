@@ -162,7 +162,7 @@ module CobolParser
             r.word.items.each_chain do |l|
               x = l.value
               next unless !x.is_a?(CobolParser::Tree::Field) || x.level == 1 || x.level == 77 ||
-                (f.level == last_field.level && x.parent == last_field.parent)
+                          (f.level == last_field.level && x.parent == last_field.parent)
 
               @cb.redefinition_warning(name, x)
               break
@@ -175,7 +175,7 @@ module CobolParser
         # link the field into the tree
         if f.level == 1 || f.level == 77
           # top level
-          cb_needs_01 = false
+          self.cb_needs_01 = false
           last_field.founder.sister = f if last_field
         elsif !last_field || cb_needs_01
           # invalid top level
@@ -349,7 +349,7 @@ module CobolParser
       # validate OCCURS
       if flag_occurs
         if (!cb_verify(cb_top_level_occurs_clause, "01/77 OCCURS") && (level == 1 || level == 77)) ||
-            (level == 66 || level == 88)
+           (level == 66 || level == 88)
           # TODO: level_redundant_error(x, "OCCURS")
           raise NotImplementedError
         end
@@ -786,7 +786,7 @@ module CobolParser
       # the size of redefined field unless the redefined field
       # is level 01 and non-external
       if redefines&.flag_external &&
-          size * occurs_max > redefines.size * redefines.occurs_max
+         size * occurs_max > redefines.size * redefines.occurs_max
         if cb_larger_redefines_ok
           cb_warning_x(self, "Size of '%s' larger than size of '%s'", name, redefines.name)
         else

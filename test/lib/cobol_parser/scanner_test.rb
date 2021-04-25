@@ -53,7 +53,7 @@ module CobolParser
         yyin = StringIO.new(<<-EOS)
 # 1 "test/fixtures/copy/ADDRESS.INC"
 "string literal"
-      EOS
+        EOS
 
         scanner = create_scanner
         scanner.current_buffer = scanner.yy_create_buffer(yyin)
@@ -71,7 +71,7 @@ module CobolParser
         yyin = StringIO.new(<<-EOS)
 IDENTIFICATION DIVISION.
 PROGRAM-ID. PG1.
-      EOS
+        EOS
 
         scanner = create_scanner
         scanner.current_buffer = scanner.yy_create_buffer(yyin)
@@ -112,7 +112,7 @@ X'0D'
 X"abcd"
 X"GG"
 ""
-      EOS
+        EOS
 
         scanner = create_scanner
         scanner.current_buffer = scanner.yy_create_buffer(yyin)
@@ -181,7 +181,7 @@ H'0D'
 H"abcd"
 H"GG"
 +123.4
-      EOS
+        EOS
 
         scanner = create_scanner
         scanner.current_buffer = scanner.yy_create_buffer(yyin)
@@ -266,7 +266,7 @@ PIC 9(02).
 PICTURE IS XXXXX.
 PIC 9(5)V99.
 PIC ZZZ9.9999.
-      EOS
+        EOS
 
         scanner = create_scanner
         scanner.current_buffer = scanner.yy_create_buffer(yyin)
@@ -353,7 +353,7 @@ WORKING-STORAGE SECTION.
 01 WRK-AREA.
  03 WRK-SYSYMD.
  05 WRK-SYSYY PIC 9(04).
-      EOS
+        EOS
 
         scanner = create_scanner
         scanner.current_buffer = scanner.yy_create_buffer(yyin)

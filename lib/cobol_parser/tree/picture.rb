@@ -53,8 +53,9 @@ module CobolParser
     def parse_picture_string(str)
       raise InvalidPictureStringError, str, "too long" if str.length > 50
 
+      currency_symbol = Regexp.quote(current_program.currency_symbol)
       pattern =
-        /(?<cs>(?<c>[AX9NS,.VP0B\/*Z+\-CD#{Regexp.quote(current_program.currency_symbol)}])\k<c>*)(?:\(0*(?<n>[^)]+)\))?/
+        /(?<cs>(?<c>[AX9NS,.VP0B\/*Z+\-CD#{currency_symbol}])\k<c>*)(?:\(0*(?<n>[^)]+)\))?/
       ss = StringScanner.new(str)
       pic_str_list = []
       while (orig = ss.scan(pattern))

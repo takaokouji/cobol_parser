@@ -65,8 +65,8 @@ module CobolParser
 
     def encode_program_id(name)
       name.gsub(/^\d/) { |x| "_%02X" % x.ord }
-      .gsub("-", "__")
-      .gsub(/[^\w]/) { |x| "_%02X" % x.ord }
+          .gsub("-", "__")
+          .gsub(/[^\w]/) { |x| "_%02X" % x.ord }
     end
 
     def encode_class_name(name)

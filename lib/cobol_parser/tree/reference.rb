@@ -141,7 +141,7 @@ module CobolParser
 
           # resolve by file
           if c && !c.chain &&
-              c.word.count == 1 && c.ref.is_a?(Tree::File) && c.ref == v.founder.file
+             c.word.count == 1 && c.ref.is_a?(Tree::File) && c.ref == v.founder.file
             c = c.chain
           end
         when Tree::Label

@@ -26,7 +26,7 @@ module CobolParser
 # 1 "PG1.CBL"
 IDENTIFICATION DIVISION.
 PROGRAM-ID. PG1.
-        COBOL
+          COBOL
 require "ostruct"
 
 class Pg1

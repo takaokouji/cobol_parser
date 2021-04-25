@@ -20,28 +20,28 @@ module CobolParser
         EOS
         tempfile.close(false)
 
-         pp_lexer = create_pp_lexer
-         pp_lexer.ppopen(tempfile.path)
+        pp_lexer = create_pp_lexer
+        pp_lexer.ppopen(tempfile.path)
 
-         tokens = pp_lexer.each_token
-         assert_token_equal(:COPY, "COPY", tokens.next)
-         assert_token_equal(:TOKEN, '"FOO.INC"', tokens.next)
-         assert_token_equal(:REPLACING, "REPLACING", tokens.next)
-         assert_token_equal(:EQEQ, "//", tokens.next)
-         assert_token_equal(:TOKEN, "FOO", tokens.next)
-         assert_token_equal(:EQEQ, "//", tokens.next)
-         assert_token_equal(:BY, "BY", tokens.next)
-         assert_token_equal(:EQEQ, "//", tokens.next)
-         assert_token_equal(:TOKEN, "BAR", tokens.next)
-         assert_token_equal(:EQEQ, "//", tokens.next)
-         assert_token_equal(".", ".", tokens.next)
-         assert_raise(StopIteration) do
-           tokens.next
-         end
+        tokens = pp_lexer.each_token
+        assert_token_equal(:COPY, "COPY", tokens.next)
+        assert_token_equal(:TOKEN, '"FOO.INC"', tokens.next)
+        assert_token_equal(:REPLACING, "REPLACING", tokens.next)
+        assert_token_equal(:EQEQ, "//", tokens.next)
+        assert_token_equal(:TOKEN, "FOO", tokens.next)
+        assert_token_equal(:EQEQ, "//", tokens.next)
+        assert_token_equal(:BY, "BY", tokens.next)
+        assert_token_equal(:EQEQ, "//", tokens.next)
+        assert_token_equal(:TOKEN, "BAR", tokens.next)
+        assert_token_equal(:EQEQ, "//", tokens.next)
+        assert_token_equal(".", ".", tokens.next)
+        assert_raise(StopIteration) do
+          tokens.next
+        end
 
-         lines = pp_lexer.output_file.string.lines
-         assert_match(/^# 1 "[^"]+"\n$/, lines[0])
-         assert_equal(" \n", lines[1])
+        lines = pp_lexer.output_file.string.lines
+        assert_match(/^# 1 "[^"]+"\n$/, lines[0])
+        assert_equal(" \n", lines[1])
       end
 
       test "multibyte" do

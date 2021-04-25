@@ -18,11 +18,6 @@ RUN set -eux && \
     git \
   && \
   gem install bundler && \
-  bundle install && \
-  bundle clean --force && \
-  apt-get purge -y --autoremove \
-    build-essential \
-  && \
-  rm -rf /var/lib/apt/lists/*
+  bundle install
 
 COPY . /app/

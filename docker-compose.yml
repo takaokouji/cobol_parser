@@ -1,0 +1,7 @@
+version: "3.9"
+
+services:
+  cobol_parser:
+    build: .
+    volumes:
+      - .:/app

@@ -14,6 +14,7 @@ module CobolParser
     include Context::Helper
     include TreeHelper
     include TypeCheckHelper
+    include ScannerHelper
 
     attr_accessor :perform_stack
     attr_accessor :current_statement

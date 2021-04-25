@@ -45,17 +45,17 @@ module CobolParser
 
   def self.parse(path, options = {})
     Tempfile.open do |tempfile|
-      cb = Context.new
-      cb.include_list += Array(options[:include]) if options.key?(:include)
-      cb.extension_list += Array(options[:extension]) if options.key?(:extension)
+      context = Context.new
+      context.cb_include_list += Array(options[:include]) if options.key?(:include)
+      context.cb_extension_list += Array(options[:extension]) if options.key?(:extension)
 
-      pp_parser = PPParser.new(cb, options)
+      pp_parser = PPParser.new(context, options)
       pp_parser.ppout = tempfile
       pp_parser.parse(path)
 
       tempfile.rewind
 
-      parser = Parser.new(cb, options)
+      parser = Parser.new(context, options)
       parser.parse(tempfile)
     end
   end

@@ -5,7 +5,7 @@ module CobolParser
     def cb_warning(format, *arg)
       print_error(nil, 0, "Warning: ", format, *arg)
 
-      sef.warningcount += 1
+      self.warningcount += 1
     end
 
     def cb_error(format, *arg)

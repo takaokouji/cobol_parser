@@ -4,11 +4,13 @@ require "lex"
 require_relative "context"
 require_relative "error_helper"
 require_relative "tree"
+require_relative "tree_helper"
 
 module CobolParser
   class Scanner < Lex::Lexer
     include Context::Helper
     include ErrorHelper
+    include TreeHelper
 
     option :caseless
 
@@ -462,7 +464,7 @@ module CobolParser
       end
 
       # Check reserved word
-      token = cb_lookup_reserved_word(yytext)
+      token = lookup_reserved_word(yytext)
       if token
         yylval.value = nil
         next token
@@ -619,7 +621,7 @@ module CobolParser
         set_location(yylval.value)
       else
         cb_error("Invalid X literal: %s", text)
-        yylval.value = cb_constants.error_node
+        yylval.value = cb_error_node
       end
       :LITERAL
     end

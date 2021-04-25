@@ -59,8 +59,8 @@ module CobolParser
 
     def_delegator :@word, :name
 
-    def initialize(cb, name)
-      super(cb, category: :UNKNOWN)
+    def initialize(context, name)
+      super(context, category: :UNKNOWN)
 
       @word = lookup_word(name)
     end

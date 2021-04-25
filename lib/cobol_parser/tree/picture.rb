@@ -39,7 +39,7 @@ module CobolParser
     attribute :have_sign # have 'S'
 
     def initialize(context, str)
-      super(self, category: :UNKNOWN)
+      super(context, category: :UNKNOWN)
 
       begin
         parse_picture_string(str)

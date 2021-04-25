@@ -40,13 +40,13 @@ module CobolParser
       )
 
       # FUNCTION WHEN-COMPILED
-      @constants.cb_intr_whencomp = cb_build_alphanumeric_literal(t.strftime("%Y%m%d%H%M%S00%z"))
+      self.cb_intr_whencomp = cb_build_alphanumeric_literal(t.strftime("%Y%m%d%H%M%S00%z"))
 
       # FUNCTION PI
-      @constants.cb_intr_pi = cb_build_numeric_literal(:UNSIGNED, "31415926535897932384626433832795029", 34)
+      self.cb_intr_pi = cb_build_numeric_literal(:UNSIGNED, "31415926535897932384626433832795029", 34)
 
       # FUNCTION E
-      @constants.cb_intr_e = cb_build_numeric_literal(:UNSIGNED, "27182818284590452353602874713526625", 34)
+      self.cb_intr_e = cb_build_numeric_literal(:UNSIGNED, "27182818284590452353602874713526625", 34)
     end
 
     def build_index(x, values, indexed_by, qual)
@@ -93,17 +93,17 @@ module CobolParser
     end
 
     def build_add(v, n, round_opt)
-      if v.index? || v.tree_class == :POINTER
+      if cb_index?(v) || v.tree_class == :POINTER
         # TODO: cb_build_binary_op(v, '+', n)
         # TODO: cb_build_move(cb_build_binary_op(v, '+', n), v)
         return cb_build_move(cb_build_binary_op(v, "+", n), v)
       end
 
-      if v.ref_or_field?
+      if cb_ref_or_field?(v)
         f = cb_field(v)
         f.count += 1
       end
-      if n.ref_or_field?
+      if cb_ref_or_field?(n)
         f = cb_field(n)
         f.count += 1
       end

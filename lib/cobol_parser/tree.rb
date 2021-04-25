@@ -157,16 +157,6 @@ module CobolParser
     end
 
     alias_method :to_s, :inspect
-
-    # CB_INDEX_P
-    def index?
-      ref_or_field? && cb_field(self).usage == :INDEX
-    end
-
-    # CB_REF_OR_FIELD_P
-    def ref_or_field?
-      is_a?(Tree::Field) || is_a?(Tree::Reference)
-    end
   end
 end
 

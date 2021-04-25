@@ -134,22 +134,25 @@ module CobolParser
     attribute :cb_int5
     attribute :cb_i
     attribute :cb_standard_error_handler
+    attribute :cb_intr_whencomp
+    attribute :cb_intr_pi
+    attribute :cb_intr_e
 
     attr_accessor :pp_lexer
     attr_accessor :pp_parser
     attr_accessor :scanner
     attr_accessor :parser
 
-    def_delegators :@config, *CobolParser::Config.types.values.map { |x| x[:var] }
-    def_delegators :@warning, *CobolParser::Warning.warnings.values.map { |x| x[:var] }
-    def_delegators :@flag, *CobolParser::Flag.flags.values.map { |x| x[:var] }
+    def_delegators :@config, *Config.types.values.map { |x| x[:var] }
+    def_delegators :@warning, *Warning.warnings.values.map { |x| x[:var] }
+    def_delegators :@flag, *Flag.flags.values.map { |x| x[:var] }
 
     def initialize
       @context = self
 
-      @config = CobolParser::Config.new
-      @warning = CobolParser::Warning.new
-      @flag = CobolParser::Flag.new
+      @config = Config.new
+      @warning = Warning.new
+      @flag = Flag.new
 
       # cobc/cobc.h
       @cb_source_format = CB_FORMAT_FIXED
@@ -232,9 +235,9 @@ module CobolParser
 
       def_delegators :@context, *Context.read_attributes
       def_delegators :@context, *Context.write_attributes.map { |x| "#{x}=".to_sym }
-      def_delegators :@context, *CobolParser::Config.types.values.map { |x| x[:var] }
-      def_delegators :@context, *CobolParser::Warning.warnings.values.map { |x| x[:var] }
-      def_delegators :@context, *CobolParser::Flag.flags.values.map { |x| x[:var] }
+      def_delegators :@context, *Config.types.values.map { |x| x[:var] }
+      def_delegators :@context, *Warning.warnings.values.map { |x| x[:var] }
+      def_delegators :@context, *Flag.flags.values.map { |x| x[:var] }
     end
   end
 end

@@ -45,6 +45,16 @@ module CobolParser
       self.cb_standard_error_handler = make_constant_label("Default Error Handler")
     end
 
+    # CB_INDEX_P
+    def cb_index?(x)
+      cb_ref_or_field?(x) && cb_field(x).usage == :INDEX
+    end
+
+    # CB_REF_OR_FIELD_P
+    def cb_ref_or_field?(x)
+      x.is_a?(Tree::Field) || x.is_a?(Tree::Reference)
+    end
+
     private
 
     def to_cname(name)

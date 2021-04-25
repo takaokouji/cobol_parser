@@ -44,8 +44,8 @@ module CobolParser
       end
     end
 
-    def initialize(cb, purpose, value, rest)
-      super(cb, category: :UNKNOWN, purpose: purpose, value: value, chain: rest)
+    def initialize(context, purpose, value, rest)
+      super(context, category: :UNKNOWN, purpose: purpose, value: value, chain: rest)
     end
 
     def append(list)

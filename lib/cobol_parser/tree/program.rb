@@ -2,12 +2,14 @@
 
 require_relative "../context"
 require_relative "../scanner_helper"
+require_relative "field"
 
 # Program
 module CobolParser
   class Tree::Program
     include Context::Helper
     include ScannerHelper
+    include Tree::Field::Helper
 
     attr_accessor :next_program
     attr_accessor :program_id

@@ -4539,7 +4539,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 503)
                             @depth -= 1 if @depth > 0
 
                             if @stack_progid[@depth] == s
-                              @cb.error("END PROGRAM '%s' is different to PROGRAM-ID '%s'",
+                              cb_error("END PROGRAM '%s' is different to PROGRAM-ID '%s'",
                                         s, @stack_progid[@depth])
                             end
 
@@ -4599,12 +4599,12 @@ module_eval(<<'.,.,', 'parser.rule.ry', 537)
                               @linage_file = nil
                               @next_label_list = nil
                               self.current_program = cb_build_program(current_program, @depth)
-                              @cb.build_registers
+                              cb_build_registers
                             else
                               @prog_end = true
                             end
                             @depth += 1
-                            current_program.program_id = @cb.build_program_id(_values[-2], _values[-1])
+                            current_program.program_id = cb_build_program_id(_values[-2], _values[-1])
 
     result
   end
@@ -4803,14 +4803,14 @@ module_eval(<<'.,.,', 'parser.rule.ry', 707)
 
 module_eval(<<'.,.,', 'parser.rule.ry', 711)
   def _reduce_75(val, _values, result)
-     result = @cb.list_init(val[0])
+     result = cb_list_init(val[0])
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.rule.ry', 713)
   def _reduce_76(val, _values, result)
-     result = @cb.list_add(val[0], val[1])
+     result = cb_list_add(val[0], val[1])
     result
   end
 .,.,
@@ -4877,14 +4877,14 @@ module_eval(<<'.,.,', 'parser.rule.ry', 752)
 
 module_eval(<<'.,.,', 'parser.rule.ry', 756)
   def _reduce_98(val, _values, result)
-     result = @cb.constants.int1
+     result = cb_int1
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.rule.ry', 758)
   def _reduce_99(val, _values, result)
-     result = @cb.constants.int0
+     result = cb_int0
     result
   end
 .,.,
@@ -4947,14 +4947,14 @@ module_eval(<<'.,.,', 'parser.rule.ry', 788)
 
 module_eval(<<'.,.,', 'parser.rule.ry', 792)
   def _reduce_107(val, _values, result)
-     result = @cb.list_init(val[0])
+     result = cb_list_init(val[0])
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.rule.ry', 794)
   def _reduce_108(val, _values, result)
-     result = @cb.list_add(val[0], val[1])
+     result = cb_list_add(val[0], val[1])
     result
   end
 .,.,
@@ -5002,35 +5002,35 @@ module_eval(<<'.,.,', 'parser.rule.ry', 813)
 
 module_eval(<<'.,.,', 'parser.rule.ry', 815)
   def _reduce_116(val, _values, result)
-     result = @cb.space
+     result = cb_space
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.rule.ry', 817)
   def _reduce_117(val, _values, result)
-     result = @cb.zero
+     result = cb_zero
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.rule.ry', 819)
   def _reduce_118(val, _values, result)
-     result = @cb.quote
+     result = cb_quote
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.rule.ry', 821)
   def _reduce_119(val, _values, result)
-     result = @cb.norm_high
+     result = cb_norm_high
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.rule.ry', 823)
   def _reduce_120(val, _values, result)
-     result = @cb.norm_low
+     result = cb_norm_low
     result
   end
 .,.,
@@ -6000,7 +6000,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 1449)
   def _reduce_305(val, _values, result)
                                 if val[4]
                               current_program.working_storage =
-                                @cb.field_add(current_program.working_storage, val[4])
+                                cb_field_add(current_program.working_storage, val[4])
                             end
 
     result
@@ -6025,7 +6025,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 1462)
   def _reduce_308(val, _values, result)
                                 @current_field = nil
                             @description_field = nil
-                            @cb.clear_real_field
+                            cb_clear_real_field
 
     result
   end
@@ -6054,9 +6054,9 @@ module_eval(<<'.,.,', 'parser.rule.ry', 1468)
 
 module_eval(<<'.,.,', 'parser.rule.ry', 1483)
   def _reduce_314(val, _values, result)
-                                x = @cb.build_field_tree(_values[-2], _values[-1],
+                                x = cb_build_field_tree(_values[-2], _values[-1],
                                                      @current_field, @current_storage, @current_file)
-                            if x == @cb.error_node
+                            if x == cb_error_node
                               # TODO: YYERROR
                               raise NotImplementedError
                             else
@@ -6071,17 +6071,17 @@ module_eval(<<'.,.,', 'parser.rule.ry', 1494)
   def _reduce_315(val, _values, result)
                                 if !@qualifier && [88, 78, 66].include?(@current_field.level) ||
                               @current_field.flag_item_78
-                              @cb.error("Item requires a data name")
+                              cb_error("Item requires a data name")
                             end
 
                             if @current_field.level == 88
-                              # TODO: @cb.validate_88_item(@current_field)
+                              # TODO: cb_validate_88_item(@current_field)
                               raise NotImplementedError
                             end
 
                             if @current_field.flag_item_78
                               # Reset to last non-78 item
-                              # TODO: @current_field = @cb.validate_78_item(@current_field)
+                              # TODO: @current_field = cb_validate_78_item(@current_field)
                               raise NotImplementedError
                             end
 
@@ -6097,7 +6097,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 1494)
 
 module_eval(<<'.,.,', 'parser.rule.ry', 1519)
   def _reduce_317(val, _values, result)
-                                result = @cb.build_filler
+                                result = cb_build_filler
                             @qualifier = nil
                             @non_const_word = false
 
@@ -6107,7 +6107,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 1519)
 
 module_eval(<<'.,.,', 'parser.rule.ry', 1525)
   def _reduce_318(val, _values, result)
-                                result = @cb.build_filler
+                                result = cb_build_filler
                             @qualifier = nil
                             @non_const_word = false
 
@@ -6189,7 +6189,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 1569)
 module_eval(<<'.,.,', 'parser.rule.ry', 1574)
   def _reduce_328(val, _values, result)
                                 # required to check redefines
-                            result = @cb.constants.true
+                            result = cb_true
 
     result
   end
@@ -6227,10 +6227,10 @@ module_eval(<<'.,.,', 'parser.rule.ry', 1596)
   def _reduce_343(val, _values, result)
                                 if _values[-1]
                               # hack for MF compatibility
-                              if @cb.relaxed_syntax_check
-                                @cb.warning_x(val[1], "REDEFINES clause should follow entry-name")
+                              if cb_relaxed_syntax_check
+                                cb_warning_x(val[1], "REDEFINES clause should follow entry-name")
                               else
-                                @cb.error_x(val[1], "REDEFINES clause must follow entry-name")
+                                cb_error_x(val[1], "REDEFINES clause must follow entry-name")
                               end
                             end
 
@@ -6585,13 +6585,13 @@ module_eval(<<'.,.,', 'parser.rule.ry', 1788)
 module_eval(<<'.,.,', 'parser.rule.ry', 1794)
   def _reduce_388(val, _values, result)
                                 if @current_field.occurs_depending && !val[2]
-                              @cb.verify(@cb.odo_without_to, "ODO without TO clause")
+                              cb_verify(cb_odo_without_to, "ODO without TO clause")
                             end
-                            @current_field.occurs_min = val[2] ? @cb.get_int(val[1]) : 1
-                            @current_field.occurs_max = val[2] ? @cb.get_int(val[2]) : @cb.get_int(val[1])
+                            @current_field.occurs_min = val[2] ? cb_get_int(val[1]) : 1
+                            @current_field.occurs_max = val[2] ? cb_get_int(val[2]) : cb_get_int(val[1])
                             @current_field.indexes += 1
-                            if @current_field.indexes > @cb.max_subscripts
-                              @cb.error("Maximum OCCURS depth exceeded")
+                            if @current_field.indexes > cb_max_subscripts
+                              cb_error("Maximum OCCURS depth exceeded")
                             end
                             @current_field.flag_occurs = true
 
@@ -6649,14 +6649,14 @@ module_eval(<<'.,.,', 'parser.rule.ry', 1828)
 
 module_eval(<<'.,.,', 'parser.rule.ry', 1832)
   def _reduce_396(val, _values, result)
-     result = @cb.int(COB_ASCENDING)
+     result = cb_int(COB_ASCENDING)
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.rule.ry', 1834)
   def _reduce_397(val, _values, result)
-     result = @cb.int(COB_DESCENDING)
+     result = cb_int(COB_DESCENDING)
     result
   end
 .,.,
@@ -6673,21 +6673,21 @@ module_eval(<<'.,.,', 'parser.rule.ry', 1839)
 
 module_eval(<<'.,.,', 'parser.rule.ry', 1843)
   def _reduce_400(val, _values, result)
-     result = @cb.list_init(val[0])
+     result = cb_list_init(val[0])
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.rule.ry', 1845)
   def _reduce_401(val, _values, result)
-     result = @cb.list_add(val[0], val[1])
+     result = cb_list_add(val[0], val[1])
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.rule.ry', 1849)
   def _reduce_402(val, _values, result)
-                                result = @cb.build_index(val[0], @cb.int1, 1, @current_field)
+                                result = cb_build_index(val[0], cb_int1, 1, @current_field)
 
     result
   end
@@ -6742,14 +6742,14 @@ module_eval(<<'.,.,', 'parser.rule.ry', 1882)
 
 module_eval(<<'.,.,', 'parser.rule.ry', 1886)
   def _reduce_412(val, _values, result)
-     result = @cb.list_init(val[0])
+     result = cb_list_init(val[0])
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.rule.ry', 1888)
   def _reduce_413(val, _values, result)
-     result = @cb.list_add(val[0], val[1])
+     result = cb_list_add(val[0], val[1])
     result
   end
 .,.,
@@ -6763,7 +6763,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 1891)
 
 module_eval(<<'.,.,', 'parser.rule.ry', 1893)
   def _reduce_415(val, _values, result)
-     result = @cb.build_pair(val[0], val[2])
+     result = cb_build_pair(val[0], val[2])
     result
   end
 .,.,
@@ -6772,8 +6772,8 @@ module_eval(<<'.,.,', 'parser.rule.ry', 1893)
 
 module_eval(<<'.,.,', 'parser.rule.ry', 1898)
   def _reduce_417(val, _values, result)
-                                @cb.error("FALSE clause only allowed for 88 level") if @current_field.level != 88
-                            @current_field.false_88 = @cb.list_init(val[2])
+                                cb_error("FALSE clause only allowed for 88 level") if @current_field.level != 88
+                            @current_field.false_88 = cb_list_init(val[2])
 
     result
   end
@@ -7395,10 +7395,10 @@ module_eval(<<'.,.,', 'parser.rule.ry', 2289)
   def _reduce_574(val, _values, result)
                                 @current_section = nil
                             @current_paragraph = nil
-                            @cb.define_system_name("CONSOLE")
-                            @cb.define_system_name("SYSIN")
-                            @cb.define_system_name("SYSOUT")
-                            @cb.define_system_name("SYSERR")
+                            cb_define_system_name("CONSOLE")
+                            cb_define_system_name("SYSIN")
+                            cb_define_system_name("SYSOUT")
+                            cb_define_system_name("SYSERR")
                             cb_set_in_procedure
 
     result
@@ -7408,7 +7408,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 2289)
 module_eval(<<'.,.,', 'parser.rule.ry', 2299)
   def _reduce_575(val, _values, result)
                                 if current_program.flag_main && !current_program.flag_chained && _values[-5]
-                              @cb.error("Executable program requested but PROCEDURE/ENTRY has USING clause")
+                              cb_error("Executable program requested but PROCEDURE/ENTRY has USING clause")
                             end
 
     result
@@ -7421,14 +7421,14 @@ module_eval(<<'.,.,', 'parser.rule.ry', 2305)
                               if @current_paragraph.exit_label
                                 emit_statement(@current_paragraph.exit_label)
                               end
-                              # TODO: @cb.build_perform_exit(@current_paragraph)
-                              emit_statement(@cb.build_perform_exit(@current_paragraph))
+                              # TODO: cb_build_perform_exit(@current_paragraph)
+                              emit_statement(cb_build_perform_exit(@current_paragraph))
                             end
                             if @current_section
                               if @current_section.exit_label
                                 emit_statement(current_section.exit_label)
                               end
-                              emit_statement(@cb.build_perform_exit(@urrent_section))
+                              emit_statement(cb_build_perform_exit(@urrent_section))
                             end
 
     result
@@ -12059,14 +12059,14 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5050)
 
 module_eval(<<'.,.,', 'parser.rule.ry', 5071)
   def _reduce_1277(val, _values, result)
-     result = @cb.list_init(val[0])
+     result = cb_list_init(val[0])
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.rule.ry', 5073)
   def _reduce_1278(val, _values, result)
-     result = @cb.list_add(val[0], val[2])
+     result = cb_list_add(val[0], val[2])
     result
   end
 .,.,
@@ -12507,15 +12507,15 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5315)
 
 module_eval(<<'.,.,', 'parser.rule.ry', 5339)
   def _reduce_1356(val, _values, result)
-     result = @cb.zero
+     result = cb_zero
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.rule.ry', 5346)
   def _reduce_1357(val, _values, result)
-                                # TODO: @cb.build_identifier(val[0])
-                            #result = @cb.build_identifier(val[0])
+                                # TODO: cb_build_identifier(val[0])
+                            #result = cb_build_identifier(val[0])
 
     result
   end
@@ -12594,9 +12594,9 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5379)
 module_eval(<<'.,.,', 'parser.rule.ry', 5388)
   def _reduce_1367(val, _values, result)
                                 if val[0].cb_category != :NUMERIC
-                                @cb.error("Integer value expected")
+                                cb_error("Integer value expected")
                             elsif val[0].sign == :NEGATIVE || val[0].scale > 0
-                              @cb.error("Integer value expected")
+                              cb_error("Integer value expected")
                             end
                             result = val[0]
 
@@ -12629,7 +12629,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5405)
 
 module_eval(<<'.,.,', 'parser.rule.ry', 5407)
   def _reduce_1371(val, _values, result)
-     result = @cb.concat_literals(val[0], val[2])
+     result = cb_concat_literals(val[0], val[2])
     result
   end
 .,.,
@@ -12643,42 +12643,42 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5410)
 
 module_eval(<<'.,.,', 'parser.rule.ry', 5412)
   def _reduce_1373(val, _values, result)
-     result = @cb.space
+     result = cb_space
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.rule.ry', 5414)
   def _reduce_1374(val, _values, result)
-     result = @cb.zero
+     result = cb_zero
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.rule.ry', 5416)
   def _reduce_1375(val, _values, result)
-     result = @cb.quote
+     result = cb_quote
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.rule.ry', 5418)
   def _reduce_1376(val, _values, result)
-     result = @cb.high
+     result = cb_high
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.rule.ry', 5420)
   def _reduce_1377(val, _values, result)
-     result = @cb.low
+     result = cb_low
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.rule.ry', 5422)
   def _reduce_1378(val, _values, result)
-     result = @cb.null
+     result = cb_null
     result
   end
 .,.,

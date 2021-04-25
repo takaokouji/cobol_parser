@@ -1,26 +1,26 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "parser/current"
 
 class CobolParserTest < Test::Unit::TestCase
   setup do
     @options = create_common_options
   end
 
-  def create_tempfile(source)
-    Tempfile.open do |f|
-      f.write(source)
-      f.rewind
+  def parse_and_assert_ast_equal(pp_cobol_code, ruby_code)
+    actual = create_tempfile(pp_cobol_code) { |f|
       f.close(false)
-
-      yield f
-    end
+      CobolParser.parse(f.path)
+    }
+    expected = ::Parser::CurrentRuby.parse(ruby_code)
+    assert_ast_equal(expected, actual)
   end
 
   sub_test_case ".parse" do
     test "COBOL to AST" do
       omit("not implemented yet")
-      create_tempfile(<<-EOS) do |f|
+      parse_and_assert_ast_equal(<<-COBOL, <<-RUBY)
        IDENTIFICATION          DIVISION.
        PROGRAM-ID.             PG1.
       *
@@ -47,99 +47,64 @@ class CobolParserTest < Test::Unit::TestCase
            INITIALIZE                  WRK-AREA
            MOVE    ZERO                TO  WRK-PAGE
            ACCEPT  SYS-TIME            FROM    TIME
-           PERFORM 110-PARA-HENSYU-SEC
+           PERFORM 110-PARA-HENSHU-SEC
            .
        100-INIT-EXT.
            EXIT.
       *
-       110-PARA-HENSYU-SEC                   SECTION.
+       110-PARA-HENSHU-SEC                   SECTION.
            IF      WRK-PAGE    NOT =   ZERO
                MOVE    10                   TO  WRK-PAGE
            END-IF
            .
-       110-PARA-HENSYU-EXT.
+       110-PARA-HENSHU-EXT.
            EXIT.
-      EOS
+      COBOL
+require "ostruct"
 
-        ast = CobolParser.parse(f.path)
+class Pg1
+  def initialize
+    @wrk_area = new_wrk_area
+    @sys_area = new_sys_area
+  end
 
-        expected = <<-SEXP
-(begin
-  (send nil :require
-    (str "ostruct"))
-  (class
-    (const nil :Pg1) nil
-    (begin
-      (def :initialize
-        (args)
-        (begin
-          (ivasgn :@wrk_area
-            (send nil :new_wrk_area))
-          (ivasgn :@sys_area
-            (send nil :new_sys_area))))
-      (def :_000_proc_sec
-        (args)
-        (send nil :_100_init_sec))
-      (send nil :private)
-      (def :_100_init_sec
-        (args)
-        (begin
-          (ivasgn :@wrk_area
-            (send nil :new_wrk_area))
-          (send
-            (ivar :@wrk_area) :wrk_page=
-            (int 0))
-          (send
-            (ivar :@sys_area) :sys_time=
-            (send
-              (send
-                (send
-                  (const nil :Time) :now) :strftime
-                (str "%H%M%S00")) :to_i))
-          (send nil :_110_para_hensyu_sec)))
-      (def :_110_para_hensyu_sec
-        (args)
-        (if
-          (send
-            (send
-              (ivar :@wrk_area) :wrk_page) :!=
-            (int 0))
-          (send
-            (ivar :@wrk_area) :wrk_page=
-            (int 10)) nil))
-      (def :new_wrk_area
-        (args)
-        (send
-          (const nil :OpenStruct) :new
-          (kwargs
-            (pair
-              (sym :wrk_sysymd)
-              (send
-                (const nil :OpenStruct) :new
-                (kwargs
-                  (pair
-                    (sym :wrk_sysyy)
-                    (int 0))
-                  (pair
-                    (sym :wrk_sysmm)
-                    (int 0))
-                  (pair
-                    (sym :wrk_sysdd)
-                    (int 0)))))
-            (pair
-              (sym :wrk_page)
-              (int 0)))))
-      (def :new_sys_area
-        (args)
-        (send
-          (const nil :OpenStruct) :new
-          (kwargs
-            (pair
-              (sym :sys_time)
-              (int 0))))))))
-        SEXP
-        assert_text_equal(expected, ast.to_s)
-      end
+  def _000_proc_sec
+    _100_init_sec
+  end
+
+  private
+
+  def _100_init_sec
+    @wrk_area = new_wrk_area
+    @wrk_area.wrk_page = 0
+    @sys_area.sys_tiime = Time.now.strftime("%H%M%S00").to_i
+    _110_para_henshu_sec
+  end
+
+  def _110_para_henshu_sec
+    if @wrk_area.wrk_page != 0
+      @wrk_area.wrk_page = 10
+    end
+  end
+
+  def new_wrk_area
+    OpenStruct.new(
+      wrk_sysymd: OpenStruct.new(
+        wrk_sysyy: 0,
+        wrk_sysmm: 0,
+        wrk_sysdd: 0
+      ),
+      wrk_page: 0
+    )
+  end
+
+  def new_sys_area
+    OpenStruct.new(
+      sys_time: 0
+    )
+  end
+end
+      RUBY
     end
   end
 end

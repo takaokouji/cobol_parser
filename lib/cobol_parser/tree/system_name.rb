@@ -1,32 +1,34 @@
 # frozen_string_literal: true
 
-# System-name
-class CobolParser::Tree::SystemName < CobolParser::Tree
-  CATEGORY = %i[
-    CALL_CONVENTION_NAME
-    CODE_NAME
-    COMPUTER_NAME
-    DEVICE_NAME
-    ENTRY_CONVENTION_NAME
-    EXTERNAL_LOCALE_NAME
-    FEATURE_NAME
-    LIBRARY_NAME
-    SWITCH_NAME
-    TEXT_NAME
-  ].freeze
+module CobolParser
+  # System-name
+  class Tree::SystemName < Tree
+    CATEGORY = %i[
+      CALL_CONVENTION_NAME
+      CODE_NAME
+      COMPUTER_NAME
+      DEVICE_NAME
+      ENTRY_CONVENTION_NAME
+      EXTERNAL_LOCALE_NAME
+      FEATURE_NAME
+      LIBRARY_NAME
+      SWITCH_NAME
+      TEXT_NAME
+    ].freeze
 
-  attribute :system_category
-  attribute :token
+    attribute :system_category
+    attribute :token
 
-  class << self
-    def build(cb, category, token)
-      new(cb, category: :UNKNOWN, system_category: category, token: token)
+    module Helper
+      def cb_build_system_name(system_category, token)
+        Tree::SystemName.new(@context, system_category, token)
+      end
     end
-  end
 
-  def initialize(context, attributes = {})
-    super
+    def initialize(context, system_category, token)
+      raise ArgumentError, "Invalid system_category: #{system_category.inspect}" if !CATEGORY.include?(system_category)
 
-    raise ArgumentError, "Invalid system_category: #{@system_category.inspect}" if !CATEGORY.include?(@system_category)
+      super(context, category: :UNKNOWN, system_category: system_category, token: token)
+    end
   end
 end

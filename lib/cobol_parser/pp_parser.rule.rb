@@ -187,19 +187,19 @@ module_eval(<<'.,.,', 'pp_parser.rule.ry', 13)
   def _reduce_5(val, _values, result)
                                 ppout.putc("\n")
                             val[1] = fix_filename(val[1])
-                            if @cb.flag_fold_copy_lower
+                            if cb_flag_fold_copy_lower
                               val[1].downcase!
-                            elsif @cb.flag_fold_copy_upper
+                            elsif cb_flag_fold_copy_upper
                               val[1].upcase!
                             end
                             if val[2]
-                              if @cb.flag_fold_copy_lower
+                              if cb_flag_fold_copy_lower
                                 val[2].downcase!
-                              elsif @cb.flag_fold_copy_upper
+                              elsif cb_flag_fold_copy_upper
                                 val[2].upcase!
                               end
                             end
-                            pp_lexer.copy(val[1], val[2], val[4])
+                            ppcopy(val[1], val[2], val[4])
 
     result
   end
@@ -246,28 +246,28 @@ module_eval(<<'.,.,', 'pp_parser.rule.ry', 43)
 
 module_eval(<<'.,.,', 'pp_parser.rule.ry', 46)
   def _reduce_13(val, _values, result)
-     pp_lexer.current_replace_list = val[1]
+     pp_set_replace_list(val[1])
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'pp_parser.rule.ry', 48)
   def _reduce_14(val, _values, result)
-     pp_lexer.current_replace_list = nil
+     pp_set_replace_list(nil)
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'pp_parser.rule.ry', 51)
   def _reduce_15(val, _values, result)
-     result = @cb.replace_list_add(nil, val[0], val[2])
+     result = cb_replace_list_add(nil, val[0], val[2])
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'pp_parser.rule.ry', 53)
   def _reduce_16(val, _values, result)
-     result = @cb.replace_list_add(val[0], val[1], val[3])
+     result = cb_replace_list_add(val[0], val[1], val[3])
     result
   end
 .,.,

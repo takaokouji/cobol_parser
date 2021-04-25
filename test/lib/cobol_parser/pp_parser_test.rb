@@ -5,9 +5,9 @@ require "tempfile"
 
 class CobolParser::PPParserTest < Test::Unit::TestCase
   setup do
-    @cb = create_context
-    @options = create_common_options
-    @pp_parser = CobolParser::PPParser.new(@cb, @options)
+    context = create_context
+    options = create_common_options
+    @pp_parser = CobolParser::PPParser.new(context, options)
   end
 
   sub_test_case "#parse" do

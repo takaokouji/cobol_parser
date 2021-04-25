@@ -4,6 +4,39 @@
 require "bundler/setup"
 require "cobol_parser"
 require "unparser"
+require "optparse"
 
-ast = CobolParser.parse(ARGV.shift)
-puts Unparser.unparse(ast)
+Version = CobolParser::VERSION
+
+opt = OptionParser.new
+
+options = {
+  include: [],
+  extension: [],
+  debug: false,
+  log_path: nil,
+}
+do_not_unparse = false
+
+opt.banner = "Usage: cobol2ruby [options] <file>"
+opt.on("-I <directory>") { |v| options[:include] << v }
+opt.on("-ext <extension>") { |v| options[:extension] << v }
+opt.on("-debug") { options[:debug] = true }
+opt.on("--log=<file>") { |v| options[:log_path] = v }
+opt.on("-s", "--sexpression") { do_not_unparse = true }
+
+opt.parse!(ARGV)
+
+if ARGV.length != 1
+  warn "Error: You must specify <file>"
+  $stderr.puts
+  warn opt.help
+  exit(1)
+end
+
+ast = CobolParser.parse(ARGV.shift, options)
+if do_not_unparse
+  puts ast
+else
+  puts Unparser.unparse(ast)
+end

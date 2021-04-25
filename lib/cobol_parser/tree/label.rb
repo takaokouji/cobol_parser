@@ -1,37 +1,35 @@
 # frozen_string_literal: true
 
-# Label
-class CobolParser::Tree::Label < CobolParser::Tree
-  attribute :name
-  attribute :section
-  attribute :exit_label
-  attribute :exit_label_ref
-  attribute :children
-  attribute :orig_name
-  attribute :id
-  attribute :is_section
-  attribute :is_entry
-  attribute :need_begin
-  attribute :need_return
-  attribute :is_global
+module CobolParser
+  # Label
+  class Tree::Label < Tree
+    attribute :name
+    attribute :section
+    attribute :exit_label
+    attribute :exit_label_ref
+    attribute :children
+    attribute :orig_name
+    attribute :id
+    attribute :is_section
+    attribute :is_entry
+    attribute :need_begin
+    attribute :need_return
+    attribute :is_global
 
-  class << self
-    def build(cb, name, section)
-      p = new(cb, category: :UNKNOWN)
-      p.name = cb.define(name, p)
-      p.orig_name = p.name
-      p.section = section
-
-      p
+    module Helper
+      def cb_build_label(name, section)
+        Tree::Label.new(@context, name, section)
+      end
     end
-  end
 
-  def initialize(cb, attributes = {})
-    super
+    def initialize(context, name, section)
+      super(context, category: :UNKNOWN)
 
-    return if @id
-
-    @id = @cb.id
-    @cb.id += 1
+      @id = cb_id
+      self.cb_id += 1
+      @name = cb_define(name, self)
+      @orig_name = name
+      @section = section
+    end
   end
 end

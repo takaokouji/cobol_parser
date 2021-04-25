@@ -510,7 +510,7 @@ rule
                             @depth -= 1 if @depth > 0
 
                             if @stack_progid[@depth] == s
-                              @cb.error("END PROGRAM '%s' is different to PROGRAM-ID '%s'",
+                              cb_error("END PROGRAM '%s' is different to PROGRAM-ID '%s'",
                                         s, @stack_progid[@depth])
                             end
 
@@ -563,13 +563,13 @@ identification_division: PROGRAM_ID '.' program_name as_literal
                               @term_array.clear
                               @linage_file = nil
                               @next_label_list = nil
-                              self.current_program = @cb.build_program(current_program, @depth)
-                              @cb.build_registers
+                              self.current_program = cb_build_program(current_program, @depth)
+                              cb_build_registers
                             else
                               @prog_end = true
                             end
                             @depth += 1
-                            current_program.program_id = @cb.build_program_id(_values[-2], _values[-1])
+                            current_program.program_id = cb_build_program_id(_values[-2], _values[-1])
                           }
                           program_type '.'
 
@@ -709,9 +709,9 @@ object_computer_segment: SEGMENT_LIMIT _is integer
                           }
 
 repository_literal_list: LITERAL
-                          { result = @cb.list_init(val[0]) }
+                          { result = cb_list_init(val[0]) }
                       | repository_literal_list LITERAL
-                          { result = @cb.list_add(val[0], val[1]) }
+                          { result = cb_list_add(val[0], val[1]) }
 
 /*
  * SPECIAL-NAMES paragraph
@@ -754,9 +754,9 @@ special_name_mnemonic_on_off:
                           }
 
              on_or_off: ON
-                          { result = @cb.constants.int1 }
+                          { result = cb_int1 }
                       | OFF
-                          { result = @cb.constants.int0 }
+                          { result = cb_int0 }
 
 /* Alphabet name clause */
   alphabet_name_clause: ALPHABET undefined_word
@@ -790,9 +790,9 @@ special_name_mnemonic_on_off:
                           }
 
  alphabet_literal_list: alphabet_literal
-                          { result = @cb.list_init(val[0]) }
+                          { result = cb_list_init(val[0]) }
                       | alphabet_literal_list alphabet_literal
-                          { result = @cb.list_add(val[0], val[1]) }
+                          { result = cb_list_add(val[0], val[1]) }
 
       alphabet_literal: alphabet_lits
                           { result = val[0] }
@@ -813,15 +813,15 @@ alphabet_also_sequence: alphabet_also_literal
          alphabet_lits: LITERAL
                           { result = val[0] }
                       | SPACE
-                          { result = @cb.space }
+                          { result = cb_space }
                       | ZERO
-                          { result = @cb.zero }
+                          { result = cb_zero }
                       | QUOTE
-                          { result = @cb.quote }
+                          { result = cb_quote }
                       | HIGH_VALUE
-                          { result = @cb.norm_high }
+                          { result = cb_norm_high }
                       | LOW_VALUE
-                          { result = @cb.norm_low }
+                          { result = cb_norm_low }
 
  alphabet_also_literal: LITERAL
                           {
@@ -1449,7 +1449,7 @@ working_storage_section:
                           {
                             if val[4]
                               current_program.working_storage =
-                                @cb.field_add(current_program.working_storage, val[4])
+                                cb_field_add(current_program.working_storage, val[4])
                             end
                           }
 
@@ -1462,7 +1462,7 @@ record_description_list_1:
                           {
                             @current_field = nil
                             @description_field = nil
-                            @cb.clear_real_field
+                            cb_clear_real_field
                           }
                           record_description_list_2
                           {
@@ -1481,9 +1481,9 @@ record_description_list_2: not_const_word data_description '.'
       data_description: constant_entry
                       | level_number entry_name
                           {
-                            x = @cb.build_field_tree(_values[-2], _values[-1],
+                            x = cb_build_field_tree(_values[-2], _values[-1],
                                                      @current_field, @current_storage, @current_file)
-                            if x == @cb.error_node
+                            if x == cb_error_node
                               # TODO: YYERROR
                               raise NotImplementedError
                             else
@@ -1494,17 +1494,17 @@ record_description_list_2: not_const_word data_description '.'
                           {
                             if !@qualifier && [88, 78, 66].include?(@current_field.level) ||
                               @current_field.flag_item_78
-                              @cb.error("Item requires a data name")
+                              cb_error("Item requires a data name")
                             end
 
                             if @current_field.level == 88
-                              # TODO: @cb.validate_88_item(@current_field)
+                              # TODO: cb_validate_88_item(@current_field)
                               raise NotImplementedError
                             end
 
                             if @current_field.flag_item_78
                               # Reset to last non-78 item
-                              # TODO: @current_field = @cb.validate_78_item(@current_field)
+                              # TODO: @current_field = cb_validate_78_item(@current_field)
                               raise NotImplementedError
                             end
 
@@ -1517,13 +1517,13 @@ record_description_list_2: not_const_word data_description '.'
 
             entry_name: /* empty */
                           {
-                            result = @cb.build_filler
+                            result = cb_build_filler
                             @qualifier = nil
                             @non_const_word = false
                           }
                       | FILLER
                           {
-                            result = @cb.build_filler
+                            result = cb_build_filler
                             @qualifier = nil
                             @non_const_word = false
                           }
@@ -1573,7 +1573,7 @@ data_description_clause_sequence: /* empty */
                       | data_description_clause_sequence data_description_clause
                           {
                             # required to check redefines
-                            result = @cb.constants.true
+                            result = cb_true
                           }
 
 data_description_clause: redefines_clause
@@ -1594,7 +1594,19 @@ data_description_clause: redefines_clause
 /* REDEFINES clause */
       redefines_clause: REDEFINES identifier_1
                           {
-                            # TODO: L2455
+                            if _values[-1]
+                              # hack for MF compatibility
+                              if cb_relaxed_syntax_check
+                                cb_warning_x(val[1], "REDEFINES clause should follow entry-name")
+                              else
+                                cb_error_x(val[1], "REDEFINES clause must follow entry-name")
+                              end
+                            end
+
+                            @current_field.resolve_redefines(val[1])
+                            if !@current_field.redefines
+                              # TODO: YYERROR;
+                            end
                           }
 
 /* EXTERNAL clause */
@@ -1781,13 +1793,13 @@ data_description_clause: redefines_clause
          occurs_clause: OCCURS integer occurs_to_integer _times occurs_depending occurs_keys occurs_indexed
                           {
                             if @current_field.occurs_depending && !val[2]
-                              @cb.verify(@cb.odo_without_to, "ODO without TO clause")
+                              cb_verify(cb_odo_without_to, "ODO without TO clause")
                             end
-                            @current_field.occurs_min = val[2] ? @cb.get_int(val[1]) : 1
-                            @current_field.occurs_max = val[2] ? @cb.get_int(val[2]) : @cb.get_int(val[1])
+                            @current_field.occurs_min = val[2] ? cb_get_int(val[1]) : 1
+                            @current_field.occurs_max = val[2] ? cb_get_int(val[2]) : cb_get_int(val[1])
                             @current_field.indexes += 1
-                            if @current_field.indexes > @cb.max_subscripts
-                              @cb.error("Maximum OCCURS depth exceeded")
+                            if @current_field.indexes > COB_MAX_SUBSCRIPTS
+                              cb_error("Maximum OCCURS depth exceeded")
                             end
                             @current_field.flag_occurs = true
                           }
@@ -1818,9 +1830,9 @@ data_description_clause: redefines_clause
                           }
 
 ascending_or_descending: ASCENDING
-                          { result = @cb.int(COB_ASCENDING) }
+                          { result = cb_int(COB_ASCENDING) }
                       | DESCENDING
-                          { result = @cb.int(COB_DESCENDING) }
+                          { result = cb_int(COB_DESCENDING) }
 
         occurs_indexed:
                       | INDEXED _by occurs_index_list
@@ -1829,13 +1841,13 @@ ascending_or_descending: ASCENDING
                           }
 
      occurs_index_list: occurs_index
-                          { result = @cb.list_init(val[0]) }
+                          { result = cb_list_init(val[0]) }
                       | occurs_index_list occurs_index
-                          { result = @cb.list_add(val[0], val[1]) }
+                          { result = cb_list_add(val[0], val[1]) }
 
           occurs_index: WORD
                           {
-                            result = @cb.build_index(val[0], @cb.int1, 1, @current_field)
+                            result = cb_build_index(val[0], cb_int1, 1, @current_field)
                           }
 
 /* JUSTIFIED clause */
@@ -1872,20 +1884,20 @@ ascending_or_descending: ASCENDING
                           _when _set _to false_is
 
        value_item_list: value_item
-                          { result = @cb.list_init(val[0]) }
+                          { result = cb_list_init(val[0]) }
                       | value_item_list value_item
-                          { result = @cb.list_add(val[0], val[1]) }
+                          { result = cb_list_add(val[0], val[1]) }
 
             value_item: literal
                           { result = val[0] }
                       | literal THRU literal
-                          { result = @cb.build_pair(val[0], val[2]) }
+                          { result = cb_build_pair(val[0], val[2]) }
 
               false_is:
                       | TOK_FALSE _is literal
                           {
-                            @cb.error("FALSE clause only allowed for 88 level") if @current_field.level != 88
-                            @current_field.false_88 = @cb.list_init(val[2])
+                            cb_error("FALSE clause only allowed for 88 level") if @current_field.level != 88
+                            @current_field.false_88 = cb_list_init(val[2])
                           }
 
 /* RENAMES clause */
@@ -2275,15 +2287,35 @@ screen_line_plus_minus: /* empty */
     procedure_division:
                       | PROCEDURE DIVISION procedure_using_chaining procedure_returning '.'
                           {
-                            # TODO: L3308
+                            @current_section = nil
+                            @current_paragraph = nil
+                            cb_define_system_name("CONSOLE")
+                            cb_define_system_name("SYSIN")
+                            cb_define_system_name("SYSOUT")
+                            cb_define_system_name("SYSERR")
+                            cb_set_in_procedure
                           }
                           procedure_declaratives
                           {
-                            # TODO: L3318
+                            if current_program.flag_main && !current_program.flag_chained && _values[-5]
+                              cb_error("Executable program requested but PROCEDURE/ENTRY has USING clause")
+                            end
                           }
                           procedure_list
                           {
-                            # TODO: L3328
+                            if @current_paragraph
+                              if @current_paragraph.exit_label
+                                emit_statement(@current_paragraph.exit_label)
+                              end
+                              # TODO: cb_build_perform_exit(@current_paragraph)
+                              emit_statement(cb_build_perform_exit(@current_paragraph))
+                            end
+                            if @current_section
+                              if @current_section.exit_label
+                                emit_statement(current_section.exit_label)
+                              end
+                              emit_statement(cb_build_perform_exit(@urrent_section))
+                            end
                           }
 
 procedure_using_chaining: /* empty */
@@ -5037,13 +5069,9 @@ not_invalid_key_sentence: NOT_INVALID_KEY
 
 /* Arithmetic expression */
               exp_list: exp
-                          {
-                            # TODO: L6324
-                          }
+                          { result = cb_list_init(val[0]) }
                       | exp_list e_sep exp
-                          {
-                            # TODO: L6325
-                          }
+                          { result = cb_list_add(val[0], val[2]) }
 
                  e_sep:
                       | COMMA_DELIM
@@ -5283,13 +5311,9 @@ not_invalid_key_sentence: NOT_INVALID_KEY
                       | ENTRY
 
            alnum_or_id: identifier_1
-                          {
-                            # TODO: L6583
-                          }
+                          { result = val[0] }
                       | LITERAL
-                          {
-                            # TODO: L6584
-                          }
+                          { result = val[0] }
 
           simple_value: identifier
                       | basic_literal
@@ -5313,56 +5337,48 @@ numeric_value:
          num_id_or_lit: identifier
                       | integer
                       | ZERO
-                          {
-                            # TODO: L6618
-                          }
+                          { result = cb_zero }
 
 /*
  * Identifier
  */
             identifier: identifier_1
                           {
-                            # TODO: L6626
+                            # TODO: cb_build_identifier(val[0])
+                            #result = cb_build_identifier(val[0])
                           }
 
           identifier_1: qualified_word
-                          {
-                            # TODO: L6630
-                          }
+                          { result = val[0] }
                       | qualified_word subref
-                          {
-                            # TODO: L6631
-                          }
+                          { result = val[0] }
                       | qualified_word refmod
-                          {
-                            # TODO: L6632
-                          }
+                          { result = val[0] }
                       | qualified_word subref refmod
-                          {
-                            # TODO: L6633
-                          }
+                          { result = val[0] }
 
         qualified_word: WORD
-                          {
-                            # TODO: L6637
-                          }
+                          { result = val[0] }
                       | WORD in_of qualified_word
                           {
-                            # TODO: L6638
+                            result = val[0]
+                            val[0].chain = val[2]
                           }
 
                 subref: '(' exp_list ')'
                           {
-                            # TODO: L6643
+                            result = _values[-1]
+                            _values[-1].subs = val[1].reverse
                           }
 
                 refmod: '(' exp ':' ')'
                           {
-                            # TODO: L6651
+                            _values[-1].offset = val[1]
                           }
                       | '(' exp ':' exp ')'
                           {
-                            # TODO: L6655
+                            _values[-1].offset = val[1]
+                            _values[-1].length = val[3]
                           }
 
 /*
@@ -5370,10 +5386,10 @@ numeric_value:
  */
                integer: LITERAL
                           {
-                            if val[0].category != :NUMERIC
-                                @cb.error("Integer value expected")
+                            if cb_tree_category(val[0]) != :NUMERIC
+                                cb_error("Integer value expected")
                             elsif val[0].sign == :NEGATIVE || val[0].scale > 0
-                              @cb.error("Integer value expected")
+                              cb_error("Integer value expected")
                             end
                             result = val[0]
                           }
@@ -5389,22 +5405,22 @@ numeric_value:
          basic_literal: basic_value
                           { result = val[0] }
                       | basic_literal '&' basic_value
-                          { result = @cb.concat_literals(val[0], val[2]) }
+                          { result = cb_concat_literals(val[0], val[2]) }
 
            basic_value: LITERAL
                           { result = val[0] }
                       | SPACE
-                          { result = @cb.space }
+                          { result = cb_space }
                       | ZERO
-                          { result = @cb.zero }
+                          { result = cb_zero }
                       | QUOTE
-                          { result = @cb.quote }
+                          { result = cb_quote }
                       | HIGH_VALUE
-                          { result = @cb.high }
+                          { result = cb_high }
                       | LOW_VALUE
-                          { result = @cb.low }
+                          { result = cb_low }
                       | TOK_NULL
-                          { result = @cb.null }
+                          { result = cb_null }
 
 /*
  * Function

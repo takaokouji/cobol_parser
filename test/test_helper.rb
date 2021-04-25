@@ -16,6 +16,15 @@ end
 require "test/unit"
 require "cobol_parser"
 
+Parser::Builders::Default.emit_lambda              = true
+Parser::Builders::Default.emit_procarg0            = true
+Parser::Builders::Default.emit_encoding            = true
+Parser::Builders::Default.emit_index               = true
+Parser::Builders::Default.emit_arg_inside_procarg0 = true
+Parser::Builders::Default.emit_forward_arg         = true
+Parser::Builders::Default.emit_kwargs              = true
+Parser::Builders::Default.emit_match_pattern       = true
+
 class Test::Unit::TestCase
   def fixture_path(path)
     File.expand_path(path, File.join(__dir__, "fixtures"))
@@ -23,8 +32,7 @@ class Test::Unit::TestCase
 
   def create_context
     cb = CobolParser::Context.new
-    cb.current_program = cb.build_program(nil, 0)
-    cb.include_list << "test/fixtures/copy"
+    cb.cb_include_list << "test/fixtures/copy"
     cb
   end
 
@@ -46,6 +54,10 @@ class Test::Unit::TestCase
     else
       assert_equal(expected_value, actual.value, message)
     end
+  end
+
+  def assert_ast_equal(expected, actual, message = nil)
+    assert_text_equal(expected.to_s, actual.to_s, message)
   end
 
   def assert_text_equal(expected_text, actual_text, message = nil)

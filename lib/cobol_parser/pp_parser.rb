@@ -2,45 +2,56 @@
 
 require "racc/parser.rb" # rubocop:disable Style/RedundantFileExtensionInRequire
 require "stringio"
+require_relative "context"
 require_relative "pp_lexer"
 require_relative "pp_parser.rule"
 
-class CobolParser::PPParser < Racc::Parser
-  extend Forwardable
+module CobolParser
+  class PPParser < Racc::Parser
+    extend Forwardable
 
-  attr_reader :pp_lexer
+    include Context::Helper
+    include PPLexer::Helper
 
-  def_delegator :@pp_lexer, :output_file, :ppout
-  def_delegator :@pp_lexer, :output_file=, :ppout=
+    ReplaceListItem = Struct.new(:old_text, :new_text, keyword_init: true)
 
-  def initialize(context, options = {})
-    super()
+    def initialize(context, options = {})
+      super()
 
-    @cb = context
-    @pp_lexer = CobolParser::PPLexer.new(context, options)
-    @pp_lexer.output_file = StringIO.new
-  end
+      @context = context
+      @context.pp_parser = self
 
-  def parse(path)
-    pp_lexer.open(path)
-    @tokens = pp_lexer.each_token
+      PPLexer.new(context, options)
+      self.ppout = StringIO.new
+    end
 
-    do_parse
+    def parse(path)
+      ppopen(path)
+      @tokens = pplex
 
-    ppout.rewind
-    ppout.read
-  end
+      do_parse
 
-  def next_token
-    token = @tokens.next
-    [token.name, token.value]
-  rescue StopIteration
-    [false, "$end"]
-  end
+      ppout.rewind
+      ppout.read
+    end
 
-  private
+    def next_token
+      token = @tokens.next
+      [token.name, token.value]
+    rescue StopIteration
+      [false, "$end"]
+    end
 
-  def fix_filename(name)
-    name.sub(/^["'](.*)["']$/, "\\1")
+    private
+
+    def fix_filename(name)
+      name.sub(/^["'](.*)["']$/, "\\1")
+    end
+
+    def cb_replace_list_add(replace_list, old_text, new_text)
+      replace_list ||= []
+      replace_list << ReplaceListItem.new(old_text: old_text, new_text: new_text)
+      replace_list
+    end
   end
 end

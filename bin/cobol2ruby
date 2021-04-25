@@ -18,7 +18,7 @@ options = {
 }
 do_not_unparse = false
 
-opt.banner = "Usage: cobol2ruby [options] <file>"
+opt.banner = "Usage: cobol2ruby [options] [file]"
 opt.on("-I <directory>") { |v| options[:include] << v }
 opt.on("-ext <extension>") { |v| options[:extension] << v }
 opt.on("-debug") { options[:debug] = true }
@@ -27,14 +27,15 @@ opt.on("-s", "--sexpression") { do_not_unparse = true }
 
 opt.parse!(ARGV)
 
-if ARGV.length != 1
-  warn "Error: You must specify <file>"
-  $stderr.puts
-  warn opt.help
-  exit(1)
+path = ARGV.shift
+if !path
+  tempfile = Tempfile.new
+  tempfile.write($stdin.read)
+  tempfile.close(false)
+  path = tempfile.path
 end
 
-ast = CobolParser.parse(ARGV.shift, options)
+ast = CobolParser.parse(path, options)
 if do_not_unparse
   puts ast
 else

@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
+require_relative "../context"
+require_relative "../scanner_helper"
+
 # Program
 module CobolParser
-  class Program
+  class Tree::Program
     include Context::Helper
+    include ScannerHelper
 
     attr_accessor :next_program
     attr_accessor :program_id
@@ -63,8 +67,18 @@ module CobolParser
     attr_accessor :gen_file_error # Gen error routine
     attr_accessor :prog_type # Program type
 
+    module Helper
+      def cb_build_program(last_program, nest_level)
+        Tree::Program.new(self, last_program, nest_level)
+      end
+    end
+
     def initialize(context, last_program, nest_level)
       @context = context
+
+      cb_reset_78
+      cb_reset_in_procedure
+      cb_clear_real_field
 
       @global_handler = Array.new(5)
       @word_table = {}
@@ -91,7 +105,7 @@ module CobolParser
         @currency_symbol = last_program.currency_symbol
         @cb_return_code = last_program.cb_return_code
       else
-        self.functions_are_all = flag_functions_all
+        self.functions_are_all = cb_flag_functions_all
       end
     end
   end

@@ -1,18 +1,24 @@
 # frozen_string_literal: true
 
-# Cast
-class CobolParser::Tree::Cast < CobolParser::Tree
-  attribute :type
-  attribute :val
+module CobolParser
+  # Cast
+  class Tree::Cast < Tree
+    attribute :type
+    attribute :val
 
-  class << self
-    def build(_cb, type, val)
+    module Helper
+      def cb_build_cast(type, val)
+        Tree::Cast.new(type, val)
+      end
+    end
+
+    def initialize(context, type, val)
       category = if type == :INTEGER
                    :NUMERIC
                  else
                    :UNKNOWN
                  end
-      new(category: category, type: type, val: val)
+      super(context, category: category, type: type, val: val)
     end
   end
 end

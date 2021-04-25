@@ -5,11 +5,12 @@ require "stringio"
 
 class CobolParser::ScannerTest < Test::Unit::TestCase
   def create_scanner
-    @cb = create_context
-    @cb.current_program = CobolParser::Program.new(@cb, nil, 0)
-    @cb.source_line = 1
+    @context = create_context
     options = create_common_options
-    CobolParser::Scanner.new(@cb, options)
+    CobolParser::Scanner.new(@context, options)
+
+    @context.current_program = CobolParser::Tree::Program.new(@context, nil, 0)
+    @context.cb_source_line = 1
   end
 
   def assert_tree_equal(expected_class, expected_attributes, actual, msg = nil)

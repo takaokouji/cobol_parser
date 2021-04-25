@@ -2,9 +2,9 @@
 
 require "racc/parser.rb" # rubocop:disable Style/RedundantFileExtensionInRequire
 require "stringio"
+require_relative "context"
 require_relative "pp_lexer"
 require_relative "pp_parser.rule"
-require_relative "context"
 
 module CobolParser
   class PPParser < Racc::Parser

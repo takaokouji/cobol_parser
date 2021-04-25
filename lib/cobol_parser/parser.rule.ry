@@ -5386,7 +5386,7 @@ numeric_value:
  */
                integer: LITERAL
                           {
-                            if val[0].category != :NUMERIC
+                            if val[0].cb_category != :NUMERIC
                                 @cb.error("Integer value expected")
                             elsif val[0].sign == :NEGATIVE || val[0].scale > 0
                               @cb.error("Integer value expected")

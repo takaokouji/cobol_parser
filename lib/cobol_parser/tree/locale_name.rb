@@ -1,18 +1,24 @@
 # frozen_string_literal: true
 
-# Locale name
-class CobolParser::Tree::LocaleName < CobolParser::Tree
-  attribute :name
-  attribute :cname
-  attribute :list
+module CobolParser
+  # Locale name
+  class Tree::LocaleName < Tree
+    attribute :name
+    attribute :cname
+    attribute :list
 
-  class << self
-    def build(cb, name, list)
-      p = new(cb, category: :UNKNOWN)
-      p.name = cb.define(name, p)
-      p.cname = to_cname(p.name)
-      p.list = list
-      p
+    module Helper
+      def cb_build_local_name(name, list)
+        Tree::LocaleName.new(name, list)
+      end
+    end
+
+    def initialize(context, name, list)
+      super(context, category: :UNKNOWN)
+
+      @name = cb_define(name, self)
+      @cname = to_cname(name)
+      @list = list
     end
   end
 end

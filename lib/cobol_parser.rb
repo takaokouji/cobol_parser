@@ -62,7 +62,5 @@ module CobolParser
 end
 
 require_relative "cobol_parser/version"
-require_relative "cobol_parser/pp_lexer"
-require_relative "cobol_parser/pp_parser"
-require_relative "cobol_parser/scanner"
 require_relative "cobol_parser/parser"
+require_relative "cobol_parser/pp_parser"

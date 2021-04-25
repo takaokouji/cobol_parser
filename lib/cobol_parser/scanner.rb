@@ -24,6 +24,7 @@ module CobolParser
       super({ lint: false }.merge(options))
 
       @context = context
+      @context.scanner = self
 
       @lev78 = []
       @in_procedure = false
@@ -450,7 +451,7 @@ module CobolParser
       cb_warning("User defined name must be less than 32 characters:%s", yytext) if yytext.length > 31
 
       # Check FUNCTION name without keyword
-      if @in_procedure && @cb.functions_are_all
+      if @in_procedure && functions_are_all
         cbp = cb_lookup_intrinsic(yytext, true)
         if cbp
           yylval.value = cb_build_reference(yytext)
@@ -469,7 +470,7 @@ module CobolParser
 
       @lev78.each do |p78|
         if yytext.casecmp?(p78.name)
-          if @cb.non_const_word
+          if non_const_word
             cb_error("CONSTANT (78 level) may not be used here - '%s'", yytext)
             yylval.value = cb_error_node
             next :WORD
@@ -630,7 +631,7 @@ module CobolParser
         set_location(yylval.value)
       else
         cb_error("Invalid H literal: %s", text)
-        yylval.value = @cb.constants.error_node
+        yylval.value = cb_error_node
       end
       :LITERAL
     end
@@ -672,7 +673,7 @@ module CobolParser
       text.upcase!
 
       @lev78.each do |p78|
-        next if p78.values == @cb.constants.error_node || p78.values.value == @cb.constants.error_node
+        next if p78.values == cb_error_node || p78.values.value == cb_error_node
 
         data = p78.values.value.data
         text.gsub!(/(?:^|([^\w-]))#{Regexp.quote(p78.name)}(?:([^\w-])|$)/) {

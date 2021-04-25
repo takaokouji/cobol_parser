@@ -1,13 +1,8 @@
 # frozen_string_literal: true
 
 require "forwardable"
-require "ostruct"
 require "set"
 require_relative "attribute_helper"
-require_relative "error_helper"
-require_relative "reserved_helper"
-require_relative "type_check_helper"
-require_relative "tree_helper"
 require_relative "config"
 require_relative "warning"
 require_relative "flag"
@@ -15,13 +10,7 @@ require_relative "flag"
 module CobolParser
   class Context
     extend Forwardable
-
     extend AttributeHelper
-
-    include CobolParser::ErrorHelper
-    include CobolParser::ReservedHelper
-    include CobolParser::TypeCheckHelper
-    include CobolParser::TreeHelper
 
     INVALID_NAMES = Set.new([
                               "NULL",
@@ -120,9 +109,31 @@ module CobolParser
     # TODO: what is it?
     attribute :suppress_warn
 
-    attr_accessor :non_const_word
+    # cobc/tree.h
+    attribute :non_const_word
+    attribute :cb_needs_01
 
-    attr_accessor :needs_01
+    attribute :cb_error_node
+    attribute :cb_any
+    attribute :cb_true
+    attribute :cb_false
+    attribute :cb_null
+    attribute :cb_zero
+    attribute :cb_one
+    attribute :cb_space
+    attribute :cb_low
+    attribute :cb_norm_low
+    attribute :cb_high
+    attribute :cb_norm_high
+    attribute :cb_quote
+    attribute :cb_int0
+    attribute :cb_int1
+    attribute :cb_int2
+    attribute :cb_int3
+    attribute :cb_int4
+    attribute :cb_int5
+    attribute :cb_i
+    attribute :cb_standard_error_handler
 
     attr_accessor :pp_lexer
     attr_accessor :pp_parser
@@ -134,13 +145,13 @@ module CobolParser
     def_delegators :@flag, *CobolParser::Flag.flags.values.map { |x| x[:var] }
 
     def initialize
-      @cb = self
       @context = self
 
       @config = CobolParser::Config.new
       @warning = CobolParser::Warning.new
       @flag = CobolParser::Flag.new
 
+      # cobc/cobc.h
       @cb_source_format = CB_FORMAT_FIXED
       @cb_display_sign = COB_DISPLAY_SIGN_ASCII
 
@@ -186,14 +197,20 @@ module CobolParser
 
       @has_external = false
 
-      # TODO: move define place, rename cb_needs_01
-      @needs_01 = false
-
-      # TODO: move define place
-      @non_const_word = 0
-
       @norestab = []
 
+      # cobc/parser.y
+      @current_program = nil
+      @current_statement = nil
+      @current_section = nil
+      @current_paragraph = nil
+      @functions_are_all = false
+      @non_const_word = false
+
+      # cobc/field.c
+      @cb_needs_01 = false
+
+      # lexers, parsers
       @pp_lexer = nil
       @pp_parser = nil
       @scanner = nil

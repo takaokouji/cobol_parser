@@ -12593,7 +12593,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5379)
 
 module_eval(<<'.,.,', 'parser.rule.ry', 5388)
   def _reduce_1367(val, _values, result)
-                                if val[0].category != :NUMERIC
+                                if val[0].cb_category != :NUMERIC
                                 @cb.error("Integer value expected")
                             elsif val[0].sign == :NEGATIVE || val[0].scale > 0
                               @cb.error("Integer value expected")

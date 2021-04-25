@@ -1,30 +1,32 @@
 # frozen_string_literal: true
 
-# PERFORM
-class CobolParser::Tree::Perform < CobolParser::Tree
-  TYPE = %i[
-    EXIT
-    ONCE
-    TIMES
-    UNTIL
-    FOREVER
-  ].freeze
+module CobolParser
+  # PERFORM
+  class Tree::Perform < Tree
+    TYPE = %i[
+      EXIT
+      ONCE
+      TIMES
+      UNTIL
+      FOREVER
+    ].freeze
 
-  attribute :type
-  attribute :test
-  attribute :body
-  attribute :data
-  attribute :varying
-  attribute :exit_label
-  attribute :cycle_label
+    attribute :type
+    attribute :test
+    attribute :body
+    attribute :data
+    attribute :varying
+    attribute :exit_label
+    attribute :cycle_label
 
-  module Helper
-    def build_perform(type)
-      CobolParser::Tree::Perform.new(self, type)
+    module Helper
+      def cb_build_perform(type)
+        Tree::Perform.new(self, type)
+      end
     end
-  end
 
-  def initialize(cb, type)
-    super(cb, category: :UNKNOWN, type: type)
+    def initialize(context, type)
+      super(context, category: :UNKNOWN, type: type)
+    end
   end
 end

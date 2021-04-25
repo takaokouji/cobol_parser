@@ -4,6 +4,7 @@ require "lex"
 require "nkf"
 require_relative "mbs_mixin"
 require_relative "context"
+require_relative "config"
 require_relative "error_helper"
 
 module CobolParser

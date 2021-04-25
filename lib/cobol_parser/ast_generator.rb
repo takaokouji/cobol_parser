@@ -7,8 +7,8 @@ class CobolParser::AstGenerator
   attr_reader :program
 
   class << self
-    def generate(cb)
-      new.generate(cb, cb.current_program)
+    def generate(context)
+      new.generate(context, context.current_program)
     end
 
     def s(type, *children)
@@ -16,10 +16,10 @@ class CobolParser::AstGenerator
     end
   end
 
-  def generate(cb, program)
+  def generate(context, program)
     reset
 
-    @cb = cb
+    @context = context
     @program = program
 
     s(:begin,
@@ -35,7 +35,7 @@ class CobolParser::AstGenerator
   private
 
   def reset
-    @cb = nil
+    @context = nil
     @program = nil
     @new_var_methods = {}
   end

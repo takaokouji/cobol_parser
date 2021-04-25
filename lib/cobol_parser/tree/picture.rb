@@ -2,8 +2,8 @@
 
 require "strscan"
 
-# Picture
 module CobolParser
+  # Picture
   class Tree::Picture < Tree
     PIC_ALPHABETIC = 0x01
     PIC_NUMERIC = 0x02

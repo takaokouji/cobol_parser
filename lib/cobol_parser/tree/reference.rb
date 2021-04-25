@@ -15,7 +15,7 @@ module CobolParser
       include ReservedHelper
 
       def cb_build_reference(name)
-        Tree::Reference.new(self, name)
+        Tree::Reference.new(@context, name)
       end
 
       def cb_build_filler

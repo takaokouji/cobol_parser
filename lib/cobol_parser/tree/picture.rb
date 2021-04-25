@@ -17,7 +17,7 @@ module CobolParser
 
     module Helper
       def cb_build_picture(str)
-        Tree::Picture.new(self, str)
+        Tree::Picture.new(@context, str)
       end
     end
 

@@ -51,13 +51,13 @@ module CobolParser
           category = :BOOLEAN
         when "@"
           # parentheses
-          category = x.cb_category
+          category = cb_tree_category(x)
         else
           $stderr.printf("Unexpected operator -> %s\n", op)
           abort
         end
 
-        Tree::BinaryOp.new(self, category, x, op, y)
+        Tree::BinaryOp.new(@context, category, x, op, y)
       end
 
       def cb_build_binary_list(list, op)

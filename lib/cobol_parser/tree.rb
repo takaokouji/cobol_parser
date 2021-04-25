@@ -80,7 +80,7 @@ module CobolParser
       end
     end
 
-    def cb_tree_category
+    def resolve_category
       return nil if self == cb_error_node
       return @category if @category != :UNKNOWN
 
@@ -92,7 +92,7 @@ module CobolParser
         @category = if offset
                       :ALPHANUMERIC
                     else
-                      value.cb_tree_category
+                      value.resolve_category
                     end
       when Field
         @category = if children
@@ -107,7 +107,7 @@ module CobolParser
                         if rename_thru
                           :ALPHANUMERIC
                         else
-                          redefines.cb_tree_category
+                          redefines.resolve_category
                         end
                       when 88
                         :BOOLEAN
@@ -160,20 +160,6 @@ module CobolParser
   end
 end
 
-require_relative "tree/alphabet_name"
-require_relative "tree/binary_op"
-require_relative "tree/cast"
-require_relative "tree/const"
-require_relative "tree/field"
-require_relative "tree/file"
-require_relative "tree/integer"
-require_relative "tree/label"
-require_relative "tree/list"
-require_relative "tree/literal"
-require_relative "tree/locale_name"
-require_relative "tree/perform"
-require_relative "tree/perform_varying"
-require_relative "tree/picture"
-require_relative "tree/program"
-require_relative "tree/reference"
-require_relative "tree/system_name"
+require_relative "tree_helper"
+
+CobolParser::Tree.include(CobolParser::TreeHelper)

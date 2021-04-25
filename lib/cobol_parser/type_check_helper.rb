@@ -2,7 +2,7 @@
 
 module CobolParser
   module TypeCheckHelper
-    def emit(x)
+    def cb_emit(x)
       # TODO: current_statement
       # TODO: cb_list_add
       current_statement.body = cb_list_add(current_statement.body, x)
@@ -49,7 +49,7 @@ module CobolParser
       self.cb_intr_e = cb_build_numeric_literal(:UNSIGNED, "27182818284590452353602874713526625", 34)
     end
 
-    def build_index(x, values, indexed_by, qual)
+    def cb_build_index(x, values, indexed_by, qual)
       f = cb_build_field(x)
       f.usage = :INDEX
       f.validate
@@ -75,7 +75,7 @@ module CobolParser
       name.gsub("-", "_").split("_").map(&:capitalize).join
     end
 
-    def build_program_id(name, alt_name)
+    def cb_build_program_id(name, alt_name)
       current_program.orig_source_name = if alt_name
                                            alt_name.data
                                          elsif name.is_a?(CobolParser::Tree::Literal)
@@ -87,12 +87,12 @@ module CobolParser
       encode_class_name(current_program.orig_source_name)
     end
 
-    def validate_move(src, dst, is_value)
+    def cb_validate_move(src, dst, is_value)
       # TODO: typeck.c:3944: validate_move (cb_tree src, cb_tree dst, size_t is_value)
       # Check only, so this is unnecessary.
     end
 
-    def build_add(v, n, round_opt)
+    def cb_build_add(v, n, round_opt)
       if cb_index?(v) || v.tree_class == :POINTER
         # TODO: cb_build_binary_op(v, '+', n)
         # TODO: cb_build_move(cb_build_binary_op(v, '+', n), v)
@@ -115,7 +115,7 @@ module CobolParser
         # TODO: cb_build_funcall_3("cob_add", v, n, cb_int0)
         return cb_build_funcall_3("cob_add", v, n, cb_int0)
       end
-      # build_store_option(v, round_opt)
+      # TODO: build_store_option(v, round_opt)
       opt = build_store_option(v, round_opt)
       return cb_build_optim_add(v, n) if opt == cb_int0 && cb_fits_int(n)
 
@@ -124,7 +124,7 @@ module CobolParser
 
     # PERFORM statement
 
-    def emit_perform(perform, body)
+    def cb_emit_perform(perform, body)
       return if perform == cb_error_node
 
       perform.body = body
@@ -141,7 +141,7 @@ module CobolParser
       x
     end
 
-    def build_perform_times(times)
+    def cb_build_perform_times(times)
       # TODO: cb_check_integer_value(times)
       return cb_error_node if cb_check_integer_value(times) == cb_error_node
 

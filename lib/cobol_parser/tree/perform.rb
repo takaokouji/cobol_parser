@@ -21,7 +21,7 @@ module CobolParser
 
     module Helper
       def cb_build_perform(type)
-        Tree::Perform.new(self, type)
+        Tree::Perform.new(@context, type)
       end
     end
 

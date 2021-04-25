@@ -15,7 +15,7 @@ module CobolParser
       actual = create_tempfile(pp_cobol_code) { |f|
         @parser.parse(f)
       }
-      expected = Parser::CurrentRuby.parse(ruby_code)
+      expected = ::Parser::CurrentRuby.parse(ruby_code)
       assert_ast_equal(expected, actual)
     end
 

@@ -14,7 +14,7 @@ module CobolParser
       end
 
       def cb_build_list(purpose, value, rest)
-        Tree::List.new(self, purpose, value, rest)
+        Tree::List.new(@context, purpose, value, rest)
       end
 
       def cb_list_init(x)

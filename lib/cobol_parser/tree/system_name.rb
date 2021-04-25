@@ -20,8 +20,8 @@ module CobolParser
     attribute :token
 
     module Helper
-      def build_system_name(system_category, token)
-        Tree::SystemName.new(self, system_category, token)
+      def cb_build_system_name(system_category, token)
+        Tree::SystemName.new(@context, system_category, token)
       end
     end
 

@@ -5,6 +5,7 @@ require_relative "parser.rule"
 require_relative "context"
 require_relative "tree"
 require_relative "tree_helper"
+require_relative "type_check_helper"
 require_relative "scanner"
 require_relative "ast_generator"
 
@@ -12,6 +13,7 @@ module CobolParser
   class Parser < Racc::Parser
     include Context::Helper
     include TreeHelper
+    include TypeCheckHelper
 
     attr_accessor :perform_stack
     attr_accessor :current_statement
@@ -72,7 +74,7 @@ module CobolParser
           else
             File.read(path_or_io)
           end
-      @tokens = scanner.lex(s)
+      @tokens = @context.scanner.lex(s)
 
       do_parse
 
@@ -83,7 +85,7 @@ module CobolParser
       if @depth > 1
         cb_error("Multiple PROGRAM-ID's without matching END PROGRAM")
       end
-      if cb_errorcount > 0
+      if errorcount > 0
         # TODO: YYABORT;
         return
       end
@@ -93,7 +95,7 @@ module CobolParser
       #   emit_entry(current_program->program_id, 0, NULL);
       # }
 
-      CobolParser::AstGenerator.generate(@cb)
+      CobolParser::AstGenerator.generate(@context)
     end
 
     def next_token

@@ -6590,7 +6590,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 1794)
                             @current_field.occurs_min = val[2] ? cb_get_int(val[1]) : 1
                             @current_field.occurs_max = val[2] ? cb_get_int(val[2]) : cb_get_int(val[1])
                             @current_field.indexes += 1
-                            if @current_field.indexes > cb_max_subscripts
+                            if @current_field.indexes > COB_MAX_SUBSCRIPTS
                               cb_error("Maximum OCCURS depth exceeded")
                             end
                             @current_field.flag_occurs = true
@@ -12593,7 +12593,7 @@ module_eval(<<'.,.,', 'parser.rule.ry', 5379)
 
 module_eval(<<'.,.,', 'parser.rule.ry', 5388)
   def _reduce_1367(val, _values, result)
-                                if val[0].cb_category != :NUMERIC
+                                if cb_tree_category(val[0]) != :NUMERIC
                                 cb_error("Integer value expected")
                             elsif val[0].sign == :NEGATIVE || val[0].scale > 0
                               cb_error("Integer value expected")

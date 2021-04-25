@@ -5,6 +5,8 @@ require "fiddle"
 module CobolParser
   # Field
   class Tree::Field < Tree
+    include Config::Helper
+
     PIC_DIGITS = [2, 4, 7, 9, 12, 14, 16, 18].freeze
 
     Key = Struct.new(
@@ -84,7 +86,7 @@ module CobolParser
       # porting from cobc/tree.c
 
       def cb_build_field(name)
-        Tree::Field.new(self, name)
+        Tree::Field.new(@context, name)
       end
 
       def cb_build_implicit_field(name, len)
@@ -97,7 +99,7 @@ module CobolParser
 
       def cb_build_constant(name, value)
         x = cb_build_field(name)
-        x.category = value.cb_tree_category
+        x.category = cb_tree_category(value)
         x.storage = :CONSTANT
         x.values = cb_list_init(value)
 

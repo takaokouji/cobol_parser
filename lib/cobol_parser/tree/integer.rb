@@ -7,10 +7,10 @@ module CobolParser
 
     module Helper
       def cb_int(val)
-        int_node_table = (method_storage[:int_node_table] ||= {})
+        int_node_table = (@context.method_storage[:int_node_table] ||= {})
         return int_node_table[val] if int_node_table.key?(val)
 
-        x = new(self, val)
+        x = Tree::Integer.new(@context, val)
         int_node_table[val] = x
 
         x

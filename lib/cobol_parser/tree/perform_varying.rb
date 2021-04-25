@@ -10,7 +10,7 @@ module CobolParser
 
     module Helper
       def cb_build_perform_varying(name, from, by, until_)
-        Tree::PerformVarying.new(self, name, from, by, until_)
+        Tree::PerformVarying.new(@context, name, from, by, until_)
       end
     end
 

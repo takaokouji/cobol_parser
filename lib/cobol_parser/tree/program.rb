@@ -71,7 +71,7 @@ module CobolParser
 
     module Helper
       def cb_build_program(last_program, nest_level)
-        Tree::Program.new(self, last_program, nest_level)
+        Tree::Program.new(@context, last_program, nest_level)
       end
     end
 

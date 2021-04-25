@@ -37,7 +37,7 @@ module CobolParser
 
     module Helper
       def cb_build_file(name)
-        Tree::File.new(self, name)
+        Tree::File.new(@context, name)
       end
 
       def cb_validate_file(f, name)

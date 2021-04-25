@@ -16,7 +16,7 @@ module CobolParser
 
     module Helper
       def cb_build_literal(category, data)
-        Tree::Literal.new(self, category, data)
+        Tree::Literal.new(@context, category, data)
       end
 
       def cb_build_numeric_literal(sign, data, scale)

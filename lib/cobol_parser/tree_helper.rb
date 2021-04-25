@@ -1,6 +1,23 @@
 # frozen_string_literal: true
 
 require_relative "gettext_helper"
+require_relative "tree/alphabet_name"
+require_relative "tree/binary_op"
+require_relative "tree/cast"
+require_relative "tree/const"
+require_relative "tree/field"
+require_relative "tree/file"
+require_relative "tree/integer"
+require_relative "tree/label"
+require_relative "tree/list"
+require_relative "tree/literal"
+require_relative "tree/locale_name"
+require_relative "tree/perform"
+require_relative "tree/perform_varying"
+require_relative "tree/picture"
+require_relative "tree/program"
+require_relative "tree/reference"
+require_relative "tree/system_name"
 
 module CobolParser
   module TreeHelper
@@ -55,6 +72,10 @@ module CobolParser
       x.is_a?(Tree::Field) || x.is_a?(Tree::Reference)
     end
 
+    def cb_tree_category(x)
+      x.resolve_category
+    end
+
     private
 
     def to_cname(name)
@@ -62,7 +83,7 @@ module CobolParser
     end
 
     def make_const(category, val)
-      Tree::Const.new(self, category, val)
+      Tree::Const.new(@context, category, val)
     end
 
     def make_constant_label(name)

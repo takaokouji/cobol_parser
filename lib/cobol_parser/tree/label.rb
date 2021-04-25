@@ -18,7 +18,7 @@ module CobolParser
 
     module Helper
       def cb_build_label(name, section)
-        Tree::Label.new(self, name, section)
+        Tree::Label.new(@context, name, section)
       end
     end
 

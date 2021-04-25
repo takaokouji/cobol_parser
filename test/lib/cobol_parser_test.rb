@@ -13,7 +13,7 @@ class CobolParserTest < Test::Unit::TestCase
       f.close(false)
       CobolParser.parse(f.path)
     }
-    expected = Parser::CurrentRuby.parse(ruby_code)
+    expected = ::Parser::CurrentRuby.parse(ruby_code)
     assert_ast_equal(expected, actual)
   end
 
